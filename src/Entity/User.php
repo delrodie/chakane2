@@ -28,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $connexion = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
