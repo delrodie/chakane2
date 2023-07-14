@@ -1,0 +1,57 @@
+.button-processing {
+    pointer-events: none;
+    opacity: 0.7;
+    cursor: progress;
+}
+.table-loader {
+    position: relative;
+}
+
+.table-loader .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: none;
+}
+.totaux{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.totaux.rouge{
+    color: darkred;
+}
+
+.montantTotal{
+    font-weight: bold;
+    font-size: 3.5rem;
+    color: darkred;
+}
+.info-client{
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: blue;
+}
+input[name="netAPayer"]{
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+    color: darkred;
+}
+input[name="verse"]{
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+}
+input[name="monnaie"]{
+    font-weight: bold;
+    font-size: 1.7rem;
+    text-align: center;
+    color: blue;
+}
+input[name="client"]{
+    font-weight: bold;
+    text-align: center;
+}
