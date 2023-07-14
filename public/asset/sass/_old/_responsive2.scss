@@ -1,0 +1,32 @@
+/* Styles pour les petits écrans mobiles */
+@media only screen and  (max-width: 480px) { 
+    header{
+        .topBar{
+            .social-icons{
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+ }
+
+/* Styles pour les écrans de taille moyenne des mobiles */
+@media only screen and (min-width: 481px) and (max-width: 767px) { 
+    header{
+        .topBar{
+            .social-icons{
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+ }
+
+/* Styles pour les écrans de taille moyenne des tablettes */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {  }
+
+/* Styles pour les écrans de grande taille des tablettes et ordinateurs portables */ 
+@media only screen and (min-width: 1024px) and (max-width: 1279px) { }
+
+/* Styles pour les écrans de petite taille des ordinateurs portables */
+@media only screen and (min-width: 1280px) and (max-width: 1439px) {  }

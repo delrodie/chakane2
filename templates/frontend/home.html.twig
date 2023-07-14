@@ -1,0 +1,618 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} accueil{% endblock %}
+{% block body %}
+    {% set _devise = app.session.get('devise') %}
+    <main>
+        <div class="slideBar">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://chakane.net/uploads/slide/01-1674581906.jpg" alt="" loading="lazy">
+                        <div class="content d-flex justify-content-center">
+                            <div class="container">
+                                <h1 class="titre">Titre du slide 1</h1>
+                                <p class="description">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nostrum aliquam sit dolorem omnis nesciunt assumenda aspernatur veritatis sint, iusto eveniet repellendus tempora laudantium quo ut ex, aut tenetur eum.
+                                </p>
+                                <a href="#" class="details">Détails</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://cartzilla.createx.studio/img/home/hero-slider/03.jpg" alt="">
+
+                        <div class="content d-flex justify-content-center">
+                            <div class="container">
+                                <h1 class="titre">Titre du slide 2</h1>
+                                <p class="description">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nostrum aliquam sit dolorem omnis nesciunt assumenda aspernatur veritatis sint, iusto eveniet repellendus tempora laudantium quo ut ex, aut tenetur eum.
+                                </p>
+                                <a href="#" class="details">Détails</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://cartzilla.createx.studio/img/home/hero-slider/01.jpg" alt="">
+
+                        <div class="content d-flex justify-content-center">
+                            <div class="container">
+                                <h1 class="titre">Titre du slide 3</h1>
+                                <p class="description">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nostrum aliquam sit dolorem omnis nesciunt assumenda aspernatur veritatis sint, iusto eveniet repellendus tempora laudantium quo ut ex, aut tenetur eum.
+                                </p>
+                                <a href="#" class="details">Détails</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://cartzilla.createx.studio/img/home/hero-slider/02.jpg" alt="">
+
+                        <div class="content d-flex justify-content-center">
+                            <div class="container">
+                                <h1 class="titre">Titre du slide 2</h1>
+                                <p class="description">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nostrum aliquam sit dolorem omnis nesciunt assumenda aspernatur veritatis sint, iusto eveniet repellendus tempora laudantium quo ut ex, aut tenetur eum.
+                                </p>
+                                <a href="#" class="details">Détails</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+
+        <div class="categorie">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 categorie-lg">
+                        <div class="card-group">
+                            <div class="card">
+                                <a href="#" class="text-muted text-center">
+                                    <figure>
+                                        <img src="https://images.unsplash.com/photo-1634826260499-7d97a6049913?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1964&q=80" class="card-img-top" alt="...">
+                                    </figure>
+                                    <div class="card-footer">Vêtements</div>
+                                </a>
+                            </div>
+                            <div class="card">
+                                <a href="#" class="text-muted text-center">
+                                    <figure>
+                                        <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                    </figure>
+                                    <div class="card-footer">Accessoires</div>
+                                </a>
+                            </div>
+                            <div class="card">
+                                <a href="#" class="text-muted text-center">
+                                    <figure>
+                                        <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=738&q=80" class="card-img-top" alt="...">
+                                    </figure>
+                                    <div class="card-footer">Sacs</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nouveaute">
+            <div class="container">
+                <h2 class="label">
+                    Nouveauté
+                    <span class="plus">
+                    <a href="#">Tous les articles <i class="bi bi-chevron-double-right"></i></a>
+                  </span>
+                </h2>
+                <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 article">
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1600857062241-98e5dba7f214?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=798&q=80" class="card-img-top" alt="...">
+                                    <span class="sticker info">Nouveauté</span>
+
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="card-img-top" alt="...">
+                                    <span class="sticker info">Nouveauté</span>
+                                    <span class="sticker remise">-10%</span>
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/flagged/photo-1575278154894-9f52e7c93bec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=730&q=80" class="card-img-top" alt="...">
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1571682262898-48532c58b3a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="baniere">
+            <div class="container">
+                <div class="row row-cols-12 row-cols-1 row-cols-lg-2 mt-5 mb-5">
+                    <div class="col affiche">
+                        <figure>
+                            <img src="./asset/img/affiche/banner_mode.png" alt="" class="img-fluid">
+                        </figure>
+                        <div class="description">
+                            <h3>Collection mode</h3>
+                            <div class="resume mode">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore perspiciatis ratione ipsum, consequatur sequi, unde exercitationem consectetur id accusantium perferendis ut culpa laborum quos, architecto magni veniam qui ex illum.
+                            </div>
+                            <a href="#" class="details">Détails</a>
+                        </div>
+                    </div>
+
+                    <div class="col affiche">
+                        <figure>
+                            <img src="./asset/img/affiche/banner_sac.png" alt="" class="img-fluid">
+                        </figure>
+                        <div class="description">
+                            <h3>Collection Terre d'Ivoire</h3>
+                            <div class="resume sac">
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus, voluptatibus. Accusantium nobis ipsa commodi aliquid, praesentium illum nulla delectus reiciendis suscipit neque reprehenderit quaerat iste deleniti repellendus excepturi modi magni.
+                            </div>
+                            <a href="#" class="details">Détails</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="boutique">
+            <div class="container">
+                <h2 class="label">
+                    En boutique
+                    <span class="plus">
+                    <a href="#">Tous les articles <i class="bi bi-chevron-double-right"></i></a>
+                  </span>
+                </h2>
+                <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4 article">
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1600857062241-98e5dba7f214?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=798&q=80" class="card-img-top" alt="...">
+                                    <span class="sticker info">Nouveauté</span>
+
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="card-img-top" alt="...">
+                                    <span class="sticker info">Nouveauté</span>
+                                    <span class="sticker remise">-10%</span>
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/flagged/photo-1575278154894-9f52e7c93bec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=730&q=80" class="card-img-top" alt="...">
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1571682262898-48532c58b3a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1544774210-075d2f16e35d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>75.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1434510423563-c7e99bbc5bbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1606522754091-a3bbf9ad4cb3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=842&q=80" class="card-img-top" alt="...">
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1612902456551-333ac5afa26e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" class="card-img-top" alt="...">
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="#">
+                            <div class="card h-100">
+                                <figure>
+                                    <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                </figure>
+                                <div class="card-body">
+                                    <h5 class="card-title prix">
+                                        <ins>45.000 FCFA</ins>
+                                        <del>60.000 FCFA</del>
+                                    </h5>
+                                    <p class="description">Nom du produit 1</p>
+                                    <div class="evaluations">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="creation">
+            <div class="container">
+                <h2 class="label">
+                    Nos créations en image
+                    <span class="plus">
+                    <a href="#">Tous les articles de la boutique <i class="bi bi-chevron-double-right"></i></a>
+                  </span>
+                </h2>
+                <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-0">
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="card-img-top creation"
+                                 data-gall="creation" alt="..."
+                                 data-href="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1545291730-faff8ca1d4b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top creation"
+                                 data-gall="creation" alt="..."
+                                 data-href="https://images.unsplash.com/photo-1545291730-faff8ca1d4b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1517252070983-985dc55929e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top creation"
+                                 data-gall="creation" alt="..."
+                                 data-href="https://images.unsplash.com/photo-1517252070983-985dc55929e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1517251848771-5327b4c0f46d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top creation"
+                                 data-gall="creation" alt="..."
+                                 data-href="https://images.unsplash.com/photo-1517251848771-5327b4c0f46d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top creation"
+                                 data-gall="creation" alt="..."
+                                 data-href="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top creation"
+                                 data-gall="creation" alt="..."
+                                 data-href="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            effect: 'creative',
+            creativeEffect:{
+                prev: {
+                    // will set `translateZ(-400px)` on previous slides
+                    translate: [0, 0, -400],
+                },
+                next: {
+                    // will set `translateX(100%)` on next slides
+                    translate: ['100%', 0, 0],
+                },
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+
+            if ((window.innerWidth > 1023) && (window.innerWidth < 1279)){
+                var limiteCarateres = 85;
+            }else{
+                var limiteCarateres = 150;
+            }
+
+            console.log(limiteCarateres)
+
+            let mode = document.querySelector('.resume.mode');
+            let sac = document.querySelector('.resume.sac');
+
+            let texteMode = mode.innerHTML;
+            let texteSac = sac.innerHTML;
+
+            if (texteMode.length > limiteCarateres) {
+                texteMode = texteMode.substr(0, limiteCarateres) + "...";
+            }
+
+            if (texteSac.length > limiteCarateres) {
+                texteSac = texteSac.substr(0, limiteCarateres) + "...";
+            }
+
+            mode.innerHTML = texteMode;
+            sac.innerHTML = texteSac;
+        });
+    </script>
+{%  endblock %}

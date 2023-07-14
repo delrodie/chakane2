@@ -1,0 +1,59 @@
+
+$couleur-principale: #325255;
+$couleur-secondaire: #9ebbbd;
+$couleur-tertiaire: #c0e3e5;
+$couleur-maron: #7e3b14;
+$couleur-jauneorangee : #F7B93E;
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    background: url('../img/bg.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.wrapper{
+    //background: rgba(255,255,255,0.5);
+    height: 100vh;
+}
+
+header{
+    .topbar{
+        .container{
+            background: rgba(255,255,255,0.4);
+        }
+    }
+}
+
+h2{
+    &.label{
+        color: $couleur-principale;
+        padding-bottom: 30px;
+
+        span.plus{
+            float: right;
+            font-size: 1rem;
+
+            a{
+                text-decoration: none;
+                color: $couleur-principale;
+                font-weight: 700;
+
+                &:hover{
+                    color: $couleur-jauneorangee;
+                }
+            }
+        }
+    }
+}
+
+h4{
+    &.categorie{
+        color: $couleur-principale;
+        padding-bottom: 30px;
+    }
+}

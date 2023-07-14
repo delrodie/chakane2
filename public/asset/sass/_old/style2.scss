@@ -1,0 +1,129 @@
+header{
+    .topBar{
+        border-bottom: solid 1px $couleur-secondaire;
+
+        .row{
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        a{
+            color: $couleur-tertiaire;
+            text-decoration: none;
+
+            i{
+                color: $couleur-secondaire;
+
+                &.bi-facebook,
+                &.bi-instagram,
+                &.bi-tiktok{
+                    color: $couleur-tertiaire;
+                    font-size: 1.2rem;
+                }
+
+                &.bi-lightning-fill{
+                    padding-right: 5px;
+                }
+            }
+        }
+
+        .social-icons{
+            display: flex;
+            justify-content: end;
+
+            select{
+                border: none;
+                background: transparent;
+                color: $couleur-tertiaire;
+                font-weight: 700;
+                padding: 3px 3px 3px 5px;
+
+                &::selection{
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                }
+            }
+
+            a{
+                padding-right: 10px;
+                padding-left: 10px;
+                transition: all 300ms linear;
+
+                &:nth-child(3){
+                    padding-right: 20px;
+                }
+
+                &:hover{
+                    color: $couleur-secondaire;
+                    opacity: .7;
+                }
+            }
+        }
+    }
+
+    .sectionLogo{
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        .logo{
+            img{
+                max-width: 110px;
+            }
+        }
+
+        .recherche{
+            display: flex;
+            justify-content: baseline;
+            align-content: baseline;
+            align-items: center;
+
+            form{
+                padding-top: 20px;
+            }
+        }
+
+        .icons{
+            display: flex;
+            justify-content: end;
+            align-content: center;
+            align-items: center;
+            transition: all 300ms ease-in-out;
+
+            a{
+                text-decoration: none;
+                color: $couleur-tertiaire;
+                font-size: 1.6rem;
+
+                &:hover{
+                    opacity: .7;
+                }
+
+                &:nth-child(1),
+                &:nth-child(2){
+                    padding-right: 15px;
+                }
+
+                &:nth-child(3){
+                    padding-left: 10px;
+                }
+
+                &.panier{
+                    span{
+                        font-size: 0.9rem;                   }
+                }
+            }
+            .dropdown-center{
+                font-size: 1rem;
+
+                a{
+                    font-size: 1rem;
+
+                    i{
+                        font-size: 1.6rem;
+                    }
+                }
+            }
+        }
+    }
+}
