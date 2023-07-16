@@ -31,6 +31,30 @@
     </main>
 {% endblock %}
 
+{% block title %}Conditions générales d'utilisation (CGU) de la plateforme Chakane.net{% endblock %}
 
-{% block title %}Conditions générales d'utilisation CGU{% endblock %}
+    {% block metas %}
+        <link rel="alternate" href="{{ absolute_url(path('app_home')) }}" hreflang="fr">
+
+        <meta name="keywords" content="Chakane, vetement, sac, accessoire, ecommerce, boutique">
+        <meta name="description" content="Veuillez lire attentivement les présentes conditions générales d'utilisation (CGU) avant d'utiliser le site web Chakane.net. En accédant à ce site et en utilisant ses services, vous acceptez d'être lié par ces CGU. Si vous n'acceptez pas ces CGU, veuillez ne pas utiliser ce site." />
+        <link rel="canonical" href="{{ absolute_url(path('app_frontend_cgu_index')) }}" />
+        <link rel="next" href="#" />
+
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="{{ cgu ? cgu.titre : 'chakane' }}" />
+        <meta property="og:description" content="Veuillez lire attentivement les présentes conditions générales d'utilisation (CGU) avant d'utiliser le site web Chakane.net. En accédant à ce site et en utilisant ses services, vous acceptez d'être lié par ces CGU. Si vous n'acceptez pas ces CGU, veuillez ne pas utiliser ce site." />
+        <meta property="og:url" content="{{ absolute_url(path('app_frontend_cgu_index')) }}" />
+        <meta property="og:site_name" content="Chakane" />
+        <meta property="article:created_time" content="2023-01-18T16:53:21+00:00" />
+        <meta property="og:image" content="{{ absolute_url(asset('asset/img/logo_black.png')) }}" />
+        <meta property="og:image:type" content="image/svg+xml" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:description" content="Veuillez lire attentivement les présentes conditions générales d'utilisation (CGU) avant d'utiliser le site web Chakane.net. En accédant à ce site et en utilisant ses services, vous acceptez d'être lié par ces CGU. Si vous n'acceptez pas ces CGU, veuillez ne pas utiliser ce site."/>
+        <meta name="twitter:title" content="{{ cgu ? cgu.titre : 'chakane' }}"/>
+        <meta name="twitter:domain" content="Chakane"/>
+        <meta name="twitter:image:src" content="{{ absolute_url(asset('asset/img/logo_black.png')) }}"/>
+    {% endblock %}
 

@@ -1,0 +1,27 @@
+Politique de retour de Chakane.net
+
+Nous voulons que vous soyez entièrement satisfait de vos achats sur Chakane.net. Si vous n'êtes pas satisfait d'un produit, nous vous offrons la possibilité de le retourner dans les conditions énoncées ci-dessous :
+
+1. Délai de retour :
+Vous disposez d'un délai de 30 jours à compter de la réception de votre commande pour demander un retour.
+
+2. Produits éligibles au retour :
+Les produits retournés doivent être dans leur état d'origine, non utilisés, non endommagés et dans leur emballage d'origine.
+Les produits personnalisés ou intimes (tels que les sous-vêtements) ne sont pas éligibles au retour pour des raisons d'hygiène, sauf en cas de défaut de fabrication.
+
+3. Procédure de retour :
+Pour initier un retour, veuillez contacter notre service clientèle par e-mail ou par téléphone. Nous vous fournirons les instructions de retour et l'étiquette de retour prépayée, le cas échéant.
+Emballez soigneusement le produit dans un colis approprié et assurez-vous d'inclure tous les accessoires et documents d'accompagnement.
+Envoyez le colis à l'adresse indiquée dans les instructions de retour.
+Nous vous recommandons de conserver la preuve d'expédition du colis retourné.
+
+4. Frais de retour :
+Les frais de retour sont à la charge du client, sauf en cas de produit défectueux ou d'erreur de notre part dans l'expédition.
+
+5. Remboursement ou échange :
+Une fois que nous aurons reçu et inspecté le produit retourné, nous procéderons au remboursement du montant payé ou à l'échange avec un produit similaire, selon votre choix.
+Les remboursements seront effectués selon le mode de paiement utilisé lors de l'achat initial.
+Veuillez noter que les frais de livraison initiaux ne sont pas remboursables, sauf en cas de produit défectueux ou d'erreur de notre part.
+
+6. Exceptions :
+Certains articles, tels que les produits en promotion ou en liquidation, peuvent être marqués comme non retournables. Cette information sera clairement indiquée sur la page du produit.
