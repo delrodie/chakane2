@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+    <div class="row justify-content-center align-content-center">
+        <div class="col-6 text-end">
+            <div class="form-check form-check-inline">
+                <div class="custom-control custom-checkbox">
+                    {{ form_widget(form.statut) }} &nbsp;&nbsp;
+                    {{ form_label(form.statut, maintenance.statut ? 'Désactiver' : 'Activier') }}
+{#                    {{ form_label(form.statut, 'Statut',{'label_attr':{'class':'btn btn-outline-info font-medium rounded-pill'}}) }}#}
+                    {{ form_errors(form.statut) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-6 text-left">
+            {{ form_widget(form) }}
+            <button class="btn btn-primary">{{ button_label|default('Valider')}}</button>
+        </div>
+    </div>
+
+{{ form_end(form) }}
