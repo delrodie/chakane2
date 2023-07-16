@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb">
+            <div class="container">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_home')) }}"><i class="bi bi-house-fill"></i></a></li>
+                        <li class="breadcrumb-item"><a href="#">Serive client</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Condition générale d'utilisation</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="container">
+                <div class="row mt-lg-5">
+                    <div class="col mb-5">
+                        <h5 class="titre-page mb-4">{{ cgu ? cgu.titre : "Aucune condition générale d'utilisation enregistrée"}}</h5>
+                        <div style="text-align:justify;">
+                            {{ cgu ? cgu.contenu|raw : '' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+
+
+{% block title %}Conditions générales d'utilisation CGU{% endblock %}
+
