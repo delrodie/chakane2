@@ -48,7 +48,7 @@
         <meta property="og:description" content="Veuillez lire attentivement les présentes conditions générales d'utilisation (CGU) avant d'utiliser le site web Chakane.net. En accédant à ce site et en utilisant ses services, vous acceptez d'être lié par ces CGU. Si vous n'acceptez pas ces CGU, veuillez ne pas utiliser ce site." />
         <meta property="og:url" content="{{ absolute_url(path('app_frontend_cgu_index')) }}" />
         <meta property="og:site_name" content="Chakane" />
-        <meta property="article:created_time" content="2023-01-18T16:53:21+00:00" />
+        <meta property="article:created_time" content="{{ cgu ? cgu.updatedAt|date('Y-m-d') : '2023-07-16' }}T{{ cgu ? cgu.updatedAt|date('H:i:s') : '00:00:00' }}+00:00" />
         <meta property="og:image" content="{{ absolute_url(asset('asset/img/logo_black.png')) }}" />
         <meta property="og:image:type" content="image/svg+xml" />
         <meta name="twitter:card" content="summary_large_image" />

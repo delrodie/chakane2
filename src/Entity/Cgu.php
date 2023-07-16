@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CguRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Cgu
 {
     #[ORM\Id]
@@ -25,6 +26,9 @@ class Cgu
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -77,5 +81,23 @@ class Cgu
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): \DateTime
+    {
+        return $this->updatedAt = new \DateTime();
     }
 }
