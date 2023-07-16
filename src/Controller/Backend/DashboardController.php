@@ -2,12 +2,14 @@
 
 namespace App\Controller\Backend;
 
+use App\Service\UserActivityLogger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/dashboard')]
 class DashboardController extends AbstractController
 {
+
     #[Route('/', name: 'app_backend_dashboard_index')]
     public function index()
     {
