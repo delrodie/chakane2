@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cgu index{% endblock %}
+
+{% block body %}
+    <h1>Cgu index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Statut</th>
+                <th>Slug</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cgu in cgus %}
+            <tr>
+                <td>{{ cgu.id }}</td>
+                <td>{{ cgu.titre }}</td>
+                <td>{{ cgu.contenu }}</td>
+                <td>{{ cgu.statut ? 'Yes' : 'No' }}</td>
+                <td>{{ cgu.slug }}</td>
+                <td>
+                    <a href="{{ path('app_backend_cgu_show', {'id': cgu.id}) }}">show</a>
+                    <a href="{{ path('app_backend_cgu_edit', {'id': cgu.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_cgu_new') }}">Create new</a>
+{% endblock %}
