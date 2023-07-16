@@ -1,0 +1,87 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: url('../img/maintenance.JPG') no-repeat center fixed;
+    background-size: cover;
+}
+.wrapper{
+    min-height: 100vh;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h4{
+    font-style: italic;
+    font-size: 3.5rem;
+    color: yellow;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-50px); }
+}
+
+.boule1, .boule2, .boule3 {
+    width: 20px;
+    height: 20px;
+    background-color: yellow;
+    border-radius: 50%;
+    display: inline-block;
+    animation: bounce 1s infinite;
+}
+
+.boule2 {
+    animation-delay: 0.2s;
+}
+
+.boule3 {
+    animation-delay: 0.4s;
+}
+
+@keyframes progress {
+    0% { text-shadow: none; }
+    20% { text-shadow: 0 0 0 red; }
+    40% { text-shadow: 0 0 0 blue; }
+    60% { text-shadow: 0 0 0 green; }
+    80% { text-shadow: 0 0 0 yellow; }
+    100% { text-shadow: 0 0 0 purple; }
+}
+
+h4 {
+    animation: progress 4s infinite;
+}
+
+@media (max-width: 600px) {
+    .logo {
+        max-width: 70%;
+        height: auto;
+    }
+    h4 {
+        font-size: 2.1rem;
+    }
+}
+
+/* Styles pour les écrans de 601 à 900 pixels de largeur */
+@media (min-width: 601px) and (max-width: 900px) {
+    .logo {
+        max-width: 80%;
+        height: auto;
+    }
+    h4 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Styles pour les écrans de plus de 900 pixels de largeur */
+@media (min-width: 901px) {
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+
+
