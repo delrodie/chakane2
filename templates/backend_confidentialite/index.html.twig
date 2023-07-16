@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confidentialite index{% endblock %}
+
+{% block body %}
+    <h1>Confidentialite index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Statut</th>
+                <th>UpdatedAt</th>
+                <th>Slug</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for confidentialite in confidentialites %}
+            <tr>
+                <td>{{ confidentialite.id }}</td>
+                <td>{{ confidentialite.titre }}</td>
+                <td>{{ confidentialite.contenu }}</td>
+                <td>{{ confidentialite.statut ? 'Yes' : 'No' }}</td>
+                <td>{{ confidentialite.updatedAt ? confidentialite.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ confidentialite.slug }}</td>
+                <td>
+                    <a href="{{ path('app_backend_confidentialite_show', {'id': confidentialite.id}) }}">show</a>
+                    <a href="{{ path('app_backend_confidentialite_edit', {'id': confidentialite.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_confidentialite_new') }}">Create new</a>
+{% endblock %}

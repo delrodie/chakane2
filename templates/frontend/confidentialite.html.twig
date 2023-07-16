@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb">
+            <div class="container">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_home')) }}"><i class="bi bi-house-fill"></i></a></li>
+                        <li class="breadcrumb-item"><a href="#">Serive client</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Condition générale d'utilisation</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="container">
+                <div class="row mt-lg-5">
+                    <div class="col mb-5">
+                        <h5 class="titre-page mb-4">{{ confidentialite ? confidentialite.titre : "Aucune condition générale d'utilisation enregistrée"}}</h5>
+                        <div style="text-align:justify;">
+                            {{ confidentialite ? confidentialite.contenu|raw : '' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+
+{% block title %}Conditions générales d'utilisation (confidentialite) de la plateforme Chakane.net{% endblock %}
+
+    {% block metas %}
+        <link rel="alternate" href="{{ absolute_url(path('app_home')) }}" hreflang="fr">
+
+        <meta name="keywords" content="Chakane, vetement, sac, accessoire, ecommerce, boutique">
+        <meta name="description" content="Veuillez lire attentivement les présentes conditions générales d'utilisation (confidentialite) avant d'utiliser le site web Chakane.net. En accédant à ce site et en utilisant ses services, vous acceptez d'être lié par ces confidentialite. Si vous n'acceptez pas ces confidentialite, veuillez ne pas utiliser ce site." />
+        <link rel="canonical" href="{{ absolute_url(path('app_frontend_confidentialite_index')) }}" />
+        <link rel="next" href="#" />
+
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="{{ confidentialite ? confidentialite.titre : 'chakane' }}" />
+        <meta property="og:description" content="Veuillez lire attentivement les présentes conditions générales d'utilisation (confidentialite) avant d'utiliser le site web Chakane.net. En accédant à ce site et en utilisant ses services, vous acceptez d'être lié par ces confidentialite. Si vous n'acceptez pas ces confidentialite, veuillez ne pas utiliser ce site." />
+        <meta property="og:url" content="{{ absolute_url(path('app_frontend_confidentialite_index')) }}" />
+        <meta property="og:site_name" content="Chakane" />
+        <meta property="article:created_time" content="{{ confidentialite ? confidentialite.updatedAt|date('Y-m-d') : '2023-07-16' }}T{{ confidentialite ? confidentialite.updatedAt|date('H:i:s') : '00:00:00' }}+00:00" />
+        <meta property="og:image" content="{{ absolute_url(asset('asset/img/logo_black.png')) }}" />
+        <meta property="og:image:type" content="image/svg+xml" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:description" content="Veuillez lire attentivement les présentes conditions générales d'utilisation (confidentialite) avant d'utiliser le site web Chakane.net. En accédant à ce site et en utilisant ses services, vous acceptez d'être lié par ces confidentialite. Si vous n'acceptez pas ces confidentialite, veuillez ne pas utiliser ce site."/>
+        <meta name="twitter:title" content="{{ confidentialite ? confidentialite.titre : 'chakane' }}"/>
+        <meta name="twitter:domain" content="Chakane"/>
+        <meta name="twitter:image:src" content="{{ absolute_url(asset('asset/img/logo_black.png')) }}"/>
+    {% endblock %}
+
