@@ -58,13 +58,13 @@
     </main>
 {% endblock %}
 
-{% block title %}politique légale de la plateforme Chakane.net{% endblock %}
+{% block title %}Politique et condition de retours de marchandise{% endblock %}
 
     {% block metas %}
         <link rel="alternate" href="{{ absolute_url(path('app_home')) }}" hreflang="fr">
 
         <meta name="keywords" content="Chakane, vetement, sac, accessoire, ecommerce, boutique">
-        <meta name="description" content="Tous les contenus présents sur Chakane.net, tels que les textes, les images, les vidéos, les logos, sont la propriété exclusive de CHAKANE ou de ses partenaires. Toute reproduction, distribution, modification ou utilisation sans autorisation écrite est strictement interdite." />
+        <meta name="description" content="Nous voulons que vous soyez entièrement satisfait de vos achats sur Chakane.net. Si vous n'êtes pas satisfait d'un produit, nous vous offrons la possibilité de le retourner dans les conditions énoncées ci-dessous :" />
         <link rel="canonical" href="{{ absolute_url(path('app_frontend_retour_index')) }}" />
         <link rel="next" href="#" />
 
@@ -72,14 +72,14 @@
         <meta property="og:locale:alternate" content="en_US" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="{{ politique ? politique.titre : 'chakane' }}" />
-        <meta property="og:description" content="Tous les contenus présents sur Chakane.net, tels que les textes, les images, les vidéos, les logos, sont la propriété exclusive de CHAKANE ou de ses partenaires. Toute reproduction, distribution, modification ou utilisation sans autorisation écrite est strictement interdite." />
+        <meta property="og:description" content="Nous voulons que vous soyez entièrement satisfait de vos achats sur Chakane.net. Si vous n'êtes pas satisfait d'un produit, nous vous offrons la possibilité de le retourner dans les conditions énoncées ci-dessous :" />
         <meta property="og:url" content="{{ absolute_url(path('app_frontend_retour_index')) }}" />
         <meta property="og:site_name" content="Chakane" />
         <meta property="article:created_time" content="{{ politique ? politique.updatedAt|date('Y-m-d') : '2023-07-16' }}T{{ politique ? politique.updatedAt|date('H:i:s') : '00:00:00' }}+00:00" />
         <meta property="og:image" content="{{ absolute_url(asset('asset/img/logo_black.png')) }}" />
         <meta property="og:image:type" content="image/svg+xml" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:description" content="Tous les contenus présents sur Chakane.net, tels que les textes, les images, les vidéos, les logos, sont la propriété exclusive de CHAKANE ou de ses partenaires. Toute reproduction, distribution, modification ou utilisation sans autorisation écrite est strictement interdite."/>
+        <meta name="twitter:description" content="Nous voulons que vous soyez entièrement satisfait de vos achats sur Chakane.net. Si vous n'êtes pas satisfait d'un produit, nous vous offrons la possibilité de le retourner dans les conditions énoncées ci-dessous :"/>
         <meta name="twitter:title" content="{{ politique ? politique.titre : 'chakane' }}"/>
         <meta name="twitter:domain" content="Chakane"/>
         <meta name="twitter:image:src" content="{{ absolute_url(asset('asset/img/logo_black.png')) }}"/>
