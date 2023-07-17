@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MentionLegale index{% endblock %}
+
+{% block body %}
+    <h1>MentionLegale index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Statut</th>
+                <th>UpdatedAt</th>
+                <th>Slug</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mention_legale in mention_legales %}
+            <tr>
+                <td>{{ mention_legale.id }}</td>
+                <td>{{ mention_legale.titre }}</td>
+                <td>{{ mention_legale.contenu }}</td>
+                <td>{{ mention_legale.statut ? 'Yes' : 'No' }}</td>
+                <td>{{ mention_legale.updatedAt ? mention_legale.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ mention_legale.slug }}</td>
+                <td>
+                    <a href="{{ path('app_backend_mention_legale_show', {'id': mention_legale.id}) }}">show</a>
+                    <a href="{{ path('app_backend_mention_legale_edit', {'id': mention_legale.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_mention_legale_new') }}">Create new</a>
+{% endblock %}

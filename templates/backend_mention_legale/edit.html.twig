@@ -1,0 +1,84 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion de la mention légale{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Service client</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Service client</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Page</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Mention légale</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center mb-n5">
+                            <span class="head-icon"><i class="ti-file"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col"><h5 class="mb-2 fw-semibold fs-4">Formulaire</h5></div>
+
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div id="table-loader" class="table-loader">
+                                <div class="loader"></div>
+                            </div>
+                            <div class="table-responsive">
+                                {{ include('backend_mention_legale/_form.html.twig', {'button_label': 'Modifier'}) }}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('backoffice/vendor/tinymce/tinymce.min.js')) }}"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#mention_legale_contenu',  // change this value according to your HTML
+            language_url: '{{ absolute_url(asset('backoffice/vendor/tinymce/langs/fr_FR/langs/fr_FR.js')) }}',
+            plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+                'media', 'table', 'emoticons', 'template', 'help'
+            ],
+            a_plugin_option: true,
+            a_configuration_option: 400,
+            menubar: true,
+            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons',
+
+            setup: function (editor) {
+                editor.on('init', function () {
+                    var textarea = document.getElementById('mention_legale_contenu');
+                    editor.setContent(textarea.value);
+                    textarea.style.display = 'none';
+                });
+            }
+        });
+    </script>
+{% endblock %}

@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ConfidentialiteRepository;
+use App\Repository\MentionLegaleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ConfidentialiteRepository::class)]
+#[ORM\Entity(repositoryClass: MentionLegaleRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Confidentialite
+class MentionLegale
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
