@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb">
+            <div class="container">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_home')) }}"><i class="bi bi-house-fill"></i></a></li>
+                        <li class="breadcrumb-item"><a href="#">Serive client</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">politique légale</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="container">
+                <div class="row mt-lg-5">
+
+                    <div class="accordion mb-5" id="retour">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#politique" aria-expanded="true" aria-controls="collapseOne">
+                                    <h5 style="color: darkgreen; font-style:italic;">Politique de retour</h5>
+                                </button>
+                            </h2>
+                            <div id="politique" class="accordion-collapse collapse" data-bs-parent="#retour">
+                                <div class="accordion-body">
+                                    <h5 class="titre-page mb-4">{{ politique ? politique.titre : "Aucune politique de retour enregistrée"}}</h5>
+                                    <div style="text-align:justify; font-style:italic;">
+                                        {{ politique ? politique.contenu|raw : '' }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#condition" aria-expanded="false" aria-controls="collapseTwo">
+                                    <h5 style="color: darkgreen; font-style:italic;">Conditions de retour</h5>
+                                </button>
+                            </h2>
+                            <div id="condition" class="accordion-collapse collapse" data-bs-parent="#retour">
+                                <div class="accordion-body">
+                                    <h5 class="titre-page mb-4">{{ condition ? condition.titre : "Aucune condition de retour enregistrée"}}</h5>
+                                    <div style="text-align:justify; font-style:italic;">
+                                        {{ condition ? condition.contenu|raw : '' }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+
+{% block title %}politique légale de la plateforme Chakane.net{% endblock %}
+
+    {% block metas %}
+        <link rel="alternate" href="{{ absolute_url(path('app_home')) }}" hreflang="fr">
+
+        <meta name="keywords" content="Chakane, vetement, sac, accessoire, ecommerce, boutique">
+        <meta name="description" content="Tous les contenus présents sur Chakane.net, tels que les textes, les images, les vidéos, les logos, sont la propriété exclusive de CHAKANE ou de ses partenaires. Toute reproduction, distribution, modification ou utilisation sans autorisation écrite est strictement interdite." />
+        <link rel="canonical" href="{{ absolute_url(path('app_frontend_retour_index')) }}" />
+        <link rel="next" href="#" />
+
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="{{ politique ? politique.titre : 'chakane' }}" />
+        <meta property="og:description" content="Tous les contenus présents sur Chakane.net, tels que les textes, les images, les vidéos, les logos, sont la propriété exclusive de CHAKANE ou de ses partenaires. Toute reproduction, distribution, modification ou utilisation sans autorisation écrite est strictement interdite." />
+        <meta property="og:url" content="{{ absolute_url(path('app_frontend_retour_index')) }}" />
+        <meta property="og:site_name" content="Chakane" />
+        <meta property="article:created_time" content="{{ politique ? politique.updatedAt|date('Y-m-d') : '2023-07-16' }}T{{ politique ? politique.updatedAt|date('H:i:s') : '00:00:00' }}+00:00" />
+        <meta property="og:image" content="{{ absolute_url(asset('asset/img/logo_black.png')) }}" />
+        <meta property="og:image:type" content="image/svg+xml" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:description" content="Tous les contenus présents sur Chakane.net, tels que les textes, les images, les vidéos, les logos, sont la propriété exclusive de CHAKANE ou de ses partenaires. Toute reproduction, distribution, modification ou utilisation sans autorisation écrite est strictement interdite."/>
+        <meta name="twitter:title" content="{{ politique ? politique.titre : 'chakane' }}"/>
+        <meta name="twitter:domain" content="Chakane"/>
+        <meta name="twitter:image:src" content="{{ absolute_url(asset('asset/img/logo_black.png')) }}"/>
+    {% endblock %}
+

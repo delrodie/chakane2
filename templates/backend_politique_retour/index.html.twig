@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PolitiqueRetour index{% endblock %}
+
+{% block body %}
+    <h1>PolitiqueRetour index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Statut</th>
+                <th>UpdatedAt</th>
+                <th>Slug</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for politique_retour in politique_retours %}
+            <tr>
+                <td>{{ politique_retour.id }}</td>
+                <td>{{ politique_retour.titre }}</td>
+                <td>{{ politique_retour.contenu }}</td>
+                <td>{{ politique_retour.statut ? 'Yes' : 'No' }}</td>
+                <td>{{ politique_retour.updatedAt ? politique_retour.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ politique_retour.slug }}</td>
+                <td>
+                    <a href="{{ path('app_backend_politique_retour_show', {'id': politique_retour.id}) }}">show</a>
+                    <a href="{{ path('app_backend_politique_retour_edit', {'id': politique_retour.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_politique_retour_new') }}">Create new</a>
+{% endblock %}
