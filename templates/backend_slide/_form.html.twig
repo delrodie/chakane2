@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-12 mt-3">{{ form_row(form.titre) }}</div>
+        <div class="col-12 mt-3">{{ form_row(form.description) }}</div>
+        <div class="col-6 mt-3">{{ form_row(form.media) }}</div>
+        <div class="col-6 mt-3">
+            {% if slide.media %}
+                <img src="{{ absolute_url(asset('upload/slides/' ~ slide.media)) }}" alt="{{ slide.titre }}" class="img-fluid">
+            {% endif %}
+        </div>
+        <div class="col-12 mt-3 mx-5 form-check form-check-inline">
+            {{ form_widget(form.statut) }}
+            {{ form_label(form.statut, slide.statut ? 'Désactiver' : 'Activer') }}
+        </div>
+    </div>
+    {{ form_widget(form) }}
+    <div class="text-end mt-5">
+        <a href="{{ absolute_url(path('app_backend_slide_index')) }}" class="btn btn-outline-secondary">Annuler</a>
+        <button id="saveButton" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}

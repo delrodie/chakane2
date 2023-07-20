@@ -22,3 +22,4 @@
 .idea
 logs
 .logs
+/public/upload

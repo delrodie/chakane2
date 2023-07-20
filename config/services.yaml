@@ -27,3 +27,8 @@ services:
     App\Service\UserActivityLogger:
         arguments:
             $logFilePath : '%kernel.project_dir%/.logs/user_activity.log'
+
+    App\Service\GestionMedia:
+        arguments:
+            $slideDirectory: '%kernel.project_dir%/public/upload/slides'
+            $produitDirectory: '%kernel.project_dir%/public/upload/produits'

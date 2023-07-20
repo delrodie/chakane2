@@ -7,6 +7,7 @@ use App\Entity\ConditionRetour;
 use App\Entity\Confidentialite;
 use App\Entity\MentionLegale;
 use App\Entity\PolitiqueRetour;
+use App\Entity\Slide;
 use App\Service\UserActivityLogger;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\Events;
@@ -76,6 +77,11 @@ class DatabaseActivityLogSubscriber implements EventSubscriberInterface
         // Politique de retour
         if ($entity instanceof PolitiqueRetour) {
             $this->userActivityLogger->logActivity("a {$action} la politique de retour intitulée '{$entity->getTitre()}'");
+        }
+
+        // Slide
+        if ($entity instanceof Slide) {
+            $this->userActivityLogger->logActivity("a {$action} le slide intitulé '{$entity->getTitre()}'");
         }
     }
 

@@ -45,7 +45,7 @@ class UserActivityLogSubscriber implements EventSubscriberInterface
                 $this->userActivityLogger->logActivity("a effectué une tentative de connexion au système");
                 break;
             case 'app_backend_cgu_new':
-                $this->userActivityLogger->logActivity("a visité la d'enregistrement de la condition générale d'utilisation");
+                $this->userActivityLogger->logActivity("a visité la page d'enregistrement de la condition générale d'utilisation");
                 break;
             case 'app_backend_cgu_edit':
                 $this->userActivityLogger->logActivity("a visité la page de modification de la condition générale d'utilisation");
@@ -56,6 +56,14 @@ class UserActivityLogSubscriber implements EventSubscriberInterface
             case 'app_backend_cgu_delete':
                 $this->userActivityLogger->logActivity("a effectué la suppression de la condition générale d'utilisation");
                 break;
+            case 'app_backend_slide_index':
+                $this->userActivityLogger->logActivity("a affiché la liste des slides");
+                break;
+            case 'app_backend_slide_new':
+                $this->userActivityLogger->logActivity("a visité la page d'enregistrement des slides ");
+                break;
+            case 'app_backend_slide_edit':
+                $this->userActivityLogger->logActivity("a visité la page de modification des slides");
         }
     }
 
