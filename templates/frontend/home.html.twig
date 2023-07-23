@@ -6,61 +6,20 @@
         <div class="slideBar">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="https://chakane.net/uploads/slide/01-1674581906.jpg" alt="" loading="lazy">
-                        <div class="content d-flex justify-content-center">
-                            <div class="container">
-                                <h1 class="titre">Titre du slide 1</h1>
-                                <p class="description">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nostrum aliquam sit dolorem omnis nesciunt assumenda aspernatur veritatis sint, iusto eveniet repellendus tempora laudantium quo ut ex, aut tenetur eum.
-                                </p>
-                                <a href="#" class="details">Détails</a>
+                    {% for slide in slides %}
+                        <div class="swiper-slide">
+                            <img src="{{ absolute_url(asset('upload/slides/' ~ slide.media)) }}" alt="{{ slide.titre }}" loading="lazy">
+                            <div class="content d-flex justify-content-center">
+                                <div class="container">
+                                    <h1 class="titre">{{ slide.titre }}</h1>
+                                    <p class="description">{{ slide.description|raw }}</p>
+                                    <a href="#" class="details">Détails</a>
+                                </div>
                             </div>
+
                         </div>
+                    {% endfor %}
 
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://cartzilla.createx.studio/img/home/hero-slider/03.jpg" alt="">
-
-                        <div class="content d-flex justify-content-center">
-                            <div class="container">
-                                <h1 class="titre">Titre du slide 2</h1>
-                                <p class="description">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nostrum aliquam sit dolorem omnis nesciunt assumenda aspernatur veritatis sint, iusto eveniet repellendus tempora laudantium quo ut ex, aut tenetur eum.
-                                </p>
-                                <a href="#" class="details">Détails</a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://cartzilla.createx.studio/img/home/hero-slider/01.jpg" alt="">
-
-                        <div class="content d-flex justify-content-center">
-                            <div class="container">
-                                <h1 class="titre">Titre du slide 3</h1>
-                                <p class="description">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nostrum aliquam sit dolorem omnis nesciunt assumenda aspernatur veritatis sint, iusto eveniet repellendus tempora laudantium quo ut ex, aut tenetur eum.
-                                </p>
-                                <a href="#" class="details">Détails</a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://cartzilla.createx.studio/img/home/hero-slider/02.jpg" alt="">
-
-                        <div class="content d-flex justify-content-center">
-                            <div class="container">
-                                <h1 class="titre">Titre du slide 2</h1>
-                                <p class="description">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nostrum aliquam sit dolorem omnis nesciunt assumenda aspernatur veritatis sint, iusto eveniet repellendus tempora laudantium quo ut ex, aut tenetur eum.
-                                </p>
-                                <a href="#" class="details">Détails</a>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
@@ -75,7 +34,7 @@
                             <div class="card">
                                 <a href="#" class="text-muted text-center">
                                     <figure>
-                                        <img src="https://images.unsplash.com/photo-1634826260499-7d97a6049913?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1964&q=80" class="card-img-top" alt="...">
+                                        <img src="https://images.unsplash.com/photo-1634826260499-7d97a6049913?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1964&q=80" class="card-img-top" alt="..." loading="lazy">
                                     </figure>
                                     <div class="card-footer">Vêtements</div>
                                 </a>
@@ -83,7 +42,7 @@
                             <div class="card">
                                 <a href="#" class="text-muted text-center">
                                     <figure>
-                                        <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                        <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="..." loading="lazy">
                                     </figure>
                                     <div class="card-footer">Accessoires</div>
                                 </a>
@@ -91,7 +50,7 @@
                             <div class="card">
                                 <a href="#" class="text-muted text-center">
                                     <figure>
-                                        <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=738&q=80" class="card-img-top" alt="...">
+                                        <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=738&q=80" class="card-img-top" alt="..." loading="lazy">
                                     </figure>
                                     <div class="card-footer">Sacs</div>
                                 </a>
@@ -116,7 +75,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1600857062241-98e5dba7f214?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=798&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1600857062241-98e5dba7f214?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=798&q=80" class="card-img-top" alt="..." loading="lazy">
                                     <span class="sticker info">Nouveauté</span>
 
                                 </figure>
@@ -142,7 +101,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="card-img-top" alt="..." loading="lazy">
                                     <span class="sticker info">Nouveauté</span>
                                     <span class="sticker remise">-10%</span>
                                 </figure>
@@ -167,7 +126,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/flagged/photo-1575278154894-9f52e7c93bec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=730&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/flagged/photo-1575278154894-9f52e7c93bec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=730&q=80" class="card-img-top" alt="..." loading="lazy">
                                 </figure>
                                 <div class="card-body">
                                     <h5 class="card-title prix">
@@ -190,7 +149,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1571682262898-48532c58b3a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1571682262898-48532c58b3a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="..." loading="lazy">
                                 </figure>
                                 <div class="card-body">
                                     <h5 class="card-title prix">
@@ -218,7 +177,7 @@
                 <div class="row row-cols-12 row-cols-1 row-cols-lg-2 mt-5 mb-5">
                     <div class="col affiche">
                         <figure>
-                            <img src="./asset/img/affiche/banner_mode.png" alt="" class="img-fluid">
+                            <img src="./asset/img/affiche/banner_mode.png" alt="" class="img-fluid" loading="lazy">
                         </figure>
                         <div class="description">
                             <h3>Collection mode</h3>
@@ -231,7 +190,7 @@
 
                     <div class="col affiche">
                         <figure>
-                            <img src="./asset/img/affiche/banner_sac.png" alt="" class="img-fluid">
+                            <img src="./asset/img/affiche/banner_sac.png" alt="" class="img-fluid" loading="lazy">
                         </figure>
                         <div class="description">
                             <h3>Collection Terre d'Ivoire</h3>
@@ -260,7 +219,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1600857062241-98e5dba7f214?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=798&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1600857062241-98e5dba7f214?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=798&q=80" class="card-img-top" alt="..." loading="lazy">
                                     <span class="sticker info">Nouveauté</span>
 
                                 </figure>
@@ -286,7 +245,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="card-img-top" alt="..." loading="lazy">
                                     <span class="sticker info">Nouveauté</span>
                                     <span class="sticker remise">-10%</span>
                                 </figure>
@@ -311,7 +270,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/flagged/photo-1575278154894-9f52e7c93bec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=730&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/flagged/photo-1575278154894-9f52e7c93bec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=730&q=80" class="card-img-top" alt="..." loading="lazy">
                                 </figure>
                                 <div class="card-body">
                                     <h5 class="card-title prix">
@@ -334,7 +293,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1571682262898-48532c58b3a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1571682262898-48532c58b3a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="..." loading="lazy">
                                 </figure>
                                 <div class="card-body">
                                     <h5 class="card-title prix">
@@ -357,7 +316,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1544774210-075d2f16e35d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1544774210-075d2f16e35d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="..." loading="lazy">
                                 </figure>
                                 <div class="card-body">
                                     <h5 class="card-title prix">
@@ -380,7 +339,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="..." loading="lazy">
                                 </figure>
                                 <div class="card-body">
                                     <h5 class="card-title prix">
@@ -403,7 +362,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1434510423563-c7e99bbc5bbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1434510423563-c7e99bbc5bbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="..." loading="lazy">
                                 </figure>
                                 <div class="card-body">
                                     <h5 class="card-title prix">
@@ -426,7 +385,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1606522754091-a3bbf9ad4cb3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=842&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1606522754091-a3bbf9ad4cb3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=842&q=80" class="card-img-top" alt="..." loading="lazy">
                                 </figure>
                                 <div class="card-body">
                                     <h5 class="card-title prix">
@@ -449,7 +408,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1612902456551-333ac5afa26e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1612902456551-333ac5afa26e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" class="card-img-top" alt="..." loading="lazy">
                                 </figure>
                                 <div class="card-body">
                                     <h5 class="card-title prix">
@@ -472,7 +431,7 @@
                         <a href="#">
                             <div class="card h-100">
                                 <figure>
-                                    <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="..." loading="lazy">
                                 </figure>
                                 <div class="card-body">
                                     <h5 class="card-title prix">
