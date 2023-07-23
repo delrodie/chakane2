@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Marque index{% endblock %}
+
+{% block body %}
+    <h1>Marque index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Tags</th>
+                <th>Slug</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for marque in marques %}
+            <tr>
+                <td>{{ marque.id }}</td>
+                <td>{{ marque.titre }}</td>
+                <td>{{ marque.contenu }}</td>
+                <td>{{ marque.tags }}</td>
+                <td>{{ marque.slug }}</td>
+                <td>{{ marque.updatedAt ? marque.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_backend_marque_show', {'id': marque.id}) }}">show</a>
+                    <a href="{{ path('app_backend_marque_edit', {'id': marque.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_marque_new') }}">Create new</a>
+{% endblock %}

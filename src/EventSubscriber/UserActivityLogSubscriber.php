@@ -37,35 +37,25 @@ class UserActivityLogSubscriber implements EventSubscriberInterface
         // Récupération de la route
         $route = $event->getRequest()->get('_route');
 
-        switch ($route){
-            case 'app_backend_dashboard_index':
-                $this->userActivityLogger->logActivity("s'est connecté(e) au tableau de bord");
-                break;
-            case 'app_login':
-                $this->userActivityLogger->logActivity("a effectué une tentative de connexion au système");
-                break;
-            case 'app_backend_cgu_new':
-                $this->userActivityLogger->logActivity("a visité la page d'enregistrement de la condition générale d'utilisation");
-                break;
-            case 'app_backend_cgu_edit':
-                $this->userActivityLogger->logActivity("a visité la page de modification de la condition générale d'utilisation");
-                break;
-            case 'app_backend_cgu_show':
-                $this->userActivityLogger->logActivity("a affiché la condition générale d'utilisation");
-                break;
-            case 'app_backend_cgu_delete':
-                $this->userActivityLogger->logActivity("a effectué la suppression de la condition générale d'utilisation");
-                break;
-            case 'app_backend_slide_index':
-                $this->userActivityLogger->logActivity("a affiché la liste des slides");
-                break;
-            case 'app_backend_slide_new':
-                $this->userActivityLogger->logActivity("a visité la page d'enregistrement des slides ");
-                break;
-            case 'app_backend_slide_edit':
-                $this->userActivityLogger->logActivity("a visité la page de modification des slides");
+        if (array_key_exists($route, $this->activityMessages)) {
+            $activityMessage = $this->activityMessages[$route];
+            $this->userActivityLogger->logActivity($activityMessage);
         }
     }
+
+    private array $activityMessages = [
+        'app_backend_dashboard_index' => "s'est connecté(e) au tableau de bord",
+        'app_login' => "a effectué une tentative de connexion au système",
+        'app_backend_cgu_new' => "a visité la page d'enregistrement de la condition générale d'utilisation",
+        'app_backend_cgu_edit' => "a visité la page de modification de la condition générale d'utilisation",
+        'app_backend_cgu_show' => "a affiché la condition générale d'utilisation",
+        'app_backend_cgu_delete' => "a effectué la suppression de la condition générale d'utilisation",
+        'app_backend_slide_index' => "a affiché la liste des slides",
+        'app_backend_slide_new' => "a visité la page d'enregistrement des slides",
+        'app_backend_slide_edit' => "a visité la page de modification des slides",
+        'app_backend_marque_new' => "a visité la page d'enregistrement des marques",
+        'app_backend_marque_edit' => "a visité la page de modification des marques",
+    ];
 
 
 }

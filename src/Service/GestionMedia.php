@@ -10,13 +10,15 @@ class GestionMedia
 {
     private $mediaSlide;
     private $mediaProduit;
+    private $mediaMarque;
 
     public function __construct(
-        $slideDirectory, $produitDirectory
+        $slideDirectory, $produitDirectory, $marqueDirectory
     )
     {
         $this->mediaSlide = $slideDirectory;
         $this->mediaProduit = $produitDirectory;
+        $this->mediaMarque = $marqueDirectory;
     }
 
 
@@ -37,6 +39,7 @@ class GestionMedia
         // Deplacement du fichier dans le repertoire dedié
         try {
             if ($media === 'slide') $file->move($this->mediaSlide, $newFilename);
+            elseif ($media === 'marque') $file->move($this->mediaMarque, $newFilename);
             elseif ($media === 'produit') $file->move($this->mediaProduit, $newFilename);
             else $file->move($this->mediaSlide, $newFilename);
         }catch (FileException $e){
@@ -56,6 +59,7 @@ class GestionMedia
     public function removeUpload($ancienMedia, $media = null): bool
     {
         if ($media === 'slide') unlink($this->mediaSlide.'/'.$ancienMedia);
+        elseif ($media === 'marque') unlink($this->mediaMarque.'/'.$ancienMedia);
         elseif ($media === 'produit') unlink($this->mediaProduit.'/'.$ancienMedia);
         else return false;
 

@@ -31,4 +31,5 @@ services:
     App\Service\GestionMedia:
         arguments:
             $slideDirectory: '%kernel.project_dir%/public/upload/slides'
+            $marqueDirectory: '%kernel.project_dir%/public/upload/marque'
             $produitDirectory: '%kernel.project_dir%/public/upload/produits'

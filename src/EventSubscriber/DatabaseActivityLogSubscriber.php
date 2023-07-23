@@ -5,6 +5,7 @@ namespace App\EventSubscriber;
 use App\Entity\Cgu;
 use App\Entity\ConditionRetour;
 use App\Entity\Confidentialite;
+use App\Entity\Marque;
 use App\Entity\MentionLegale;
 use App\Entity\PolitiqueRetour;
 use App\Entity\Slide;
@@ -82,6 +83,11 @@ class DatabaseActivityLogSubscriber implements EventSubscriberInterface
         // Slide
         if ($entity instanceof Slide) {
             $this->userActivityLogger->logActivity("a {$action} le slide intitulé '{$entity->getTitre()}'");
+        }
+
+        // Marque
+        if ($entity instanceof Marque){
+            $this->userActivityLogger->logActivity("a {$action} la marque intitulé '{$entity->getTitre()}'");
         }
     }
 

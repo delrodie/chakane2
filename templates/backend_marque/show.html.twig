@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Marque{% endblock %}
+
+{% block body %}
+    <h1>Marque</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ marque.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ marque.titre }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ marque.contenu }}</td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td>{{ marque.tags }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ marque.slug }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ marque.updatedAt ? marque.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_marque_index') }}">back to list</a>
+
+    <a href="{{ path('app_backend_marque_edit', {'id': marque.id}) }}">edit</a>
+
+    {{ include('backend_marque/_delete_form.html.twig') }}
+{% endblock %}
