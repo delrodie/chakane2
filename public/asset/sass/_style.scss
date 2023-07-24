@@ -158,6 +158,13 @@ header{
             a{
                 &.nav-link{
                     font-weight: 400;
+
+                    &.menu-link{
+                        &.active{
+                            font-weight: bold;
+                            color: $couleur-principale;
+                        }
+                    }
                 }
 
                 &:hover{

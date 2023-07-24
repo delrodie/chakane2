@@ -133,19 +133,19 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ absolute_url(path('app_home')) }}">Accueil</a>
+                            <a class="nav-link menu-link" aria-current="page" href="{{ absolute_url(path('app_home')) }}">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">La marque</a>
+                            <a class="nav-link menu-link" href="{{ absolute_url(path('app_frontend_marque_index')) }}">La marque</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Vêtements</a>
+                            <a class="nav-link menu-link" href="">Vêtements</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Sacs & accesoires</a>
+                            <a class="nav-link menu-link" href="">Sacs & accesoires</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link menu-link" href="#">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -247,10 +247,10 @@
 
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.0.4/venobox.min.js"></script>
-    <script src="{{ asset('asset/js/script.js') }}"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.0.4/venobox.min.js"></script>
+    <script src="{{ absolute_url(asset('asset/js/script.js')) }}"></script>
 {% endblock %}
 </body>
 </html>

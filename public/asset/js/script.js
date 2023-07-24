@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function(){
+// Fonction pour gérer le scroll et le bouton "To Top"
+function setupScrollAndToTop() {
 	let topBtn = document.getElementById('btnToTop');
 	window.addEventListener('scroll', function() {
 		if (window.scrollY > 50) {
@@ -19,65 +20,76 @@ document.addEventListener("DOMContentLoaded", function(){
 			topBtn.style.display = "none";
 			//document.querySelector(".navbar-brand").style.display = "none";
 			//document.getElementById("navbar_logo").classList.add('invisible');
-		} 
+		}
 	});
 
+	$("#btnToTop").on('click', function topFunction() {
+		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
+	});
+}
+
+// Fonction pour gérer les événements de hover sur les éléments du menu
+function setupMenuHover() {
 	if (window.innerWidth > 992) {
-
-		document.querySelectorAll('.navbar .dropdown').forEach(function(everyitem){
-
-			everyitem.addEventListener('mouseover', function(e){
-
+		document.querySelectorAll('.navbar .dropdown').forEach(function(everyitem) {
+			everyitem.addEventListener('mouseover', function(e) {
 				let el_link = this.querySelector('a[data-bs-toggle]');
-
 				if(el_link != null){
 					let nextEl = el_link.nextElementSibling;
 					el_link.classList.add('show');
 					nextEl.classList.add('show');
 				}
-
 			});
-			everyitem.addEventListener('mouseleave', function(e){
+			everyitem.addEventListener('mouseleave', function(e) {
 				let el_link = this.querySelector('a[data-bs-toggle]');
-
 				if(el_link != null){
 					let nextEl = el_link.nextElementSibling;
 					el_link.classList.remove('show');
 					nextEl.classList.remove('show');
 				}
-
-
-			})
+			});
 		});
-
 	}
-});
+}
 
+// Fonction pour ajouter la classe active au menu cliqué
+function setActiveMenu() {
+	const menuLinks = document.querySelectorAll('.menu-link');
 
-
-$(document).ready(function () {
-	$("#btnToTop").on('click', function topFunction() {
-		document.body.scrollTop = 0;
-  		document.documentElement.scrollTop = 0;
-	})
-})
-
-$(document).ready(function () {
-	if (window.matchMedia("(max-width: 425px)").matches) {		
-		document.getElementById('inputGroup').classList.add('input-group-sm');
-	  } else {
-		/* the view port is less than 400 pixels wide */
-	  }
-	  
-})
-
-$(document).ready(function () {
-	new VenoBox({
-		selector: '.creation',
-		numeration: true,
-		infinigall: true,
-		share: true,
-		spinner: 'rotating-plane'
+	// Supprimer la classe active de tous les liens du menu
+	menuLinks.forEach(link => {
+		link.classList.remove('active');
 	});
+
+	// Ajouter la classe active au lien cliqué
+	this.classList.add('active');
+
+	// Stocker l'index de l'élément actif dans le localStorage
+	const activeIndex = Array.from(menuLinks).indexOf(this);
+	localStorage.setItem('activeMenuIndex', activeIndex);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	setupScrollAndToTop();
+	setupMenuHover();
+
+	const menuLinks = document.querySelectorAll('.menu-link');
+
+	// Récupérer l'index de l'élément actif à partir du localStorage
+	const activeIndex = localStorage.getItem('activeMenuIndex');
+
+	// Si un index est stocké, ajouter la classe active à l'élément correspondant
+	if (activeIndex !== null) {
+		menuLinks[activeIndex].classList.add('active');
+	}
+
+	// Associer l'événement de clic à chaque lien du menu
+	menuLinks.forEach(link => {
+		link.addEventListener('click', setActiveMenu);
+	});
+
+	// ... (le reste de votre code jQuery ou d'autres fonctionnalités)
 });
 
+// ... (le reste de votre code JavaScript ou d'autres fonctionnalités)

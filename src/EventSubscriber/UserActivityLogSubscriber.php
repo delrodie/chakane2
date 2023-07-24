@@ -26,9 +26,6 @@ class UserActivityLogSubscriber implements EventSubscriberInterface
     {
         return [
             KernelEvents::CONTROLLER => 'onKernelController',
-            Events::postPersist,
-            Events::postUpdate,
-            Events::postRemove
         ];
     }
 
@@ -41,6 +38,9 @@ class UserActivityLogSubscriber implements EventSubscriberInterface
             $activityMessage = $this->activityMessages[$route];
             $this->userActivityLogger->logActivity($activityMessage);
         }
+
+        // Passer la route actuelle au template
+        $event->getRequest()->attributes->set('currentRoute', $route);
     }
 
     private array $activityMessages = [

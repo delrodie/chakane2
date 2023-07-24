@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb">
+            <div class="container">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_home')) }}" class="menu-link"><i class="bi bi-house-fill"></i></a></li>
+{#                        <li class="breadcrumb-item"><a href="#">Serive client</a></li>#}
+                        <li class="breadcrumb-item active" aria-current="page">La marque</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="container">
+                <div class="row mt-lg-5">
+                    <div class="col mb-5">
+                        <h5 class="titre-page mb-4">{{ marque ? marque.titre : "Aucune marque enregistrée"}}</h5>
+                        <div style="text-align:justify;">
+                            <img src="{{ absolute_url(asset( marque.media ? 'upload/marque/' ~ marque.media : 'asset/img/logo_black.png' )) }}" alt="{{ marque.titre }}" class="img-fluid" style="width: 300px; float: left; padding: 0 50px 30px 0;" loading="lazy">
+                            {{ marque ? marque.contenu|raw : '' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+
+{% block title %}{{ marque.titre }}{% endblock %}
+
+    {% block metas %}
+        <link rel="alternate" href="{{ absolute_url(path('app_home')) }}" hreflang="fr">
+
+        <meta name="keywords" content="Chakane, vetement, sac, accessoire, ecommerce, boutique">
+        <meta name="description" content="La protection de vos informations personnelles est importante pour Chakane.net. Cette politique de confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations personnelles lorsque vous utilisez notre site web. Veuillez lire attentivement cette politique de confidentialité avant d'utiliser notre site." />
+        <link rel="canonical" href="{{ absolute_url(path('app_frontend_marque_index')) }}" />
+        <link rel="next" href="#" />
+
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="{{ marque ? marque.titre : 'chakane' }}" />
+        <meta property="og:description" content="La protection de vos informations personnelles est importante pour Chakane.net. Cette politique de confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations personnelles lorsque vous utilisez notre site web. Veuillez lire attentivement cette politique de confidentialité avant d'utiliser notre site." />
+        <meta property="og:url" content="{{ absolute_url(path('app_frontend_marque_index')) }}" />
+        <meta property="og:site_name" content="Chakane" />
+        <meta property="article:created_time" content="{{ marque ? marque.updatedAt|date('Y-m-d') : '2023-07-16' }}T{{ marque ? marque.updatedAt|date('H:i:s') : '00:00:00' }}+00:00" />
+        <meta property="og:image" content="{{ absolute_url(asset('asset/img/logo_black.png')) }}" />
+        <meta property="og:image:type" content="image/svg+xml" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:description" content="La protection de vos informations personnelles est importante pour Chakane.net. Cette politique de confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations personnelles lorsque vous utilisez notre site web. Veuillez lire attentivement cette politique de confidentialité avant d'utiliser notre site."/>
+        <meta name="twitter:title" content="{{ marque ? marque.titre : 'chakane' }}"/>
+        <meta name="twitter:domain" content="Chakane"/>
+        <meta name="twitter:image:src" content="{{ absolute_url(asset('asset/img/logo_black.png')) }}"/>
+    {% endblock %}
+
