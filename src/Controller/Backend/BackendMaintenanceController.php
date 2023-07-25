@@ -4,6 +4,7 @@ namespace App\Controller\Backend;
 
 use App\Entity\Maintenance;
 use App\Form\MaintenanceType;
+use App\Repository\AllRepository;
 use App\Repository\MaintenanceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/backend/maintenance')]
 class BackendMaintenanceController extends AbstractController
 {
+    public function __construct(private AllRepository $allRepository)
+    {
+    }
+
     #[Route('/', name: 'app_backend_maintenance_index', methods: ['GET'])]
     public function index(MaintenanceRepository $maintenanceRepository): Response
     {
@@ -34,6 +39,8 @@ class BackendMaintenanceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($maintenance);
             $entityManager->flush();
+
+            $this->allRepository->allCache('maintenance', true);
 
             return $this->redirectToRoute('app_backend_maintenance_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -60,6 +67,8 @@ class BackendMaintenanceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+
+            $this->allRepository->allCache('maintenance', true);
 
             return $this->redirectToRoute('app_backend_maintenance_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -1,0 +1,123 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Devise - {{ "now"|date('Y-m-d H:i:s') }}{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Gestion des etats</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Archives</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Factures</a></li>
+                                <li class="breadcrumb-item" aria-current="page">factures</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center mb-n5">
+                            <span class="head-icon"><i class="ti-printer"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="text-end mt-3 mb-3">
+                                <a href="{{ absolute_url(path('app_backend_devise_update')) }}" class="btn btn-warning">
+                                    <i class="ti-reload"></i> &nbsp; Mise a jour
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="table-loader" class="table-loader">
+                                <div class="loader"></div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="listes" class="table  border table-striped table-bordered display text-nowrap" style="width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center text-uppercase">#</th>
+                                        <th class="text-center text-uppercase">CFA</th>
+                                        <th class="text-center text-uppercase">EURO</th>
+                                        <th class="text-center text-uppercase">USD</th>
+                                        <th class="text-center text-uppercase">DATE</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#</td>
+                                            <td class="text-center">{{ devise.xof }}</td>
+                                            <td class="text-center">
+                                                {{ devise.euro }} &nbsp; => &nbsp;
+                                                <span class="badge bg-info">{{ devise.euro ? (devise.xof / devise.euro)|round(1, 'floor') ~ ' CFA' : '' }}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                {{ devise.usd }}  &nbsp; => &nbsp;
+                                                <span class="badge bg-primary">{{ devise.usd ? (devise.xof / devise.usd)|round(1, 'floor') ~ ' CFA' }}</span>
+                                            </td>
+                                            <td class="text-center">{{ devise.updatedAt|date('Y-m-d H:i:s') }}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/prism.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset('backoffice/vendor/DataTables/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/select2.min.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('backoffice/vendor/js/prism.js') }}"></script>
+    <script src="{{ asset('backoffice/vendor/DataTables/datatables.min.js') }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/select2.full.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/select2.min.js')) }}"></script>
+    <script>
+        $(document).ready(function() {
+            var tableLoader = $('#table-loader');
+            var table = $('#listes');
+
+            table.on('init.dt', function() {
+                tableLoader.find('.loader').hide();
+                table.show();
+            });
+
+            table.DataTable({
+                // Configurations du DataTable
+                dom: 'Bfrtip',
+                scrollX: true,
+                buttons: [
+                    'copy', 'excel', 'pdf'
+                ],
+                initComplete: function() {
+                    tableLoader.find('.loader').show();
+                    table.hide();
+                }
+            });
+        });
+    </script>
+    <script>
+        $(".select2").select2();
+    </script>
+{% endblock %}

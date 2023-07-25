@@ -38,8 +38,8 @@
             <div class="col-sm-6 col-lg-2 d-flex align-items-stretch">
                 <div class="card w-100">
                     <div class="card-body p-4">
-                        <h4 class="fw-semibold">$10,230</h4>
-                        <p class="mb-2 fs-3">Expense</p>
+                        <h4 class="fw-semibold">{{ devise.euro ? (devise.xof / devise.euro)|round(1, 'floor') ~ ' CFA' : '' }}</h4>
+                        <p class="mb-2 fs-3">EURO &euro;</p>
                         <div id="expense"></div>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
             <div class="col-sm-6 col-lg-2 d-flex align-items-stretch">
                 <div class="card w-100">
                     <div class="card-body p-4">
-                        <h4 class="fw-semibold">$65,432</h4>
-                        <p class="mb-1 fs-3">Sales</p>
+                        <h4 class="fw-semibold">{{ devise.usd ? (devise.xof / devise.usd)|round(1, 'floor') ~ ' CFA' }}</h4>
+                        <p class="mb-1 fs-3">DOLLAR &dollar;</p>
                         <div id="sales" class="sales-chart"></div>
                     </div>
                 </div>
