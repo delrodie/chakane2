@@ -6,6 +6,7 @@ use App\Entity\Cgu;
 use App\Entity\Collection;
 use App\Entity\ConditionRetour;
 use App\Entity\Confidentialite;
+use App\Entity\Contact;
 use App\Entity\Marque;
 use App\Entity\MentionLegale;
 use App\Entity\PolitiqueRetour;
@@ -104,6 +105,12 @@ class DatabaseActivityLogSubscriber implements EventSubscriberInterface
         if ($entity instanceof Collection){
             $this->userActivityLogger->logActivity("a {$action} la marque intitulé '{$entity->getTitre()}'");
             $this->allRepository->allCache('collections', true);
+        }
+
+        // Contact
+        if ($entity instanceof Contact){
+            $this->userActivityLogger->logActivity("a {$action} le contact");
+            $this->allRepository->allCache('contact', true);
         }
     }
 

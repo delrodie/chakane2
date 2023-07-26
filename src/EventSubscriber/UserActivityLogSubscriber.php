@@ -58,6 +58,8 @@ class UserActivityLogSubscriber implements EventSubscriberInterface
         'app_backend_collection_index' => "a visité la page de liste des collections",
         'app_backend_collection_new' => "a visité la page d'enregistrement des collections",
         'app_backend_collection_edit' => "a visité la page de modification des collections",
+        'app_backend_contact_edit' => "a visité la page de modification de contact",
+        'app_backend_contact_new' => "a visité la page d'enregistrement de contact",
     ];
 
 
