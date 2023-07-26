@@ -38,7 +38,8 @@ class UserActivityLogger
         $username = $user ? $user->getUserIdentifier() : 'Anonyme';
 
         $logEntry = [
-            'datetime' => date('Y-m-d H:i:s'),
+            'datetime' => (new \DateTime('now', new \DateTimeZone('GMT')))->format('Y-m-d H:i:s'),
+//            'datetime' => date('Y-m-d H:i:s'),
             'username' => $username,
             'action' => $action,
             'ip' => $this->getRequestIp()

@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Cgu;
+use App\Entity\Collection;
 use App\Entity\ConditionRetour;
 use App\Entity\Confidentialite;
 use App\Entity\Marque;
@@ -87,6 +88,11 @@ class DatabaseActivityLogSubscriber implements EventSubscriberInterface
 
         // Marque
         if ($entity instanceof Marque){
+            $this->userActivityLogger->logActivity("a {$action} la marque intitulé '{$entity->getTitre()}'");
+        }
+
+        // Collection
+        if ($entity instanceof Collection){
             $this->userActivityLogger->logActivity("a {$action} la marque intitulé '{$entity->getTitre()}'");
         }
     }

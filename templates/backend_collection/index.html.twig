@@ -1,0 +1,121 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion liste des collections{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Gestion des collections</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Divers</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Page</a></li>
+                                <li class="breadcrumb-item" aria-current="page">collections</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center mb-n5">
+                            <span class="head-icon"><i class="ti-image"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div class="row mt-5 mb-5">
+                <div class="col text-end">
+                    <a href="{{ absolute_url(path('app_backend_collection_new')) }}" class="btn btn-primary">
+                        <i class="ti-plus"></i> Ajouter
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                {% for collection in collections %}
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card h-100 rounded-2 overflow-hidden hover-img">
+                            <div class="position-relative">
+                                <a href="javascript:void(0)"><img src="{{ absolute_url(asset('upload/collections/' ~ collection.media)) }}" class="card-img-top rounded-0" alt="{{ collection.titre }}"></a>
+                            </div>
+                            <div class="card-body p-4">
+                                <a class="d-block my-4 fs-5 text-dark fw-semibold" href="#">{{ collection.titre }}</a>
+                                {{ collection.contenu|slice(0,255)|raw }}
+                            </div>
+                            <div class="card-footer text-center">
+                                <small class="text-body-secondary">
+                                    <a href="{{ absolute_url(path('app_backend_collection_edit',{"id": collection.id})) }}">Modifier</a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center mb-0 mt-4">
+                    <li class="page-item">
+                        <a class="page-link border-0 rounded-circle text-dark round-32 d-flex align-items-center justify-content-center" href="#"><i class="ti ti-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link border-0 rounded-circle text-dark round-32 mx-1 d-flex align-items-center justify-content-center" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link border-0 rounded-circle text-dark round-32 mx-1 d-flex align-items-center justify-content-center" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link border-0 rounded-circle text-dark round-32 mx-1 d-flex align-items-center justify-content-center" href="#">4</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link border-0 rounded-circle text-dark round-32 mx-1 d-flex align-items-center justify-content-center" href="#">5</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link border-0 rounded-circle text-dark round-32 mx-1 d-flex align-items-center justify-content-center" href="#">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link border-0 rounded-circle text-dark round-32 mx-1 d-flex align-items-center justify-content-center" href="#">10</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link border-0 rounded-circle text-dark round-32 d-flex align-items-center justify-content-center" href="#"><i class="ti ti-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+
+
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('backoffice/vendor/tinymce/tinymce.min.js')) }}"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#cgu_contenu',  // change this value according to your HTML
+            language_url: '{{ absolute_url(asset('backoffice/vendor/tinymce/langs/fr_FR/langs/fr_FR.js')) }}',
+            plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+                'media', 'table', 'emoticons', 'template', 'help'
+            ],
+            a_plugin_option: true,
+            a_configuration_option: 400,
+            menubar: true,
+            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons',
+
+            setup: function (editor) {
+                editor.on('init', function () {
+                    var textarea = document.getElementById('cgu_contenu');
+                    editor.setContent(textarea.value);
+                    textarea.style.display = 'none';
+                });
+            }
+        });
+    </script>
+{% endblock %}

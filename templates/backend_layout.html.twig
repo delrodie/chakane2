@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/app.css')) }}">
         <link rel="stylesheet" href="{{ asset('backoffice/vendor/themify-icons/themify-icons.css') }}">
         <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/form.css')) }}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css">
     {% endblock %}
     <style>
         .head-icon{
@@ -159,6 +160,14 @@
                                         <i class="ti-angle-right"></i>
                                     </div>
                                     <span class="hide-menu">Devise</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ absolute_url(path('app_backend_collection_index')) }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti-angle-right"></i>
+                                    </div>
+                                    <span class="hide-menu">Collection</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
@@ -370,13 +379,12 @@
     <script src="{{ absolute_url(asset('backoffice/vendor/js/jquery.min.js')) }}"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/js/simplebar.min.js')) }}"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/js/bootstrap.bundle.min.js')) }}"></script>
-    <!--  core files -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/js/app.min.js')) }}"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/js/app.init.js')) }}"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/js/app-style-switcher.js')) }}"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/js/sidebarmenu.js')) }}"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/js/custom.js')) }}"></script>
-    <!--  current page js files -->
     <script src="{{ absolute_url(asset('backoffice/vendor/js/owl.carousel.min.js')) }}"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/js/apexcharts.min.js')) }}"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/js/dashboard.js')) }}"></script>

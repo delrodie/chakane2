@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-12 mt-3">{{ form_row(form.titre) }}</div>
+    <div class="col-12 mt-3">{{ form_row(form.contenu) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.media) }}</div><div class="col-6 mt-3">
+        {% if collection.media %}
+            <img src="{{ absolute_url(asset('upload/collections/' ~ collection.media)) }}" alt="{{ collection.titre }}" class="img-fluid">
+        {% endif %}
+    </div>
+    <div class="col-12 mt-3">{{ form_row(form.tags) }}</div>
+</div>
+{{ form_widget(form) }}
+
+<div class="row mt-5">
+    <div class="col text-end">
+        <a href="{{ absolute_url(path('app_backend_collection_index')) }}" class="btn btn-outline-secondary">Annuler</a>
+        <button type="submit" class="btn btn-primary" id="saveButton">{{ button_label|default('Sauvegarder') }}</button>
+    </div>
+</div>
+{{ form_end(form) }}

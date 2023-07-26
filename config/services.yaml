@@ -32,4 +32,5 @@ services:
         arguments:
             $slideDirectory: '%kernel.project_dir%/public/upload/slides'
             $marqueDirectory: '%kernel.project_dir%/public/upload/marque'
+            $collectionDirectory: '%kernel.project_dir%/public/upload/collections'
             $produitDirectory: '%kernel.project_dir%/public/upload/produits'

@@ -55,6 +55,9 @@ class UserActivityLogSubscriber implements EventSubscriberInterface
         'app_backend_slide_edit' => "a visité la page de modification des slides",
         'app_backend_marque_new' => "a visité la page d'enregistrement des marques",
         'app_backend_marque_edit' => "a visité la page de modification des marques",
+        'app_backend_collection_index' => "a visité la page de liste des collections",
+        'app_backend_collection_new' => "a visité la page d'enregistrement des collections",
+        'app_backend_collection_edit' => "a visité la page de modification des collections",
     ];
 
 
