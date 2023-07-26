@@ -15,7 +15,8 @@ class AllRepository
         private DeviseRepository $deviseRepository,
         private MarqueRepository $marqueRepository,
         private SlideRepository $slideRepository,
-        private MaintenanceRepository $maintenanceRepository
+        private MaintenanceRepository $maintenanceRepository,
+        private CollectionRepository $collectionRepository
     )
     {
     }
@@ -42,6 +43,7 @@ class AllRepository
             'devise' => $this->getOneDevise(),
             'slides' => $this->slideRepository->findBy(['statut' => true], ['id' => "DESC"]),
             'maintenance' => $this->maintenanceRepository->findOneBy(['statut'=>true]),
+            'collections' => $this->collectionRepository->findBy([],['id'=>"DESC"]),
             default => false,
         };
 

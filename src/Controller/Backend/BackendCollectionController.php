@@ -43,6 +43,8 @@ class BackendCollectionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->gestionMedia->media($form, $collection, 'collection');
+            $collection->setSlug($this->utility->slug($collection->getTitre()));
+            $collection->setUpdatedAt($this->utility->fuseauGMT());
 
             $entityManager->persist($collection);
             $entityManager->flush();
@@ -74,7 +76,9 @@ class BackendCollectionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $collection->setSlug($this->utility->slug($collection->getTitre()));
             $this->gestionMedia->media($form, $collection, 'collection');
+            $collection->setUpdatedAt($this->utility->fuseauGMT());
 
             $entityManager->flush();
 
@@ -105,5 +109,6 @@ class BackendCollectionController extends AbstractController
 
         return $this->redirectToRoute('app_backend_collection_index', [], Response::HTTP_SEE_OTHER);
     }
+
 
 }

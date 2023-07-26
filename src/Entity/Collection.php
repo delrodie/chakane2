@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\CollectionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Service\Utility as Utility;
 
 #[ORM\Entity(repositoryClass: CollectionRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Collection
 {
     #[ORM\Id]
@@ -108,4 +110,9 @@ class Collection
 
         return $this;
     }
+
+    public function __construct(private Utility $utility)
+    {
+    }
+
 }

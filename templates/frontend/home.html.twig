@@ -175,32 +175,21 @@
         <div class="baniere">
             <div class="container">
                 <div class="row row-cols-12 row-cols-1 row-cols-lg-2 mt-5 mb-5">
-                    <div class="col affiche">
-                        <figure>
-                            <img src="./asset/img/affiche/banner_mode.png" alt="" class="img-fluid" loading="lazy">
-                        </figure>
-                        <div class="description">
-                            <h3>Collection mode</h3>
-                            <div class="resume mode">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore perspiciatis ratione ipsum, consequatur sequi, unde exercitationem consectetur id accusantium perferendis ut culpa laborum quos, architecto magni veniam qui ex illum.
+                    {% for collection in collections|slice(0,2) %}
+                        <div class="col affiche">
+                            <figure>
+                                <img src="{{ collection.media ? absolute_url(asset('upload/collections/' ~ collection.media)) : absolute_url(asset('asset/img/affiche/banner_sac.png.png')) }}" alt="{{ collection.titre }}" class="img-fluid" loading="lazy">
+                            </figure>
+                            <div class="description">
+                                <h3>{{ collection.titre }}</h3>
+                                <div class="resume mode">
+                                    {{ collection.contenu ? collection.contenu|slice(0,150)|raw : '' }}{{ collection.contenu ? '...' : '' }}
+                                </div>
+                                <a href="{{ absolute_url(path('app_frontend_collection_show',{'slug': collection.slug})) }}" class="details">Détails</a>
                             </div>
-                            <a href="#" class="details">Détails</a>
                         </div>
-                    </div>
+                    {% endfor %}
 
-                    <div class="col affiche">
-                        <figure>
-                            <img src="./asset/img/affiche/banner_sac.png" alt="" class="img-fluid" loading="lazy">
-                        </figure>
-                        <div class="description">
-                            <h3>Collection Terre d'Ivoire</h3>
-                            <div class="resume sac">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus, voluptatibus. Accusantium nobis ipsa commodi aliquid, praesentium illum nulla delectus reiciendis suscipit neque reprehenderit quaerat iste deleniti repellendus excepturi modi magni.
-                            </div>
-                            <a href="#" class="details">Détails</a>
-                        </div>
-
-                    </div>
                 </div>
             </div>
         </div>

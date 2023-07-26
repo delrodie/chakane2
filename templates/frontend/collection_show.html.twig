@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb">
+            <div class="container">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_home')) }}" class="menu-link"><i class="bi bi-house-fill"></i></a></li>
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_frontend_marque_index')) }}">La Marque</a></li>
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_frontend_collection_index')) }}">Nos collections</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ collection ? collection.titre : 'article' }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="container">
+                <div class="row mt-lg-5">
+                    <div class="col mb-5">
+                        <h5 class="titre-page mb-4">{{ collection ? collection.titre : "Aucune collection enregistrée"}}</h5>
+                        <div style="text-align:justify;">
+                            <img src="{{ absolute_url(asset( collection.media ? 'upload/collections/' ~ collection.media : 'asset/img/logo_black.png' )) }}" alt="{{ collection.titre }}" class="img-fluid" style="width: 500px; float: left; padding: 0 50px 30px 0;" loading="lazy">
+                            {{ collection ? collection.contenu|raw : '' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+
+{% block title %}{{ collection.titre }}{% endblock %}
+
+    {% block metas %}
+        <link rel="alternate" href="{{ absolute_url(path('app_home')) }}" hreflang="fr">
+
+        <meta name="keywords" content="{{ collection ? collection.tags : '' }}">
+        <meta name="description" content="{{ collection ? collection.contenu|striptags|slice(0,200): ''}}" />
+        <link rel="canonical" href="{{ absolute_url(path('app_frontend_collection_show',{slug: collection.slug})) }}" />
+        <link rel="next" href="{{ absolute_url(path('app_frontend_collection_index')) }}" />
+
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="{{ collection ? collection.titre : 'chakane' }}" />
+        <meta property="og:description" content="{{ collection ? collection.contenu|striptags|slice(0,200) : '' }}" />
+        <meta property="og:url" content="{{ absolute_url(path('app_frontend_collection_show',{slug: collection.slug})) }}" />
+        <meta property="og:site_name" content="Chakane" />
+        <meta property="article:created_time" content="{{ collection ? collection.updatedAt|date('Y-m-d') : '2023-07-16' }}T{{ collection ? collection.updatedAt|date('H:i:s') : '00:00:00' }}+00:00" />
+        <meta property="og:image" content="{{ absolute_url(asset( collection.media ? 'upload/collections/' ~ collection.media : 'asset/img/logo_black.png' )) }}" />
+        <meta property="og:image:type" content="image/svg+xml" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:description" content="{{ collection ? collection.contenu|striptags|slice(0,200) }}"/>
+        <meta name="twitter:title" content="{{ collection ? collection.titre : 'chakane' }}"/>
+        <meta name="twitter:domain" content="Chakane"/>
+        <meta name="twitter:image:src" content="{{ absolute_url(asset( collection.media ? 'upload/collections/' ~ collection.media : 'asset/img/logo_black.png' )) }}"/>
+    {% endblock %}
+

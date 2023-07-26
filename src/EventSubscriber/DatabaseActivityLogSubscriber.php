@@ -10,15 +10,22 @@ use App\Entity\Marque;
 use App\Entity\MentionLegale;
 use App\Entity\PolitiqueRetour;
 use App\Entity\Slide;
+use App\Repository\AllRepository;
 use App\Service\UserActivityLogger;
+use App\Service\Utility;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Symfony\Component\Validator\Constraints\All;
 
 class DatabaseActivityLogSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private UserActivityLogger $userActivityLogger
+        private UserActivityLogger $userActivityLogger,
+        private AllRepository $allRepository,
+        private Utility $utility,
+        private EntityManagerInterface $entityManager
     )
     {
     }
@@ -84,16 +91,19 @@ class DatabaseActivityLogSubscriber implements EventSubscriberInterface
         // Slide
         if ($entity instanceof Slide) {
             $this->userActivityLogger->logActivity("a {$action} le slide intitulé '{$entity->getTitre()}'");
+            $this->allRepository->allCache('slides', true);
         }
 
         // Marque
         if ($entity instanceof Marque){
             $this->userActivityLogger->logActivity("a {$action} la marque intitulé '{$entity->getTitre()}'");
+            $this->allRepository->allCache('marque', true);
         }
 
         // Collection
         if ($entity instanceof Collection){
             $this->userActivityLogger->logActivity("a {$action} la marque intitulé '{$entity->getTitre()}'");
+            $this->allRepository->allCache('collections', true);
         }
     }
 
