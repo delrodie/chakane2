@@ -759,6 +759,18 @@ main {
             border: solid 1px #325255; }
         main .profile .contenu nav a.page-link {
           color: #325255; }
+  main .contact a {
+    color: #7e3b14;
+    text-decoration: none;
+    font-weight: bold; }
+    main .contact a:hover {
+      color: #325255; }
+    main .contact a i {
+      font-size: 1.2rem; }
+  main .contact .info-contact {
+    margin-bottom: 35px; }
+  main .contact .formulaire {
+    margin-top: 100px; }
 
 footer {
   background: #325255; }

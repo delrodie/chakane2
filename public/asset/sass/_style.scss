@@ -1235,6 +1235,30 @@ main{
         }
     }
 
+    .contact{
+        a{
+            color: $couleur-maron;
+            text-decoration: none;
+            font-weight: bold;
+
+            &:hover{
+                color: $couleur-principale;
+            }
+
+            i{
+                font-size: 1.2rem;
+            }
+        }
+
+        .info-contact{
+            margin-bottom: 35px;
+        }
+
+        .formulaire{
+            margin-top: 100px;
+        }
+    }
+
 }
 
 footer{

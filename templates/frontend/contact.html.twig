@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb">
+            <div class="container">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_home')) }}" class="menu-link"><i class="bi bi-house-fill"></i></a></li>
+                        {#                        <li class="breadcrumb-item"><a href="#">Serive client</a></li>#}
+                        <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="page contact">
+            <div class="container">
+                <div class="row mt-lg-5">
+                    <div class="col col-md-10 col-lg-8 offset-md-1 offset-lg-2 mb-5">
+                        <h5 class="titre-page mb-4">NOUS CONTACTER</h5>
+                        <div class="text-center info-contact mb-5" style="text-align:justify; margin-bottom: 50px;">
+                            <div class="info-contact">
+                                Vous êtes un particulier et vous avez une question sur une commande ou sur nos produits:
+                                <br>
+                                <a href="mailto:boutique@chakane.net"><i class="bi bi-envelope-at"></i> boutique@chakane.net</a> <br>
+                                <a href="https://wa.me/+2250759535951" target="_blank"><i class="bi bi-whatsapp"></i> +225 07 59 535 951</a>
+                            </div>
+                            <div class="info-contact">
+                                Pour toutes autres questions ou demande (presse, partenariat etc...): <br>
+                                <a href="mailto:contact@chakane.net"><i class="bi bi-envelope"></i> contact@chakane.net</a>
+                            </div>
+                            <div class="info-contact">
+                                Pour visiter notre boutique : <br>
+                                <u><em>Villa 240 En face de la, Cité Universitaire, Cocody Riviera 2, Abidjan</em></u> <br>
+                                <a href="https://goo.gl/maps/7P8CrwrucMBGY99i7" target="_blank"><i class="bi bi-geo-alt"></i> Localisation</a>
+                            </div>
+                        </div>
+                        <div class="formulaire" style="text-align:justify;">
+                            <h5 class="mt-5">FORMULAIRE DE CONTACT:</h5>
+                            <em>
+                                En soumettant ce formulaire, vous acceptez que les informations saisies soient exploités dans le cadre
+                                de la relation commerciale qui en découle. Pour plus d'informations, veuillez vous referer à notre politique
+                                de confidentialité <a href="{{ absolute_url(path('app_frontend_confidentialite_index')) }}">ici</a>
+                            </em>
+                        </div>
+                        <form action="">
+                            <div class="row mt-5">
+                                <div class="col-12 col-lg-6 mt-3">
+                                    <label for="">Nom <span style="font-weight:bold; color: darkred">*</span></label>
+                                    <input type="text" class="form-control form-control-lg" required>
+                                </div>
+                                <div class="col-12 col-lg-6 mt-3">
+                                    <label for="">E-mail <span style="font-weight:bold; color: darkred">*</span></label>
+                                    <input type="email" class="form-control form-control-lg" required>
+                                </div>
+                                <div class="col-12 mt-3 d-sm-block d-md-none d-lg-none">
+                                    <label for="">Telephone</label>
+                                    <input type="tel" class="form-control form-control-lg">
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <label for="">Object <span style="font-weight:bold; color: darkred">*</span></label>
+                                    <input type="text" class="form-control form-control-lg" required>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <label for="">Message <span style="font-weight:bold; color: darkred">*</span></label>
+                                    <textarea name="" id="" cols="30" rows="10" class="form-control" required></textarea>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3 offset-md-6 offset-lg-9 mt-5 text-end d-grid gap-2">
+                                    <button class="btn btn-success btn-lg"><i class="bi bi-send"></i> Envoyer</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+
+{% block title %}Nous contacter{% endblock %}
+
+
+
