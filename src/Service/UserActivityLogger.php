@@ -12,7 +12,8 @@ class UserActivityLogger
     public function __construct(
         private TokenStorageInterface $tokenStorage,
         private string $logFilePath,
-        private RequestStack $requestStack
+        private RequestStack $requestStack,
+        private Utility $utility
     )
     {
         $this->createdLogFileNeeded();
@@ -37,12 +38,19 @@ class UserActivityLogger
         $user = $token?->getUser();
         $username = $user ? $user->getUserIdentifier() : 'Anonyme';
 
+        // Récuperation de l'adresse IP de l'utilisateur
+        $userIp = $this->getRequestIp();
+
+        // Récupération du pays de l'utilisateur
+        $userCountry = $this->utility->getUserCountry($userIp);
+
         $logEntry = [
             'datetime' => (new \DateTime('now', new \DateTimeZone('GMT')))->format('Y-m-d H:i:s'),
 //            'datetime' => date('Y-m-d H:i:s'),
             'username' => $username,
             'action' => $action,
-            'ip' => $this->getRequestIp()
+            'ip' => $userIp,
+            'country' => $userCountry
         ];
 
 //        $logMessage = sprintf(

@@ -49,6 +49,7 @@
                                         <th class="text-center text-uppercase">Dates</th>
                                         <th class="text-center text-uppercase">Actions</th>
                                         <th class="text-center text-uppercase">Adresses IP</th>
+                                        <th class="text-center text-uppercase">Pays</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -58,6 +59,7 @@
                                             <td class="text-center">{{ log.datetime|date('Y-m-d H:i:s') }}</td>
                                             <td class="text-left">{{ log.username }} {{ log.action }}</td>
                                             <td class="text-center">{{ log.ip }}</td>
+                                            <td class="text-left">{{ log.country ? log.country : '-' }}</td>
                                         </tr>
                                     {% else %}
                                         <tr>
