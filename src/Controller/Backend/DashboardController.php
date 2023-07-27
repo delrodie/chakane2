@@ -19,7 +19,8 @@ class DashboardController extends AbstractController
     #[Route('/', name: 'app_backend_dashboard_index')]
     public function index()
     {
-
+        // https://ipinfo.io/developers
+        // https://ipinfo.io/account/home
         return $this->render('backend/dashboard.html.twig',[
             'devise' => $this->allRepository->allCache('devise', true)
         ])->setSharedMaxAge(3600);

@@ -1,49 +1,225 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend_layout.html.twig' %}
 
 {% block title %}MessageInternaute index{% endblock %}
 
 {% block body %}
-    <h1>MessageInternaute index</h1>
+<div class="container-fluid">
+    <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+        <div class="card-body px-4 py-3">
+            <div class="row align-items-center">
+                <div class="col-9">
+                    <h4 class="fw-semibold mb-8">Message</h4>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-muted">Divers</a></li>
+                            <li class="breadcrumb-item"><a class="text-muted">Pages</a></li>
+                            <li class="breadcrumb-item" aria-current="page">Messages</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-3">
+                    <div class="text-center mb-n5">
+                        <span class="head-icon"><i class="ti-email"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card overflow-hidden chat-application">
+        <div class="d-flex align-items-center justify-content-between gap-3 m-3 d-lg-none">
+            <button class="btn btn-primary d-flex" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat-sidebar" aria-controls="chat-sidebar">
+                <i class="ti ti-menu-2 fs-5"></i>
+            </button>
+            <form class="position-relative w-100">
+                <input type="text" class="form-control search-chat py-2 ps-5" id="text-srh" placeholder="Search Contact">
+                <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+            </form>
+        </div>
+        <div class="d-flex w-100">
+            <div class="left-part border-end w-20 flex-shrink-0 d-none d-lg-block">
+                <div class="px-9 pt-4 pb-3">
+                    <button class="btn btn-primary fw-semibold py-8 w-100">Nouveau</button>
+                </div>
+                <ul class="list-group" style="height: calc(100vh - 400px)" data-simplebar>
+                    <li class="list-group-item border-0 p-0 mx-9">
+                        <a class="d-flex align-items-center gap-2 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1"
+                           href="javascript:void(0)"><i class="ti ti-inbox fs-5"></i>Réçu</a>
+                    </li>
+                    <li class="list-group-item border-0 p-0 mx-9">
+                        <a class="d-flex align-items-center gap-2 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1"
+                           href="javascript:void(0)"><i class="ti ti-brand-telegram fs-5"></i>Envoyé</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex w-100">
+                <div class="min-width-340">
+                    <div class="border-end user-chat-box h-100">
+                        <div class="px-4 pt-9 pb-6 d-none d-lg-block">
+                            <form class="position-relative">
+                                <input type="text" class="form-control search-chat py-2 ps-5" id="text-srh"
+                                       placeholder="Search" />
+                                <i
+                                        class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+                            </form>
+                        </div>
+                        <div class="app-chat">
+                            <ul class="chat-users" style="height: calc(100vh - 400px)" data-simplebar>
+                                {% for message in messages %}
+                                    <li>
+                                        <a href="javascript:void(0)"
+                                           class="px-4 py-3 bg-hover-light-black d-flex align-items-start chat-user bg-light" id="chat_user_1"
+                                           data-user-id="{{ message.id }}">
+                                            <div class="form-check mb-0">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            </div>
+                                            <div class="position-relative w-100 ms-2">
+                                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                                    <h6 class="mb-0">{{ message.nom }}</h6>
+                                                    {{ message.lecture ? '': '<span class="badge text-bg-danger fs-2 rounded-4 py-1 px-2">Non lu</span>' }}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Telephone</th>
-                <th>Objet</th>
-                <th>Content</th>
-                <th>CreatedAt</th>
-                <th>Lecture</th>
-                <th>Retour</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for message_internaute in message_internautes %}
-            <tr>
-                <td>{{ message_internaute.id }}</td>
-                <td>{{ message_internaute.nom }}</td>
-                <td>{{ message_internaute.email }}</td>
-                <td>{{ message_internaute.telephone }}</td>
-                <td>{{ message_internaute.objet }}</td>
-                <td>{{ message_internaute.content }}</td>
-                <td>{{ message_internaute.createdAt ? message_internaute.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ message_internaute.lecture ? 'Yes' : 'No' }}</td>
-                <td>{{ message_internaute.retour ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_backend_message_internaute_show', {'id': message_internaute.id}) }}">show</a>
-                    <a href="{{ path('app_backend_message_internaute_edit', {'id': message_internaute.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                                                </div>
+                                                <h6 class="fw-semibold text-dark">{{ message.objet }}</h6>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <span><i class="ti ti-star fs-4 me-2 text-dark"></i></span>
+                                                        <span class="d-block"><i class="ti ti-alert-circle text-muted"></i></span>
+                                                    </div>
+                                                    <p class="mb-0 fs-2 text-muted">{{ message.createdAt ? message.createdAt|date('Y-m-d H:i:s') }}</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100">
+                    <div class="chat-container h-100 w-100">
+                        <div class="chat-box-inner-part h-100">
+                            <div class="chatting-box app-email-chatting-box">
+                                <div class="p-9 py-3 border-bottom chat-meta-user">
+                                    <ul class="list-unstyled mb-0 d-flex align-items-center">
+                                        <li class="d-lg-none d-block">
+                                            <a class="text-dark back-btn px-2 fs-5 bg-hover-primary nav-icon-hover position-relative z-index-5" href="javascript:void(0)">
+                                                <i class="ti ti-arrow-left"></i>
+                                            </a>
+                                        </li>
+                                        <li class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Star">
+                                            <a class="text-dark px-2 fs-5 bg-hover-primary nav-icon-hover position-relative z-index-5" href="javascript:void(0)">
+                                                <i class="ti ti-star"></i>
+                                            </a>
+                                        </li>
+                                        <li class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="important">
+                                            <a class="d-block text-dark px-2 fs-5 bg-hover-primary nav-icon-hover position-relative z-index-5" href="javascript:void(0)">
+                                                <i class="ti ti-alert-circle"></i>
+                                            </a>
+                                        </li>
+                                        <li class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
+                                            <a class="text-dark px-2 fs-5 bg-hover-primary nav-icon-hover position-relative z-index-5" href="javascript:void(0)">
+                                                <i class="ti ti-trash"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="position-relative overflow-hidden">
+                                    <div class="position-relative">
+                                        <div class="chat-box p-9" style="height: calc(100vh - 428px)" data-simplebar>
+                                            {% for message in messages %}
+                                                <div class="chat-list chat {% if loop.index == 1%} active-chat {% endif %}" data-user-id="{{ message.id }}">
+                                                    <div
+                                                            class="hstack align-items-start mb-7 pb-1 align-items-center justify-content-between">
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <img src="{{ absolute_url(asset('backoffice/img/avatar.png')) }}" alt="user8" width="48" height="48"
+                                                                 class="rounded-circle" />
+                                                            <div>
+                                                                <h6 class="fw-semibold mb-0">{{ message.nom }}</h6>
+                                                                <p class="mb-0">{{ message.email }}</p>
+                                                            </div>
+                                                        </div>
+                                                        {{ message.retour ? '<span class="badge text-bg-primary fs-2 rounded-4 py-1 px-2">Repondu</span>' : '<span class="badge text-bg-warning fs-2 rounded-4 py-1 px-2">Non repondu</span>' }}
 
-    <a href="{{ path('app_backend_message_internaute_new') }}">Create new</a>
-{% endblock %}
+                                                    </div>
+                                                    <div class="border-bottom pb-7 mb-7">
+                                                        <h4 class="fw-semibold text-dark mb-3">{{ message.objet }}</h4>
+                                                        <p class="mb-3 text-dark">Hello Andrew,</p>
+                                                        <p class="mb-3 text-dark">
+                                                            {{ message.content|striptags }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+
+                                        </div>
+                                        <div class="px-9 py-3 border-top chat-send-message-footer">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <ul class="list-unstyledn mb-0 d-flex align-items-center gap-7">
+                                                    <li>
+                                                        <a class="text-dark bg-hover-primary d-flex align-items-center gap-1" href="javascript:void(0)">
+                                                            <i class="ti ti-arrow-back-up fs-5"></i>
+                                                            Repondre
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="text-dark bg-hover-primary d-flex align-items-center gap-1" href="javascript:void(0)">
+                                                            <i class="ti ti-arrow-forward-up fs-5"></i>
+                                                            Transferer
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endblock %}
+            {% block javascripts %}
+                {{ parent() }}
+                <script src="{{ absolute_url(asset('backoffice/js/message.js')) }}"></script>
+                <script>
+                    const links = document.querySelectorAll('[data-user-id]');
+
+                    links.forEach(link => {
+                        link.addEventListener('click', function (e) {
+                            e.preventDefault();
+
+                            const messageId = link.getAttribute('data-user-id');
+
+                            // Vérifions si le badge "Non lu" existe
+                            const isMessageRead = link.querySelector('.badge') === null;
+
+                            if (isMessageRead) {
+                                console.log('Le message a déjà été lu, pas besoin de mettre à jour.');
+                                return;
+                            }
+
+                            console.log(messageId)
+                            fetch('{{ absolute_url(path('app_home')) }}api/messages/' + messageId,{
+                                method: 'PUT',
+                                headers:{
+                                    'Content-Type':'application/json'
+                                },
+                                body: JSON.stringify({messageId: messageId})
+                            })
+                                .then(response => {
+                                    if (response.ok){
+                                        // Suppression du badge "Non lu"
+                                        link.querySelector('.badge').remove();
+                                        console.log("Mise a jour réussie")
+                                    }else{
+                                        console.log("Echec")
+                                    }
+                                })
+                                .catch(error =>{
+                                    console.error("Une erreur est survenue lors de la mise a jour : ", error)
+                                })
+                        })
+                    });
+
+                </script>
+            {% endblock %}

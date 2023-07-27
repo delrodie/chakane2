@@ -18,7 +18,7 @@ class BackendMessageInternauteController extends AbstractController
     public function index(MessageInternauteRepository $messageInternauteRepository): Response
     {
         return $this->render('backend_message_internaute/index.html.twig', [
-            'message_internautes' => $messageInternauteRepository->findAll(),
+            'messages' => $messageInternauteRepository->findBy([],['id'=>"DESC"]),
         ]);
     }
 

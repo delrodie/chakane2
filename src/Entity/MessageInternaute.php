@@ -38,6 +38,9 @@ class MessageInternaute
     #[ORM\Column(nullable: true)]
     private ?bool $retour = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $lectureAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class MessageInternaute
     public function setRetour(?bool $retour): static
     {
         $this->retour = $retour;
+
+        return $this;
+    }
+
+    public function getLectureAt(): ?\DateTimeInterface
+    {
+        return $this->lectureAt;
+    }
+
+    public function setLectureAt(?\DateTimeInterface $lectureAt): static
+    {
+        $this->lectureAt = $lectureAt;
 
         return $this;
     }
