@@ -126,4 +126,12 @@ class Utility
             return null;
         }
     }
+
+    public function codeType(): int|string|null
+    {
+        $type = $this->allRepository->getOneType();
+        if (!$type) return 10;
+
+        return $type->getCode() + 1;
+    }
 }

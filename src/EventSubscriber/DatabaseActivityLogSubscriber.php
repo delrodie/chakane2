@@ -11,6 +11,7 @@ use App\Entity\Marque;
 use App\Entity\MentionLegale;
 use App\Entity\PolitiqueRetour;
 use App\Entity\Slide;
+use App\Entity\Type;
 use App\Repository\AllRepository;
 use App\Service\UserActivityLogger;
 use App\Service\Utility;
@@ -111,6 +112,11 @@ class DatabaseActivityLogSubscriber implements EventSubscriberInterface
         if ($entity instanceof Contact){
             $this->userActivityLogger->logActivity("a {$action} le contact");
             $this->allRepository->allCache('contact', true);
+        }
+
+        // Type
+        if ($entity instanceof Type){
+            $this->userActivityLogger->logActivity("a {$action} le type");
         }
     }
 

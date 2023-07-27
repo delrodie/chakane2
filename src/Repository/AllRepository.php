@@ -17,7 +17,8 @@ class AllRepository
         private SlideRepository $slideRepository,
         private MaintenanceRepository $maintenanceRepository,
         private CollectionRepository $collectionRepository,
-        private ContactRepository $contactRepository
+        private ContactRepository $contactRepository,
+        private TypeRepository $typeRepository
     )
     {
     }
@@ -25,6 +26,11 @@ class AllRepository
     public function getOneDevise()
     {
         return $this->deviseRepository->findOneBy([],['id'=>"DESC"]);
+    }
+
+    public function getOneType()
+    {
+        return $this->typeRepository->findOneBy([],['id'=>"DESC"]);
     }
 
     public function allCache(string $cacheName, bool $delete = false)
