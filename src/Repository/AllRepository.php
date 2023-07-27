@@ -45,7 +45,7 @@ class AllRepository
             'slides' => $this->slideRepository->findBy(['statut' => true], ['id' => "DESC"]),
             'maintenance' => $this->maintenanceRepository->findOneBy(['statut'=>true]),
             'collections' => $this->collectionRepository->findBy([],['id'=>"DESC"]),
-            'contact' => $this->contactRepository->findBy([],['id'=>"DESC"]),
+            'contact' => $this->contactRepository->findOneBy([],['id'=>"DESC"]),
             default => false,
         };
 

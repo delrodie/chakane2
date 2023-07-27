@@ -44,8 +44,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-7 contact d-none d-md-block">
-                        <a href="#" class="support"><i class="bi bi-headset"></i> +225 00 00 000 000</a>
-                        <a href="#" class="mail"><i class="bi bi-envelope-at"></i> contact@chakane.net</a>
+                        <a href="tel:+225{{ render(url('app_frontend_contact_header')) }}" class="support"><i class="bi bi-headset"></i> +225 {{ render(url('app_frontend_contact_header')) }}</a>
+                        <a href="mailto:contact@chakane.net" class="mail"><i class="bi bi-envelope-at"></i> contact@chakane.net</a>
                     </div>
                     <div class="col-6 d-block d-md-none contact">
                         <div class="dropdown">
@@ -53,12 +53,13 @@
                                 <i class="bi bi-question-circle"></i> Liens utiles
                             </a>
                             <div class="dropdown-menu">
-                                <li><a href="#" class="dropdown-item"><i class="bi bi-headset"></i> +225 00 00 000 000</a></li>
-                                <li><a href="#" class="dropdown-item"><i class="bi bi-envelope-at"></i> contact@chakane.net</a></li>
+                                <li><a href="tel:+225{{ render(url('app_frontend_contact_header')) }}" class="dropdown-item"><i class="bi bi-headset"></i> +225{{ render(url('app_frontend_contact_header')) }}</a></li>
+                                <li><a href="mailto:contact@chakane.net" class="dropdown-item"><i class="bi bi-envelope-at"></i> contact@chakane.net</a></li>
                             </div>
                         </div>
 
                     </div>
+
                     <div class="col-6 col-md-5 social-icons">
                         <a href="#" class="facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
@@ -164,9 +165,9 @@
                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid dolorum, molestias repellendus,
                     </p>
                     <ul class="adresse">
-                        <li><a href="#"><i class="bi bi-geo-alt"></i> Abidjan, Plateau centre Kahira</a></li>
-                        <li><a href="#"><i class="bi bi-telephone"></i> +225 00 00 000 000</a> </li>
-                        <li><a href="#"><i class="bi bi-envelope"></i> contact@docteurtech.net</a></li>
+                        <li><a href="#"><i class="bi bi-geo-alt"></i> Villa 240 En face de la, Cité Universitaire, Cocody Riviera 2, Abidjan</a></li>
+                        <li><a href="#"><i class="bi bi-telephone"></i> +225 {{ render(url('app_frontend_contact_header')) }}</a> </li>
+                        <li><a href="#"><i class="bi bi-envelope"></i> contact@chakane.net</a></li>
                     </ul>
                     <div class="icons-sociaux">
                         <h6>Nous suivre</h6>
