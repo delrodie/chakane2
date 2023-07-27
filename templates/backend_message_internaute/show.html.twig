@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MessageInternaute{% endblock %}
+
+{% block body %}
+    <h1>MessageInternaute</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ message_internaute.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ message_internaute.nom }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ message_internaute.email }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ message_internaute.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Objet</th>
+                <td>{{ message_internaute.objet }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ message_internaute.content }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ message_internaute.createdAt ? message_internaute.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Lecture</th>
+                <td>{{ message_internaute.lecture ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Retour</th>
+                <td>{{ message_internaute.retour ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_message_internaute_index') }}">back to list</a>
+
+    <a href="{{ path('app_backend_message_internaute_edit', {'id': message_internaute.id}) }}">edit</a>
+
+    {{ include('backend_message_internaute/_delete_form.html.twig') }}
+{% endblock %}

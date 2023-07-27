@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MessageInternaute index{% endblock %}
+
+{% block body %}
+    <h1>MessageInternaute index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Objet</th>
+                <th>Content</th>
+                <th>CreatedAt</th>
+                <th>Lecture</th>
+                <th>Retour</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for message_internaute in message_internautes %}
+            <tr>
+                <td>{{ message_internaute.id }}</td>
+                <td>{{ message_internaute.nom }}</td>
+                <td>{{ message_internaute.email }}</td>
+                <td>{{ message_internaute.telephone }}</td>
+                <td>{{ message_internaute.objet }}</td>
+                <td>{{ message_internaute.content }}</td>
+                <td>{{ message_internaute.createdAt ? message_internaute.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ message_internaute.lecture ? 'Yes' : 'No' }}</td>
+                <td>{{ message_internaute.retour ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_backend_message_internaute_show', {'id': message_internaute.id}) }}">show</a>
+                    <a href="{{ path('app_backend_message_internaute_edit', {'id': message_internaute.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_message_internaute_new') }}">Create new</a>
+{% endblock %}

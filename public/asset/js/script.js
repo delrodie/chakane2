@@ -89,7 +89,5 @@ document.addEventListener('DOMContentLoaded', () => {
 		link.addEventListener('click', setActiveMenu);
 	});
 
-	// ... (le reste de votre code jQuery ou d'autres fonctionnalités)
 });
 
-// ... (le reste de votre code JavaScript ou d'autres fonctionnalités)

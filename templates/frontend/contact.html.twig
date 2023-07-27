@@ -45,33 +45,34 @@
                                 de confidentialité <a href="{{ absolute_url(path('app_frontend_confidentialite_index')) }}">ici</a>
                             </em>
                         </div>
-                        <form action="">
+                        {{ form_start(form) }}
                             <div class="row mt-5">
                                 <div class="col-12 col-lg-6 mt-3">
                                     <label for="">Nom <span style="font-weight:bold; color: darkred">*</span></label>
-                                    <input type="text" class="form-control form-control-lg" required>
+                                    {{ form_widget(form.nom) }}{{ form_errors(form.nom) }}
                                 </div>
                                 <div class="col-12 col-lg-6 mt-3">
                                     <label for="">E-mail <span style="font-weight:bold; color: darkred">*</span></label>
-                                    <input type="email" class="form-control form-control-lg" required>
+                                    {{ form_widget(form.email) }} {{ form_errors(form.email) }}
                                 </div>
                                 <div class="col-12 mt-3 d-sm-block d-md-none d-lg-none">
                                     <label for="">Telephone</label>
-                                    <input type="tel" class="form-control form-control-lg">
+                                    {{ form_widget(form.telephone) }} {{ form_errors(form.telephone) }}
                                 </div>
                                 <div class="col-12 mt-3">
-                                    <label for="">Object <span style="font-weight:bold; color: darkred">*</span></label>
-                                    <input type="text" class="form-control form-control-lg" required>
+                                    <label for="">Objet <span style="font-weight:bold; color: darkred">*</span></label>
+                                    {{ form_widget(form.objet) }}{{ form_errors(form.objet) }}
                                 </div>
                                 <div class="col-12 mt-3">
                                     <label for="">Message <span style="font-weight:bold; color: darkred">*</span></label>
-                                    <textarea name="" id="" cols="30" rows="10" class="form-control" required></textarea>
+                                    {{ form_widget(form.content) }}{{ form_errors(form.content) }}
                                 </div>
+                                {{ form_widget(form) }}
                                 <div class="col-12 col-md-6 col-lg-3 offset-md-6 offset-lg-9 mt-5 text-end d-grid gap-2">
                                     <button class="btn btn-success btn-lg"><i class="bi bi-send"></i> Envoyer</button>
                                 </div>
                             </div>
-                        </form>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
