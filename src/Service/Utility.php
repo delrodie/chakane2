@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Categorie;
 use App\Entity\Devise;
 use App\Repository\AllRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -134,4 +135,18 @@ class Utility
 
         return $type->getCode() + 1;
     }
+
+    public function codeCategorie(Categorie $categorie): void
+    {
+        $entity = $this->allRepository->getOneCategorie();
+        $codeType = $categorie->getType()->getCode() ?? '20';
+
+        $code = $codeType . ($categorie->getId() ? $categorie->getId() + 10 : ($entity ? $entity->getId() + 11 : '11'));
+
+        $categorie->setCode($code);
+
+        $categorie->setSlug($this->slug($categorie->getTitre()));
+    }
+
+
 }

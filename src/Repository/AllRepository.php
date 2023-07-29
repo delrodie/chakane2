@@ -18,7 +18,8 @@ class AllRepository
         private MaintenanceRepository $maintenanceRepository,
         private CollectionRepository $collectionRepository,
         private ContactRepository $contactRepository,
-        private TypeRepository $typeRepository
+        private TypeRepository $typeRepository,
+        private CategorieRepository $categorieRepository
     )
     {
     }
@@ -28,9 +29,20 @@ class AllRepository
         return $this->deviseRepository->findOneBy([],['id'=>"DESC"]);
     }
 
-    public function getOneType()
+    public function getOneType(int $concerned=null)
     {
+        if ($concerned) {
+            return $this->typeRepository->findOneBy(['id' => $concerned]);
+        }
+
         return $this->typeRepository->findOneBy([],['id'=>"DESC"]);
+    }
+
+    public function getOneCategorie(int $concerned=null)
+    {
+        if ($concerned) return $this->categorieRepository->findOneBy(['id'=>$concerned]);
+
+        return $this->categorieRepository->findOneBy([],['id'=>"DESC"]);
     }
 
     public function allCache(string $cacheName, bool $delete = false)

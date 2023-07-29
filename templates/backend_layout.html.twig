@@ -81,7 +81,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="c" class="sidebar-link">
+                                <a href="{{ absolute_url(path('app_backend_categorie_index')) }}" class="sidebar-link">
                                     <div class="round-16 d-flex align-items-center justify-content-center">
                                         <i class="ti-angle-right"></i>
                                     </div>
@@ -396,7 +396,7 @@
     <script src="{{ absolute_url(asset('backoffice/vendor/js/owl.carousel.min.js')) }}"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/js/apexcharts.min.js')) }}"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/js/dashboard.js')) }}"></script>
-    <script src="{{ absolute_url(asset('backoffice/js/script.js')) }}"></script>
+{#    <script src="{{ absolute_url(asset('backoffice/js/script.js')) }}"></script>#}
     <script src="{{ absolute_url(asset('asset/js/btn.script.js')) }}"></script>
 {% endblock %}
 </body>

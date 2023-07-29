@@ -8,14 +8,14 @@ document.addEventListener("DOMContentLoaded", function() {
         saveButton.innerHTML = "Sauvegarde en cours...";
     });
 
-    deleteForm.addEventListener("submit", function() {
-        var confirmation = confirm("Voulez-vous vraiment supprimer cet element?");
-        if (!confirmation){
-            event.preventDefault();
-            return;
-        }
-        deleteButton.classList.add("button-processing");
-        deleteButton.innerHTML = "Suppression en cours...";
+    deleteForm.addEventListener("submit", function(event) {
+        // var confirmation = confirm("Voulez-vous vraiment supprimer cet element?");
+        // if (!confirmation){
+        //     event.preventDefault();
+        //     return;
+        // }
+        // deleteButton.classList.add("button-processing");
+        // deleteButton.innerHTML = "Suppression en cours...";
     });
 
     // Affichage du modal de modification

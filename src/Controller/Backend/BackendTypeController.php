@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Backend;
 
 use App\Entity\Type;
 use App\Form\TypeType;
 use App\Repository\TypeRepository;
 use App\Service\Utility;
 use Doctrine\ORM\EntityManagerInterface;
-use Monolog\Handler\Curl\Util;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

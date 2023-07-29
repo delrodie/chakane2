@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use App\Entity\Categorie;
 use App\Entity\Cgu;
 use App\Entity\Collection;
 use App\Entity\ConditionRetour;
@@ -117,6 +118,11 @@ class DatabaseActivityLogSubscriber implements EventSubscriberInterface
         // Type
         if ($entity instanceof Type){
             $this->userActivityLogger->logActivity("a {$action} le type");
+        }
+
+        // Type
+        if ($entity instanceof Categorie){
+            $this->userActivityLogger->logActivity("a {$action} la catégorie");
         }
     }
 
