@@ -42,7 +42,22 @@ class UserActivityLogger
         $userIp = $this->getRequestIp();
 
         // Récupération du pays de l'utilisateur
-        $userCountry = $this->utility->getUserCountry($userIp);
+//        $userCountry = $this->utility->getUserCountry($userIp);
+//        $userLocation = $this->utility->getUserLocation($userIp ?? '102.67.254.134');
+
+        //Affecter une valeur à l'IP en developpement
+        if ($userIp === '127.0.0.1') $userIp = '102.67.254.134';
+
+        // Gestion de la session
+        $session = $this->requestStack->getSession();
+        if ($session->get('userLocation')){
+            $userLocation = $session->get('userLocation');
+        }else{
+            $userLocation = $this->utility->getUserLocation($userIp);
+            $session->set('userLocation', $userLocation);
+        }
+
+        $userLocationData = json_decode($userLocation, true); //dd($userLocationData);
 
         $logEntry = [
             'datetime' => (new \DateTime('now', new \DateTimeZone('GMT')))->format('Y-m-d H:i:s'),
@@ -50,7 +65,12 @@ class UserActivityLogger
             'username' => $username,
             'action' => $action,
             'ip' => $userIp,
-            'country' => $userCountry
+            'country' => $userLocationData['country'],
+            'city' => $userLocationData['city'],
+            'region' => $userLocationData['region'],
+            'location' => $userLocationData['loc'],
+            'org' => $userLocationData['org'],
+            'timezone' => $userLocationData['timezone']
         ];
 
 //        $logMessage = sprintf(

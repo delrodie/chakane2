@@ -7,13 +7,17 @@ use App\Entity\Devise;
 use App\Repository\AllRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class Utility
 {
     public function __construct(
         private EntityManagerInterface $_em,
-        private AllRepository $allRepository
+        private AllRepository $allRepository,
+        private CacheInterface $cache,
     )
     {
     }
@@ -120,10 +124,32 @@ class Utility
             $response = $httpClient->request('GET', 'https://ipinfo.io/' . $userIp . '/country');
             // Vous pouvez utiliser une base de données ou un service tiers pour obtenir le nom complet du pays à partir du code du pays.
             // Par exemple, vous pouvez utiliser le service "ipinfo.io" pour obtenir des informations plus détaillées comme le nom complet du pays.
-
+            // curl "ipinfo.io/102.67.254.134?token=34390da7c9562a"
             return $response->getContent(); // Par exemple, 'US' pour les États-Unis, 'FR' pour la France, etc.
         } catch (\Exception $e) {
             // En cas d'erreur lors de la récupération du pays, retournez NULL ou un pays par défaut.
+            return null;
+        }
+    }
+
+    public function getUserLocation(?string $userIp)
+    {
+
+        // Essayons d'obtenir les données de localisation à partir du cache
+        return $this->cache->get('user_location_'.$userIp, function (ItemInterface $item) use($userIp){
+            $item->expiresAfter(86400); // 24h
+            return $this->getUserLocationFromApi($userIp);
+        });
+
+    }
+
+    public function getUserLocationFromApi(string $userIp): ?string
+    {
+        try{
+            $httpClient = HttpClient::create();
+            $response = $httpClient->request('GET', "https://ipinfo.io/{$userIp}?token=34390da7c9562a");
+            return $response->getContent();
+        }catch (\Exception $e){
             return null;
         }
     }
