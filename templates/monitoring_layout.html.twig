@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="CashApp" content="true" />
+    <meta name="MobileOptimized" content="CashApp" />
+    <meta name="description" content="Système de gestion des boutiques de ventes en gros et détails" />
+    <meta name="author" content="Delrodie AMOIKON" />
+    <meta name="keywords" content="Logiciel, superette, stock, caisse" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{% block title %}CashApp :: {% endblock %}</title>
+    <link rel="icon" href="{{ absolute_url(asset('asset/img/favicon.ico')) }}">
+    <!--  Required Meta Tag -->
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/style.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/app.css')) }}">
+        <link rel="stylesheet" href="{{ asset('backoffice/vendor/themify-icons/themify-icons.css') }}">
+    {% endblock %}
+    <style>
+        .head-icon{
+            font-size: 5.5rem;
+        }
+        .action{
+            float: right;
+        }
+        .logo-img{
+            font-weight: bold;
+            font-size: 2.3rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+    <div class="position-relative overflow-hidden radial-gradient min-vh-100">
+        <div class="position-relative z-index-5">
+            <div class="row">
+                <div class="col-xl-8 col-xxl-9">
+                    <div class="d-none d-xl-flex align-items-center justify-content-center" style="height: calc(100vh - 80px);">
+                        <div id="map" style="height: 90vh; width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-xxl-3">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block javascripts %}
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/jquery.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/simplebar.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/bootstrap.bundle.min.js')) }}"></script>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!--  core files -->
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/app.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/app.init.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/app-style-switcher.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/sidebarmenu.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/custom.js')) }}"></script>
+{% endblock %}
+</body>
+</html>

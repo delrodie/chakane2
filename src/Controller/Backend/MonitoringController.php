@@ -22,4 +22,13 @@ class MonitoringController extends AbstractController
             'logs' => $this->userActivityLogger->getSortedLogEntriesForView()
         ]);
     }
+
+    #[Route('/map', name: 'app_backend_monitoring_map')]
+    public function map()
+    {
+//        dd($this->userActivityLogger->getUniqueIPs());
+        return $this->render('backend/map.html.twig',[
+            'ipsUniques' => $this->userActivityLogger->getUniqueIPs()
+        ]);
+    }
 }

@@ -69,6 +69,7 @@ class UserActivityLogger
             'city' => $userLocationData['city'],
             'region' => $userLocationData['region'],
             'location' => $userLocationData['loc'],
+//            'location' => '46.813566, -71.222689',
             'org' => $userLocationData['org'],
             'timezone' => $userLocationData['timezone']
         ];
@@ -109,6 +110,37 @@ class UserActivityLogger
     public function getSortedLogEntriesForView()
     {
         return $this->getSortedLogEntries();
+    }
+
+    public function getUniqueIPs(): array
+    {
+        $ipsUnique = [];
+        foreach ($this->getSortedLogEntries() as $logEntry){
+            $ip = $logEntry['ip'];
+            $location = $logEntry['location'];
+            list($latitude, $longitude) = explode(',', $location);
+            $latitude = (float) $latitude;
+            $longitude = (float) $longitude;
+
+            if (!in_array($ip, array_column($ipsUnique, 'ip'), true)){
+                $ipsUnique[] = [
+                    'ip' => $ip,
+                    'latitude' => $latitude,
+                    'longitude' => $longitude
+                ];
+            }
+
+//            if (!in_array($ip, $ipsUnique, true)) {
+//                $ipsUnique[] = $ip;
+//            }
+        }
+
+        return $ipsUnique;
+    }
+
+    public function getUserConnected()
+    {
+
     }
 
     private function getRequestIp(): ?string

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carte d'activité utilisateur</title>
+    <!-- Inclure le CSS et le JS de LeafletJS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body {
+            /*background-color: #1c1c1c;*/
+            font-family: Arial, sans-serif;
+            /*color: #fff;*/
+        }
+
+        .date {
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 20px 0;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .retour {
+            font-weight: bold;
+            padding: 20px 0 0 50px;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        .logs {
+            max-height: 100vh; /* Hauteur maximale de la section #logs */
+            overflow-y: auto; /* Permettre le défilement uniquement si le contenu dépasse la hauteur maximale */
+            padding: 10px;
+            background-color: #000000;
+            border: 1px solid #3b3b3b;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .log-entry {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #383838;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .log-entry p {
+            margin: 5px 0;
+        }
+
+        .log-entry hr {
+            border: none;
+            border-top: 1px solid #3b3b3b;
+            margin: 10px 0;
+        }
+        .username {
+            color: yellow;
+        }
+
+        .ip {
+            color: #089cf8;
+            cursor: pointer; /* Ajoute un curseur pointer pour indiquer que l'adresse IP est cliquable */
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row text-end">
+            <div class="col text-end date">
+                <p id="currentDateTime"></p>
+            </div>
+            <div class="col text-start retour">
+                <a href="{{ absolute_url(path('app_backend_dashboard_index')) }}">Retour au tableau de bord</a>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-9">
+                <div id="map" style="height: 100vh; width: 100%;"></div>
+            </div>
+            <div class="col-12 col-lg-3 logs">
+                <button onclick="resetZoom()">Réinitialiser l'affichage</button>
+                <div id="logs"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Créer une carte Leaflet centrée sur une position spécifique
+        const map = L.map('map').setView([0, 0], 2.5);
+
+        // Ajouter une couche de tuiles à la carte
+        L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png').addTo(map);
+
+        // Créer une liste pour stocker les marqueurs
+        let markers = [];
+
+        // Fonction pour mettre à jour les marqueurs sur la carte avec les nouvelles données
+        function updateMarkers(newData) {
+            // Supprimer tous les anciens marqueurs
+            markers.forEach(marker => marker.removeFrom(map));
+            markers = [];
+
+            // Parcourir les nouvelles données et ajouter les marqueurs à la liste
+            newData.forEach(ipData => {
+                const { latitude, longitude } = ipData;
+                const marker = L.marker([latitude, longitude]);
+                markers.push(marker);
+            });
+
+            // Ajouter tous les nouveaux marqueurs à la carte
+            const markerGroup = L.layerGroup(markers).addTo(map);
+        }
+
+        // Fonction pour récupérer les nouvelles données depuis le serveur
+        function getNewData() {
+            // Faire une requête AJAX pour récupérer les nouvelles données
+            fetch('{{ absolute_url(path('api_useractivity_map')) }}')
+                .then(response => response.json())
+                .then(data => {
+                    // Mettre à jour les marqueurs sur la carte avec les nouvelles données
+                    updateMarkers(data);
+                })
+                .catch(error => {
+                    console.error('Une erreur s\'est produite lors de la récupération des données :', error);
+                });
+        }
+
+        // Fonction pour afficher les données du log dans la section #logs
+        function updateLogs(logData) {
+            const logsContainer = document.getElementById('logs');
+
+            console.log('log')
+
+            // Effaçons le contenu actuel du conteneur #logs
+            logsContainer.innerHTML = '';
+
+            // Limitons le nombre d'entrées à afficher à 50
+            const limitedLogData = logData.slice(0, 50);
+
+            // Parcourons les données du log et créer un élément pour chaque entrée
+            limitedLogData.forEach(logEntry => {
+                const logElement = document.createElement('div');
+
+                // Extraire les coordonnées géographiques (latitude et longitude) à partir de la chaîne "location"
+                const locationString = logEntry.location;
+                const [latitude, longitude] = locationString.split(',');
+
+                logElement.innerHTML = `
+                <p><span class="username">${logEntry.username}</span> ${logEntry.action} le ${logEntry.datetime} à ${logEntry.city}, ${logEntry.country} via l'adresse IP: <span class="ip" onclick="zoomToLocation(${latitude}, ${longitude})">${logEntry.ip}</span></p>
+            `;
+                logsContainer.appendChild(logElement);
+            });
+        }
+
+        function getLogs() {
+            fetch('{{ absolute_url(path('api_useractivity_logs')) }}')
+                .then(response => response.json())
+                .then(data =>{
+                    // Mettre à jour les logs dans la section #logs
+                    updateLogs(data);
+                    console.log(data)
+                })
+                .catch(error =>{
+                    console.error("Une erreur s'est produite lors de la récupération des données du log :", error)
+                })
+        }
+
+        // Ajoutez cette fonction pour zoomer sur la position géographique lorsqu'on clique sur l'adresse IP
+        function zoomToLocation(latitude, longitude) {
+            map.setView([latitude, longitude], 15); // Vous pouvez ajuster le niveau de zoom (15 est juste un exemple)
+        }
+
+        function resetZoom() {
+            map.setView([0, 0], 2.5); // Remplacez les valeurs [0, 0] par la position centrale souhaitée et 2.5 par le niveau de zoom initial
+        }
+
+        // Afficher dynamiquement la date et l'heure du jour
+        function updateDateTime() {
+            const now = new Date();
+            const dateElement = document.getElementById('currentDateTime');
+            dateElement.innerText = now.toLocaleString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+
+        // Mettre à jour la date et l'heure toutes les secondes
+        setInterval(updateDateTime, 1000);
+
+        // Mettre à jour les données du map toutes les 30 secondes (ou à la fréquence souhaitée)
+        setInterval(getNewData, 30000); // Mettre à jour toutes les 30 secondes
+        setInterval(getLogs, 30000)
+    </script>
+</body>
+</html>
