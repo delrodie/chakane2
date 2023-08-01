@@ -1,0 +1,41 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-4">
+        <div class="row row-cols-1 g-4">
+            <div class="col mt-3">{{ form_row(form.categorie) }}</div>
+            <div class="col mt-3">{{ form_row(form.titre) }}</div>
+            <div class="col mt-3">{{ form_row(form.montant) }}</div>
+            <div class="col mt-3">{{ form_row(form.solde) }}</div>
+            <div class="col mt-3">{{ form_row(form.flag) }}</div>
+            <div class="col mt-3">{{ form_row(form.taille) }}</div>
+            <div class="col mt-3">{{ form_row(form.couleur) }}</div>
+            <div class="col mt-3">{{ form_row(form.poids) }}</div>
+            <div class="col mt-3">{{ form_row(form.stock) }}</div>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="row row-cols-1 g-4">
+            <div class="col-mt-3">{{ form_row(form.description) }}</div>
+            <div class="col-mt-3">{{ form_row(form.conseil) }}</div>
+            <div class="col-mt-3">
+                <div class="form-check form-check-inline">
+                    {{ form_widget(form.promotion) }}
+                    {{ form_label(form.promotion , produit.promotion ? 'Désactiver la promotion' : 'Activer la promotion') }}
+                    {{ form_errors(form.promotion) }}
+                </div>
+            </div>
+            <div class="col-mt-3">{{ form_row(form.tags) }}</div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6 mt-3">{{ form_row(form.media) }}</div>
+    <div class="col-6 mt-3"></div>
+</div>
+
+    {{ form_widget(form) }}
+    <div class="text-end mt-5">
+        <a href="{{ absolute_url(path('app_backend_produit_index')) }}" class="btn btn-outline-secondary">Annuler</a>
+        <button class="btn btn-primary" id="saveButton">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}

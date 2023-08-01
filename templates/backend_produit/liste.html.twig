@@ -1,0 +1,120 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion de la liste des produits{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Gestion des produits</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Modules</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Produits</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Liste</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center mb-n5">
+                            <span class="head-icon"><i class="ti-package"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col"><h5 class="mb-2 fw-semibold fs-4">Liste</h5></div>
+                                <div class="col">
+                                    <div class="action">
+                                        <a href="{{ absolute_url(path('app_backend_produit_index')) }}" class="btn btn-outline-secondary">
+                                            <i class="ti-file"></i> Grille
+                                        </a>
+                                        <a href="{{ absolute_url(path('app_backend_produit_new')) }}" class="btn btn-primary">
+                                            <i class="ti-plus"></i> Ajouter
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="listes" class="table  border table-striped table-bordered display text-nowrap" style="width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center text-uppercase">#</th>
+                                        <th class="text-center text-uppercase">Code</th>
+                                        <th class="text-center text-uppercase">Categorie</th>
+                                        <th class="text-center text-uppercase">Libelle</th>
+                                        <th class="text-center text-uppercase">Montant</th>
+                                        <th class="text-center text-uppercase">Quantite</th>
+                                        <th class="text-center text-uppercase">Promotion</th>
+                                        <th class="text-center text-uppercase">actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for produit in produits %}
+                                        <tr>
+                                            <td>{{ loop.index }}</td>
+                                            <td class="text-center">{{ produit.reference }}</td>
+                                            <td>{{ produit.categorie.titre }}</td>
+                                            <td>{{ produit.titre }}</td>
+                                            <td class="text-center">
+                                                {% if produit.solde %}{{ produit.solde }} &nbsp; <del>{{ produit.montant }}</del>
+                                                {% else %} {{ produit.montant }}
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-center">{{ produit.stock ? produit.stock : '0' }}</td>
+                                            <td class="text-center">{{ produit.promotion ? '<span class="badge bg-success">OUI</span>' : '<span class="badge bg-danger">NON</span>'}}</td>
+                                            <td class="text-center">
+                                                <a href="{{ absolute_url(path('app_backend_produit_show',{id: produit.id})) }}" title="Détails"><i class="ti-file"></i></a>
+                                                &nbsp; | &nbsp;
+                                                <a href="{{ path('app_backend_produit_edit', {'id': produit.id}) }}" title="Modifier"><i class="ti-pencil-alt"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="5">Aucun produit trouvé</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/prism.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/DataTables/datatables.min.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/prism.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/DataTables/datatables.min.js')) }}"></script>
+    <script>
+        $('#listes').DataTable( {
+            dom: 'Bfrtip',
+            scrollX: true,
+            buttons: [
+                'copy', 'excel', 'pdf'
+            ]
+        } );
+    </script>
+{% endblock %}

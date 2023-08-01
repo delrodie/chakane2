@@ -19,7 +19,8 @@ class AllRepository
         private CollectionRepository $collectionRepository,
         private ContactRepository $contactRepository,
         private TypeRepository $typeRepository,
-        private CategorieRepository $categorieRepository
+        private CategorieRepository $categorieRepository,
+        private ProduitRepository $produitRepository
     )
     {
     }
@@ -45,6 +46,13 @@ class AllRepository
         return $this->categorieRepository->findOneBy([],['id'=>"DESC"]);
     }
 
+    public function getOneProduit(string $concerned=null)
+    {
+        if ($concerned) return $this->produitRepository->findOneBy(['slug'=>$concerned]);
+
+        return $this->produitRepository->findOneBy([],['id'=>"DESC"]);
+    }
+
     public function allCache(string $cacheName, bool $delete = false)
     {
         if ($delete) $this->cache->delete($cacheName);
@@ -64,6 +72,8 @@ class AllRepository
             'maintenance' => $this->maintenanceRepository->findOneBy(['statut'=>true]),
             'collections' => $this->collectionRepository->findBy([],['id'=>"DESC"]),
             'contact' => $this->contactRepository->findOneBy([],['id'=>"DESC"]),
+            'categories' => $this->categorieRepository->findBy([],['titre'=>"ASC"]),
+            'produitsIdDesc' => $this->produitRepository->findBy([],['id'=>"DESC"]),
             default => false,
         };
 

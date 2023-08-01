@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Categorie;
 use App\Entity\Devise;
+use App\Entity\Produit;
 use App\Repository\AllRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpClient\HttpClient;
@@ -174,5 +175,27 @@ class Utility
         $categorie->setSlug($this->slug($categorie->getTitre()));
     }
 
+    public function codeProduit(Produit $produit): bool
+    {
+        $codeCategorie = $produit->getCategorie()->getCode() ?? '2000';
+        $slug = $this->slug($produit->getTitre());
+
+        if (!$produit->getId()){
+
+            // Verification de la non-existence du slug dans la base de données
+            if ($this->allRepository->getOneProduit($slug)) return false;
+
+            $entity = $this->allRepository->getOneProduit();
+
+            $reference = $codeCategorie . ($entity ? $entity->getId() + 1001 : '1001');
+        }else{
+            $reference = $codeCategorie . ($produit->getId() + 1001);
+        }
+
+        $produit->setReference($reference);
+        $produit->setSlug($slug);
+
+        return true;
+    }
 
 }

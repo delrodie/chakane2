@@ -1,0 +1,156 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Liste des produits{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Gestion des produits</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Modules</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Produits</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Articles</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center mb-n5">
+                            <span class="head-icon"><i class="ti-package"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card position-relative overflow-hidden">
+            <div class="card-header">
+                <div class="text-end">
+                    <a href="{{ absolute_url(path('app_backend_produit_liste')) }}" class="btn btn-outline-secondary">
+                        <i class="ti-list fs-4 me-2"></i> Tableau
+                    </a>
+                    <a href="{{ absolute_url(path('app_backend_produit_new')) }}" class="btn btn-primary">
+                        <i class="ti-plus fs-4 me-2"></i> Ajouter
+                    </a>
+                </div>
+            </div>
+            <div class="shop-part d-flex w-100">
+                <div class="shop-filters flex-shrink-0 border-end d-none d-lg-block">
+                    <ul class="list-group pt-2 border-bottom rounded-0">
+                        <h6 class="my-3 mx-4 fw-semibold">Filtre par catégorie</h6>
+                        <li class="list-group-item border-0 p-0 mx-4 mb-2">
+                            <a class="d-flex align-items-center gap-2 list-group-item-action text-dark px-3 py-6 rounded-1 categorie-all"
+                               href="javascript:void(0)"><i class="ti ti-circles fs-5"></i>Tous
+                            </a>
+                        </li>
+                        {% for categorie in categories %}
+                            <li class="list-group-item border-0 p-0 mx-4 mb-2">
+                                <a class="d-flex align-items-center gap-2 list-group-item-action text-dark px-3 py-6 rounded-1 categorie-item"
+                                   href="javascript:void(0)" data-categorie-id="{{ categorie.id }}">
+                                    <i class="ti ti-hanger fs-5"></i>{{ categorie.titre }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-body p-4 pb-0">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <a class="btn btn-primary d-lg-none d-flex" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                            <i class="ti ti-menu-2 fs-6"></i>
+                        </a>
+                        <h5 class="fs-5 fw-semibold mb-0 d-none d-lg-block">Produits</h5>
+                        <form class="position-relative">
+                            <input type="text" class="form-control search-chat py-2 ps-5" id="text-srh" placeholder="Search Product">
+                            <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+                        </form>
+                    </div>
+                    <div class="row">
+                        {% for produit in produits %}
+                            <div class="col-sm-6 col-xl-4 produit-item categorie-{{ produit.categorie.id }}">
+                                <div class="card hover-img overflow-hidden rounded-2">
+                                    <div class="position-relative">
+                                        <a href="javascript:void(0)"><img src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" class="card-img-top rounded-0" alt="{{ produit.titre }}"></a>
+                                        {% if produit.promotion %}
+                                            <a href="javascript:void(0)" class="bg-danger p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Stock">Promo</a>
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="card-body pt-3 p-4">
+                                        <h6 class="fw-semibold fs-4">{{ produit.titre }}</h6>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <h6 class="fw-semibold fs-4 mb-0">
+                                                {{ produit.montant|number_format(0,'','.') }} FCFA
+                                                <span class="ms-2 fw-normal text-muted fs-3"><del>{{ produit.solde ? produit.solde|number_format(0,'','.') : '' }}</del></span>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <a href="{{ absolute_url(path('app_backend_produit_edit',{'id':produit.id})) }}">Modifier</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="pagination-container my-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Cacher tous les produits au départ
+            //$(".produit-item").hide();
+
+            // Afficher tous les produits lorsque "All" est cliqué
+            $(".categorie-all").click(function() {
+                $(".produit-item").show();
+            });
+
+            // Afficher les produits correspondants à la catégorie cliquée
+            $(".categorie-item").click(function() {
+                var categorieId = $(this).data("categorie-id");
+                $(".produit-item").hide();
+                $(".categorie-" + categorieId).show();
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Pagination
+            var produitsPerPage = 12;
+            var totalProduits = {{ produits|length }};
+            var totalPages = Math.ceil(totalProduits / produitsPerPage);
+            var currentPage = 1;
+            var paginationContainer = $(".pagination-container");
+
+            function showPage(page) {
+                var startIndex = (page - 1) * produitsPerPage;
+                var endIndex = startIndex + produitsPerPage;
+
+                $(".produit-item").hide();
+                $(".produit-item").slice(startIndex, endIndex).show();
+            }
+
+            // Initialize pagination
+            paginationContainer.pagination({
+                dataSource: new Array(totalPages),
+                pageSize: 1,
+                autoHidePrevious: true,
+                autoHideNext: true,
+                callback: function(data, pagination) {
+                    currentPage = pagination.pageNumber;
+                    showPage(currentPage);
+                }
+            });
+
+            // Show the first page initially
+            showPage(currentPage);
+        });
+    </script>
+{% endblock %}

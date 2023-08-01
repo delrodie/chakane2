@@ -90,7 +90,28 @@
 
     <script>
         // Créer une carte Leaflet centrée sur une position spécifique
-        const map = L.map('map').setView([0, 0], 2.5);
+        const map = L.map('map').setView([0, 0], 1.5);
+
+        // Fonction pour ajuster le niveau de zoom en fonction de la taille de l'écran
+        function adjustZoomBasedOnScreenSize() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            console.log(screenWidth)
+
+            if (screenWidth <= 1380) {
+                map.setView([0, 0], 1.5); // Niveau de zoom pour les petits écrans (par exemple : smartphones)
+            } else if (screenWidth <= 2000) {
+                map.setView([0, 0], 2.5); // Niveau de zoom pour les écrans moyens (par exemple : tablettes)
+            } else {
+                map.setView([0, 0], 3.5); // Niveau de zoom pour les grands écrans (par exemple : ordinateurs de bureau)
+            }
+        }
+
+        // Appeler la fonction pour ajuster le zoom lorsque la page est chargée
+        window.addEventListener('load', adjustZoomBasedOnScreenSize);
+
+        // Appeler la fonction pour ajuster le zoom chaque fois que la fenêtre est redimensionnée
+        window.addEventListener('resize', adjustZoomBasedOnScreenSize);
 
         // Ajouter une couche de tuiles à la carte
         L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png').addTo(map);
@@ -189,8 +210,8 @@
         setInterval(updateDateTime, 1000);
 
         // Mettre à jour les données du map toutes les 30 secondes (ou à la fréquence souhaitée)
-        setInterval(getNewData, 30000); // Mettre à jour toutes les 30 secondes
-        setInterval(getLogs, 30000)
+        setInterval(getNewData, 10000); // Mettre à jour toutes les 30 secondes
+        setInterval(getLogs, 10000)
     </script>
 </body>
 </html>

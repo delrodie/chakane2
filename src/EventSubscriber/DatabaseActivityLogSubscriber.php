@@ -11,6 +11,7 @@ use App\Entity\Contact;
 use App\Entity\Marque;
 use App\Entity\MentionLegale;
 use App\Entity\PolitiqueRetour;
+use App\Entity\Produit;
 use App\Entity\Slide;
 use App\Entity\Type;
 use App\Repository\AllRepository;
@@ -120,9 +121,14 @@ class DatabaseActivityLogSubscriber implements EventSubscriberInterface
             $this->userActivityLogger->logActivity("a {$action} le type");
         }
 
-        // Type
+        // Categories
         if ($entity instanceof Categorie){
             $this->userActivityLogger->logActivity("a {$action} la catégorie");
+        }
+
+        // Produit
+        if ($entity instanceof Produit){
+            $this->userActivityLogger->logActivity("a {$action} le produit");
         }
     }
 

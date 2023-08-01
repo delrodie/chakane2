@@ -50,12 +50,13 @@ class UserActivityLogger
 
         // Gestion de la session
         $session = $this->requestStack->getSession();
-        if ($session->get('userLocation')){
-            $userLocation = $session->get('userLocation');
+        if ($session->get($userIp)){
+            $userLocation = $session->get($userIp);
         }else{
             $userLocation = $this->utility->getUserLocation($userIp);
-            $session->set('userLocation', $userLocation);
+            $session->set($userIp, $userLocation);
         }
+//        dd($userLocation);
 
         $userLocationData = json_decode($userLocation, true); //dd($userLocationData);
 
