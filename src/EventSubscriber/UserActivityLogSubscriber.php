@@ -64,10 +64,11 @@ class UserActivityLogSubscriber implements EventSubscriberInterface
         'app_backend_type_edit' => "a visité la page de modification de type",
         'app_backend_categorie_index' => "a visité la page d'affichage de catégorie",
         'app_backend_categorie_edit' => "a visité la page de modification de catégorie",
-        'app_backend_produit_index' => "a visité la liste des produits",
+        'app_backend_produit_index' => "a visité le tableau des produits",
         'app_backend_produit_new' => "a visité la page d'enregistrement des produits",
         'app_backend_produit_edit' => "a visité la page de modification des produits",
         'app_backend_produit_show' => "a visité la page d'affichage des détails de produit",
+        'app_backend_produit_liste' => "a visité la liste des détails de produit",
     ];
 
 

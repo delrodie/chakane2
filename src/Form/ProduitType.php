@@ -109,14 +109,14 @@ class ProduitType extends AbstractType
                 'required' => false
             ])
             //->add('slug')
-            ->add('categorie', EntityType::class,[
+            ->add('categories', EntityType::class,[
                 'attr'=>['class'=>'form-control select2'],
                 'class' => Categorie::class,
                 'query_builder' => function(EntityRepository $er){
                     return $er->createQueryBuilder('c')->orderBy('c.titre', "ASC");
                 },
                 'choice_label' => "titre",
-                'multiple' => false
+                'multiple' => true
             ])
         ;
     }

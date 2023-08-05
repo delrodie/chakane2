@@ -49,7 +49,8 @@ class BackendProduitController extends AbstractController
 
                 return $this->render('backend_produit/new.html.twig',[
                     'produit' => $produit,
-                    'form' => $form
+                    'form' => $form,
+                    'photo' => false
                 ]);
             }
 
@@ -66,6 +67,7 @@ class BackendProduitController extends AbstractController
         return $this->render('backend_produit/new.html.twig', [
             'produit' => $produit,
             'form' => $form,
+            'photo' => false
         ]);
     }
 
@@ -98,6 +100,7 @@ class BackendProduitController extends AbstractController
         return $this->render('backend_produit/edit.html.twig', [
             'produit' => $produit,
             'form' => $form,
+            'photo' => true
         ]);
     }
 
@@ -105,8 +108,16 @@ class BackendProduitController extends AbstractController
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
+            if ($produit->getProduitImages()) {
+                $this->utility->notification("Echec, Veuillez supprimer d'abord les images associées", 'Error');
+                return $this->redirectToRoute('app_backend_produit_show', ['id' => $produit->getId()], Response::HTTP_SEE_OTHER);
+            }
+
             $entityManager->remove($produit);
             $entityManager->flush();
+
+            if ($produit->getMedia())
+                $this->gestionMedia->removeUpload($produit->getMedia(), 'produit');
         }
 
         return $this->redirectToRoute('app_backend_produit_index', [], Response::HTTP_SEE_OTHER);

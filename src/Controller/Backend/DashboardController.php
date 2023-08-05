@@ -21,6 +21,8 @@ class DashboardController extends AbstractController
     {
         // https://ipinfo.io/developers
         // https://ipinfo.io/account/home
+        // https://developer.fedex.com/api/fr-fr/catalog/rate/v1/docs.html
+        // https://developer.fedex.com/api/fr-fr/catalog/authorization/v1/docs.html
         return $this->render('backend/dashboard.html.twig',[
             'devise' => $this->allRepository->allCache('devise', true)
         ])->setSharedMaxAge(3600);

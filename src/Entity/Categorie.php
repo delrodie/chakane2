@@ -24,10 +24,7 @@ class Categorie
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
-    #[ORM\ManyToOne(inversedBy: 'categories')]
-    private ?Type $type = null;
-
-    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Produit::class)]
+    #[ORM\ManyToMany(targetEntity: Produit::class, mappedBy: 'categories')]
     private Collection $produits;
 
     public function __construct()
@@ -100,7 +97,7 @@ class Categorie
     {
         if (!$this->produits->contains($produit)) {
             $this->produits->add($produit);
-            $produit->setCategorie($this);
+            $produit->addCategory($this);
         }
 
         return $this;
@@ -109,10 +106,7 @@ class Categorie
     public function removeProduit(Produit $produit): static
     {
         if ($this->produits->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
-            if ($produit->getCategorie() === $this) {
-                $produit->setCategorie(null);
-            }
+            $produit->removeCategory($this);
         }
 
         return $this;

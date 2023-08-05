@@ -66,7 +66,7 @@
                                         <tr>
                                             <td>{{ loop.index }}</td>
                                             <td class="text-center">{{ produit.reference }}</td>
-                                            <td>{{ produit.categorie.titre }}</td>
+                                            <td>{% for categorie in produit.categories %}{{ categorie.titre }},{% endfor %}</td>
                                             <td>{{ produit.titre }}</td>
                                             <td class="text-center">
                                                 {% if produit.solde %}{{ produit.solde }} &nbsp; <del>{{ produit.montant }}</del>

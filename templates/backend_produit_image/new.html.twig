@@ -44,9 +44,10 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="card-body">
-                            {{ include('backend_produit/_form.html.twig') }}
+                            {{ include('backend_produit_image/_form.html.twig') }}
                         </div>
                     </div>
                 </div>
@@ -59,60 +60,9 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
-    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/select2.min.css')) }}">
-    <style>
-        .select2{
-            color: black;
-        }
-    </style>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ absolute_url(asset('backoffice/vendor/js/select2.full.min.js')) }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
     <script src="{{ absolute_url(asset('asset/js/upload-init.js')) }}"></script>
-    <script src="{{ absolute_url(asset('backoffice/vendor/tinymce/tinymce.min.js')) }}"></script>
-    <script>
-        $('.select2').select2();
-        $(document).ready(function () {
-            function updatePromotionLabel() {
-                const promotionCheckBox = $('#produit_promotion')
-                const promotionLabel = $('label[for="produit_promotion"]');
-                const isPromotionActive = promotionCheckBox.prop('checked');
-
-                isPromotionActive ? promotionLabel.text("Cliquer pour désactiver la promotion") : promotionLabel.text("Activer la promotion");
-            }
-
-            updatePromotionLabel();
-
-            $('#produit_promotion').on('click', function () {
-                updatePromotionLabel();
-            })
-        })
-    </script>
-    <script>
-        tinymce.init({
-            selector: 'textarea#produit_description',  // change this value according to your HTML
-            language_url: '{{ absolute_url(asset('backoffice/vendor/tinymce/langs/fr_FR/langs/fr_FR.js')) }}',
-            plugins: [
-                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
-                'media', 'table', 'emoticons', 'template', 'help'
-            ],
-            a_plugin_option: true,
-            a_configuration_option: 400,
-            menubar: true,
-            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons',
-
-            setup: function (editor) {
-                editor.on('init', function () {
-                    var textarea = document.getElementById('produit_description');
-                    editor.setContent(textarea.value);
-                    textarea.style.display = 'none';
-                });
-            }
-        });
-    </script>
 {% endblock %}

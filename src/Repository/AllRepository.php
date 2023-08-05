@@ -73,7 +73,7 @@ class AllRepository
             'collections' => $this->collectionRepository->findBy([],['id'=>"DESC"]),
             'contact' => $this->contactRepository->findOneBy([],['id'=>"DESC"]),
             'categories' => $this->categorieRepository->findBy([],['titre'=>"ASC"]),
-            'produitsIdDesc' => $this->produitRepository->findBy([],['id'=>"DESC"]),
+            'produitsIdDesc' => $this->produitRepository->getProduisByIdDesc(),
             default => false,
         };
 

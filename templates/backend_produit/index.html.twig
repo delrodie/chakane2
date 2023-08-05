@@ -41,18 +41,28 @@
                     <ul class="list-group pt-2 border-bottom rounded-0">
                         <h6 class="my-3 mx-4 fw-semibold">Filtre par catégorie</h6>
                         <li class="list-group-item border-0 p-0 mx-4 mb-2">
+                            {% set all = produits|filter(p => p.id)|length %}
                             <a class="d-flex align-items-center gap-2 list-group-item-action text-dark px-3 py-6 rounded-1 categorie-all"
-                               href="javascript:void(0)"><i class="ti ti-circles fs-5"></i>Tous
+                               href="javascript:void(0)"><i class="ti-direction-alt text-muted"></i>Tous <span class="badge rounded-circle bg-secondary">{{ all }}</span>
                             </a>
                         </li>
                         {% for categorie in categories %}
+                            {% set produitsCount = produits|filter(p => p.categories.contains(categorie))|length %}
                             <li class="list-group-item border-0 p-0 mx-4 mb-2">
                                 <a class="d-flex align-items-center gap-2 list-group-item-action text-dark px-3 py-6 rounded-1 categorie-item"
                                    href="javascript:void(0)" data-categorie-id="{{ categorie.id }}">
-                                    <i class="ti ti-hanger fs-5"></i>{{ categorie.titre }}
+                                    <i class="ti-direction text-muted"></i>{{ categorie.titre }} <span class="badge rounded-circle bg-primary">{{ produitsCount }}</span>
                                 </a>
                             </li>
                         {% endfor %}
+                    </ul>
+                    <ul class="list-group pt-2">
+                        <li class="list-group-item border-0 p-0 mx-4 mb-2">
+                            {% set produitsEnPromotionCount = produits|filter(p => p.promotion)|length %}
+                            <a class="d-flex align-items-center gap-2 list-group-item-action text-dark px-3 py-6 rounded-1 categorie-all"
+                               href="javascript:void(0)"><i class="ti ti-circles fs-5"></i>En promotion <span class="badge rounded-circle bg-warning">{{ produitsEnPromotionCount }}</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="card-body p-4 pb-0">
@@ -68,10 +78,10 @@
                     </div>
                     <div class="row">
                         {% for produit in produits %}
-                            <div class="col-sm-6 col-xl-4 produit-item categorie-{{ produit.categorie.id }}">
+                            <div class="col-sm-6 col-xl-4 produit-item {% for categorie in produit.categories %} categorie-{{ categorie.id }} {% endfor %}">
                                 <div class="card hover-img overflow-hidden rounded-2">
                                     <div class="position-relative">
-                                        <a href="javascript:void(0)"><img src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" class="card-img-top rounded-0" alt="{{ produit.titre }}"></a>
+                                        <a href="{{ absolute_url(path('app_backend_produit_show', {'id': produit.id})) }}"><img src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" class="card-img-top rounded-0" alt="{{ produit.titre }}"></a>
                                         {% if produit.promotion %}
                                             <a href="javascript:void(0)" class="bg-danger p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Stock">Promo</a>
                                         {% endif %}

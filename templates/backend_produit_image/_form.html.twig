@@ -1,0 +1,23 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col">
+            <label for="">Produit</label>
+            <input type="text" class="form-control fw-semibold fs-4 text-primary" value="{{ produit.titre }}" readonly>
+        </div>
+        <div class="col">{{ form_row(form.media) }}</div>
+    </div>
+{% if produit %}
+    <div class="row mt-5">
+        <div class="col-3"><img src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" alt="" class="img-fluid"></div>
+        {% for image in produit.produitImages %}
+            <div class="col-3 g-4"><img src="{{ absolute_url(asset('upload/produits/' ~ image.media)) }}" alt="" class="img-fluid"></div>
+        {% endfor %}
+    </div>
+{% endif %}
+    <div class="text-end mt-5">
+        {{ form_widget(form) }}
+        <a href="{{ absolute_url(path('app_backend_produit_show',{id: produit.id})) }}" class="btn btn-outline-primary">Annuler</a>
+        <button class="btn btn-primary">{{ button_label|default('Ajouter') }}</button>
+    </div>
+    
+{{ form_end(form) }}

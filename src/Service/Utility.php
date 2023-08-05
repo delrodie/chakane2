@@ -177,22 +177,19 @@ class Utility
 
     public function codeProduit(Produit $produit): bool
     {
-        $codeCategorie = $produit->getCategorie()->getCode() ?? '2000';
+        $codeCategorie = round(1001,1999);
         $slug = $this->slug($produit->getTitre());
 
         if (!$produit->getId()){
-
             // Verification de la non-existence du slug dans la base de données
             if ($this->allRepository->getOneProduit($slug)) return false;
 
             $entity = $this->allRepository->getOneProduit();
-
             $reference = $codeCategorie . ($entity ? $entity->getId() + 1001 : '1001');
-        }else{
-            $reference = $codeCategorie . ($produit->getId() + 1001);
+
+            $produit->setReference($reference);
         }
 
-        $produit->setReference($reference);
         $produit->setSlug($slug);
 
         return true;

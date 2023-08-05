@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -62,8 +64,17 @@ class Produit
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
-    #[ORM\ManyToOne(inversedBy: 'produits')]
-    private ?Categorie $categorie = null;
+    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'produits')]
+    private Collection $categories;
+
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: ProduitImage::class)]
+    private Collection $produitImages;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+        $this->produitImages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -262,14 +273,56 @@ class Produit
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
+    /**
+     * @return Collection<int, Categorie>
+     */
+    public function getCategories(): Collection
     {
-        return $this->categorie;
+        return $this->categories;
     }
 
-    public function setCategorie(?Categorie $categorie): static
+    public function addCategory(Categorie $category): static
     {
-        $this->categorie = $categorie;
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categorie $category): static
+    {
+        $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProduitImage>
+     */
+    public function getProduitImages(): Collection
+    {
+        return $this->produitImages;
+    }
+
+    public function addProduitImage(ProduitImage $produitImage): static
+    {
+        if (!$this->produitImages->contains($produitImage)) {
+            $this->produitImages->add($produitImage);
+            $produitImage->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduitImage(ProduitImage $produitImage): static
+    {
+        if ($this->produitImages->removeElement($produitImage)) {
+            // set the owning side to null (unless already changed)
+            if ($produitImage->getProduit() === $this) {
+                $produitImage->setProduit(null);
+            }
+        }
 
         return $this;
     }
