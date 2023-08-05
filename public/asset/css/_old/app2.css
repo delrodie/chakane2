@@ -993,7 +993,10 @@ footer {
     height: 355px;
     object-fit: cover; }
   main .baniere .affiche .description h3 {
-    font-size: 1.3rem; }
+    font-size: 1.1rem; }
+  main .baniere .affiche .description .resume {
+    font-size: .9rem;
+    font-style: italic; }
   main .creation .card img {
     max-height: 300px;
     width: 100%;
@@ -1049,6 +1052,28 @@ footer {
     height: 600px; }
   main .article-details .photos .photo-principale img {
     height: 600px; } }
+@media screen and (max-width: 1399px) {
+  main .slideBar .swiper .swiper-slide .container h1 {
+    font-size: 2.5rem; }
+  main .slideBar .swiper .swiper-slide .container p {
+    margin-bottom: 30px;
+    margin-top: 25px; }
+  main .baniere .description h3 {
+    font-size: 1.2rem; }
+  main .baniere .description .resume {
+    font-size: .9rem; }
+  main .boutique .article .prix ins {
+    font-size: 1rem; }
+  main .boutique .article .prix del {
+    font-size: .8rem; }
+  main .boutique .article p.description {
+    font-size: .8rem; }
+
+  footer .footer {
+    font-size: .8rem;
+    width: 75%; }
+    footer .footer .icons-sociaux i {
+      font-size: 1.5rem; } }
 @media screen and (min-width: 992px) and (max-width: 1440px) {
   main .article-details .produit-description .formulaire select {
     padding: 0.25rem .8rem;

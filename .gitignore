@@ -24,3 +24,6 @@ logs
 .logs
 /public/upload
 /public/asset/.sass-cache
+/public/asset/sass/.sass-cache
+/public/asset/sass/_old/
+/public/asset/css/_old/
