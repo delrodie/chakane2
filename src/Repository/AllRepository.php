@@ -74,6 +74,7 @@ class AllRepository
             'contact' => $this->contactRepository->findOneBy([],['id'=>"DESC"]),
             'categories' => $this->categorieRepository->findBy([],['titre'=>"ASC"]),
             'produitsIdDesc' => $this->produitRepository->getProduisByIdDesc(),
+            'newsProduits' => $this->produitRepository->getNewsProduitByFlagAndIdDesc(),
             default => false,
         };
 

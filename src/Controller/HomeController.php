@@ -33,6 +33,7 @@ class HomeController extends AbstractController
         return $this->render('frontend/home.html.twig',[
             'slides' => $this->allRepository->allCache('slides'),
             'collections' => $this->allRepository->allCache('collections'),
+            'news_produits' => $this->allRepository->allCache('newsProduits')
         ]);
     }
 

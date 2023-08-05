@@ -71,102 +71,43 @@
                 </h2>
                 <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 article">
 
-                    <div class="col">
-                        <a href="#">
-                            <div class="card h-100">
-                                <figure>
-                                    <img src="https://images.unsplash.com/photo-1600857062241-98e5dba7f214?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=798&q=80" class="card-img-top" alt="..." loading="lazy">
-                                    <span class="sticker info">Nouveauté</span>
+                    {% for produit in news_produits|slice(0,4) %}
+                        {% if produit.solde %}
+                            {% set remise = 100 - (produit.solde * 100 / produit.montant) %}
+                        {% else %}
+                            {% set remise = 0 %}
+                        {% endif %}
+                        <div class="col">
+                            <a href="#">
+                                <div class="card h-100">
+                                    <figure>
+                                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="card-img-top" alt="..." loading="lazy">
+                                        <!--<span class="sticker info">Nouveauté</span>-->
+                                        {{ produit.solde ? ('<span class="sticker remise">-'~remise|number_format(0,'','')~'%</span>')|raw }}
 
-                                </figure>
-                                <div class="card-body">
-                                    <h5 class="card-title prix">
-                                        <ins>45.000 FCFA</ins>
-                                        <del>60.000 FCFA</del>
-                                    </h5>
-                                    <p class="description">Nom du produit 1</p>
-                                    <div class="evaluations">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                        <i class="bi bi-star"></i>
-                                        <span>0</span>
+                                    </figure>
+                                    <div class="card-body">
+                                        <h5 class="card-title prix">
+                                            {% if produit.solde %}
+                                                <ins>{{ produit.solde|number_format(0,'','.')}} FCFA</ins>
+                                                <del>{{ produit.montant|number_format(0,'','.')}} FCFA</del>
+                                            {% else %}
+                                                <ins>{{ produit.montant|number_format(0,'','.') }} FCFA</ins>
+                                            {% endif %}
+                                        </h5>
+                                        <p class="description">{{ produit.titre }}</p>
+                                        <div class="evaluations">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-half"></i>
+                                            <i class="bi bi-star"></i>
+                                            <span>0</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
+                    {% endfor %}
 
-
-                    <div class="col">
-                        <a href="#">
-                            <div class="card h-100">
-                                <figure>
-                                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="card-img-top" alt="..." loading="lazy">
-                                    <span class="sticker info">Nouveauté</span>
-                                    <span class="sticker remise">-10%</span>
-                                </figure>
-                                <div class="card-body">
-                                    <h5 class="card-title prix">
-                                        <ins>45.000 FCFA</ins>
-                                        <del>60.000 FCFA</del>
-                                    </h5>
-                                    <p class="description">Nom du produit 1</p>
-                                    <div class="evaluations">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                        <i class="bi bi-star"></i>
-                                        <span>0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col">
-                        <a href="#">
-                            <div class="card h-100">
-                                <figure>
-                                    <img src="https://images.unsplash.com/flagged/photo-1575278154894-9f52e7c93bec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=730&q=80" class="card-img-top" alt="..." loading="lazy">
-                                </figure>
-                                <div class="card-body">
-                                    <h5 class="card-title prix">
-                                        <ins>45.000 FCFA</ins>
-                                        <del>60.000 FCFA</del>
-                                    </h5>
-                                    <p class="description">Nom du produit 1</p>
-                                    <div class="evaluations">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                        <i class="bi bi-star"></i>
-                                        <span>0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col">
-                        <a href="#">
-                            <div class="card h-100">
-                                <figure>
-                                    <img src="https://images.unsplash.com/photo-1571682262898-48532c58b3a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="..." loading="lazy">
-                                </figure>
-                                <div class="card-body">
-                                    <h5 class="card-title prix">
-                                        <ins>45.000 FCFA</ins>
-                                        <del>60.000 FCFA</del>
-                                    </h5>
-                                    <p class="description">Nom du produit 1</p>
-                                    <div class="evaluations">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                        <i class="bi bi-star"></i>
-                                        <span>0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
                 </div>
 
             </div>

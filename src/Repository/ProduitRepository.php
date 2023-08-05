@@ -31,6 +31,19 @@ class ProduitRepository extends ServiceEntityRepository
             ;
     }
 
+    public function getNewsProduitByFlagAndIdDesc()
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('c')
+            ->addSelect('i')
+            ->leftJoin('p.categories', 'c')
+            ->leftJoin('p.produitImages', 'i')
+            ->orderBy('p.id', "DESC")
+            ->addOrderBy('p.flag', "DESC")
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return Produit[] Returns an array of Produit objects
 //     */
