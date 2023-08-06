@@ -38,6 +38,11 @@ h4.categorie {
   color: #325255;
   padding-bottom: 30px; }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
 header .topBar {
   background: #325255;
   padding-top: 7px;

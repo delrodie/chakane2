@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SlideRepository::class)]
-class Slide
+class Slide implements \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -77,5 +77,16 @@ class Slide
         $this->statut = $statut;
 
         return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'titre' => $this->titre,
+            'description' => $this->description,
+            'media' => $this->media,
+            'statut' => $this->statut
+        ];
     }
 }

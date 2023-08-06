@@ -75,6 +75,7 @@ class AllRepository
             'categories' => $this->categorieRepository->findBy([],['titre'=>"ASC"]),
             'produitsIdDesc' => $this->produitRepository->getProduisByIdDesc(),
             'newsProduits' => $this->produitRepository->getNewsProduitByFlagAndIdDesc(),
+            'flagProduits' => $this->produitRepository->getProduitsByFlagDesc(),
             default => false,
         };
 

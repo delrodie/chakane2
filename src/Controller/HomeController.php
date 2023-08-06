@@ -31,9 +31,9 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('app_frontend_maintenance_index',[],Response::HTTP_SEE_OTHER);
 
         return $this->render('frontend/home.html.twig',[
-            'slides' => $this->allRepository->allCache('slides'),
             'collections' => $this->allRepository->allCache('collections'),
-            'news_produits' => $this->allRepository->allCache('newsProduits')
+            'news_produits' => $this->allRepository->allCache('newsProduits'),
+            'produits' => $this->allRepository->allCache('flagProduits')
         ]);
     }
 
