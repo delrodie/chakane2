@@ -68,7 +68,7 @@
                         {% set _devise = app.session.get('devise') %}
                         <form  name="devise" action="{{ absolute_url(path('app_frontend_devise_index')) }}" method="post" class="devise">
                             <select name="_devise" id="devise" onchange="submit()">
-                                <option value="XOF" {{ _devise=="CFA" ? 'selected':'' }}> 🇨🇮 CFA</option>
+                                <option value="XOF" {{ _devise=="XOF" ? 'selected':'' }}> 🇨🇮 CFA</option>
                                 <option value="EUR" {{ _devise=="EUR" ? 'selected':'' }}> 🇪🇺 EURO</option>
                                 <option value="USD" {{ _devise=="USD" ? 'selected':'' }}>🇺🇲 USD</option>
                             </select>
@@ -153,6 +153,14 @@
             </div>
         </nav>
     </header>
+    {% set _devise = app.session.get('devise') %}
+    {% if _devise == 'EUR' %}
+        {% set devise_ext = '&euro;' %}
+    {% elseif _devise == 'USD' %}
+        {% set devise_ext = '&dollar;' %}
+    {% else %}
+        {% set devise_ext = 'FCFA' %}
+    {% endif %}
     {% block body %}{% endblock %}
     <footer>
         <div class="container footer">

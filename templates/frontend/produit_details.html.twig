@@ -1,0 +1,336 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ produit.titre }}{% endblock %}
+
+{% block body %}
+    {% set _devise = app.session.get('devise') %}
+    {% if _devise == 'EUR' %}
+        {% set devise_ext = '&euro;' %}
+    {% elseif _devise == 'USD' %}
+        {% set devise_ext = '&dollar;' %}
+    {% else %}
+        {% set devise_ext = 'FCFA' %}
+    {% endif %}
+    <main>
+        <div class="breadcrumb">
+            <div class="container">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_home')) }}"><i class="bi bi-house-fill"></i></a></li>
+                        {% for categorie in produit.categories|slice(0,1) %}
+                            <li class="breadcrumb-item"><a href="#">{{ categorie.titre }}</a></li>
+                        {% endfor %}
+                        <li class="breadcrumb-item active" aria-current="page">{{ produit.titre }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Articles -->
+        <div class="article-details">
+            <div class="container">
+                <div class="row produit-article mt-lg-5">
+                    <div class="col-12 col-lg-5">
+                        <!--
+                        <div class="produit-images">
+                          <div class="img-display">
+
+                            <div class="img-showcase">
+                              <img src="https://images.unsplash.com/photo-1619086303291-0ef7699e4b31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=712&q=80" alt="" class="img-link" data-gall="produit" data-href="https://images.unsplash.com/photo-1619086303291-0ef7699e4b31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=712&q=80">
+                              <img src="https://ci.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/20/074991/1.jpg?1622" alt="" class="img-link" data-gall="produit" data-href="https://ci.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/20/074991/1.jpg?1622">
+                              <img src="https://ci.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/20/074991/3.jpg?9399" alt="" class="img-link" data-gall="produit" data-href="https://ci.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/20/074991/3.jpg?9399">
+                              <img src="https://ci.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/20/074991/4.jpg?1617" alt="" class="img-link" data-gall="produit" data-href="https://ci.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/20/074991/4.jpg?1617">
+                            </div>
+
+                            <div class="img-select">
+
+                              <div class="img-item">
+                                <a href="#" data-id="1">
+                                  <img src="https://images.unsplash.com/photo-1619086303291-0ef7699e4b31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=712&q=80" alt="">
+                                </a>
+                              </div>
+
+                              <div class="img-item">
+                                <a href="#" data-id="2">
+                                  <img src="https://ci.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/20/074991/1.jpg?1622" alt="">
+                                </a>
+                              </div>
+
+                              <div class="img-item">
+                                <a href="#" data-id="3" title="img">
+                                  <img src="https://ci.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/20/074991/3.jpg?9399" alt="">
+                                </a>
+                              </div>
+
+                              <div class="img-item">
+                                <a href="#" data-id="4" title="img">
+                                  <img src="https://ci.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/20/074991/4.jpg?1617" alt="">
+                                </a>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      -->
+                        <div class="photos">
+                            <div class="photo-box">
+                                <div class="photos-judas">
+                                    <img src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" alt="{{ produit.titre }}" onmouseover="zoom(this)" data-gall="produit">
+                                    {% for image in produit.images|slice(0,3) %}
+                                        <img src="{{ absolute_url(asset('upload/produits/'~ image.media)) }}" alt="{{ produit.titre }}" onmouseover="zoom(this)" data-gall="produit">
+                                    {% endfor %}
+                                </div>
+                                <div class="photo-principale">
+                                    <img
+                                            id="photoBox"
+                                            src="{{ absolute_url(asset('upload/produits/'~ produit.media)) }}"
+                                            alt="{{ produit.titre }}"
+                                            class="img-link"
+                                            data-gall="produit"
+                                            data-href="{{ absolute_url(asset('upload/produits/'~ produit.media)) }}"
+                                            loading="lazy"
+                                    >
+                                    {% for image in produit.images|slice(0,3) %}
+                                        <img src="" data-href="{{ absolute_url(asset('upload/produits/' ~ image.media)) }}" class="img-link" data-gall="produit">
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4 mt-5 mt-md-5 mt-lg-0">
+                        <div class="produit-description">
+                            <h5 class="titre">{{ produit.titre }}</h5>
+                            <div class="categorie">Catégorie:
+                                {% for categorie in produit.categories %}
+                                    <a href="#">{{ categorie.titre }}</a>{{ loop.last ? '' : ',' }}
+                                {% endfor %}
+                            </div>
+
+                            <div class="evaluations">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <i class="bi bi-star"></i>
+                                <span>25 avis</span>
+                            </div>
+
+                            <div class="prix">
+                                {% if produit.solde %}
+                                    <ins>{{ produit.solde}} {{ devise_ext|raw }}</ins><del>{{ produit.montant}} {{ devise_ext|raw }}</del>
+                                {% else %}
+                                    <ins>{{ produit.montant }} {{ devise_ext|raw }}</ins>
+                                {% endif %}
+                            </div>
+
+                            <div class="formulaire">
+                                <form action="panier.php">
+                                    {% if produit.taille %}
+                                        <select class="" aria-label="Default select example">
+                                            <option selected>Taille</option>
+                                            <option value="1">S</option>
+                                            <option value="2">M</option>
+                                            <option value="3">L</option>
+                                            <option value="3">xL</option>
+                                            <option value="3">XXL</option>
+                                        </select>
+                                    {% endif %}
+
+                                    <input type="number" min="1" value="1" class="">
+                                    {% if produit.stock > 0  %}
+                                        <button type="submit" class="btn-panier"> <i class="bi bi-cart4"></i> Ajouter au panier </button>
+                                    {% else %}
+                                        <button type="submit" class="btn-panier"> <i class="bi bi-bag-plus-fill"></i> Commander </button>
+                                    {% endif %}
+
+                                </form>
+                            </div>
+                            <div class="reference">
+                                <div>Reference: <span>{{ produit.reference }}</span></div>
+                            </div>
+                            <div class="reference">
+                                <div>Poids: <span>{{ produit.poids }} Kg</span></div>
+                            </div>
+
+                            <div class="description">
+                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingOne">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                Détails produits
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">{{ produit.description|raw }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                                Conseils
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">{{ produit.conseil|raw }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="partage">
+                                <span>Partagez :</span>
+                                <a href="https://facebook.com/sharer/sharer.php?u={{ absolute_url(path('app_frontend_produit_details',{slug: produit.slug})) }}" target="_blank"><i class="bi bi-facebook"></i></a>
+                                <a href="https://instagram.com/share?u={{ absolute_url(path('app_frontend_produit_details',{slug: produit.slug})) }}" target="_blank"><i class="bi bi-instagram"></i></a>
+                                <a href="https://twitter.com/share?url={{ absolute_url(path('app_frontend_produit_details',{slug: produit.slug})) }}" target="_blank"><i class="bi bi-twitter"></i></a>
+                                <a href="https://telegram.me/share/url?url={{ absolute_url(path('app_frontend_produit_details',{slug: produit.slug})) }}" target="_blank"><i class="bi bi-telegram"></i></a>
+                                <a href="https://api.whatsApp.com/send?text={{ absolute_url(path('app_frontend_produit_details',{slug: produit.slug})) }}" target="_blank"><i class="bi bi-whatsapp"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-3 mt-5 mt-lg-0">
+                        <div class="card card-livraison">
+                            <h5>Vendu et expédié par <strong>CHAKANE</strong></h5>
+                            <div class="card-body">
+                                <div class="livraison">
+                                    <h6 class="label">
+                                        <i class="bi bi-truck"></i> Livraison en Côte d'Ivoire
+                                    </h6>
+                                    <p>
+                                        Livré en moins de 48h à Abidjan et 72h jours ouvrés dans les autres villes.
+                                        <a href="#" class="details">En savoir plus</a>
+                                    </p>
+                                </div>
+
+                                <div class="relais">
+                                    <h6 class="label">
+                                        <i class="bi bi-airplane"></i> Livraison internationale
+                                    </h6>
+                                    <p>
+                                        Livraison à domicile avec DHL / UPS / Chronopost
+                                        <a href="#" class="details">Retrouvez-nous</a>
+                                    </p>
+                                </div>
+
+                                <div class="retour">
+                                    <h6 class="label">
+                                        <i class="bi bi-bootstrap-reboot"></i> Politique de retour
+                                    </h6>
+                                    <p>
+                                        Retour gratuits sous 7 jours
+                                        <a href="{{ absolute_url(path('app_frontend_retour_index')) }}" class="details">En savoir plus</a>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card card-avis">
+                            <h6>
+                                Avis & commentaires
+                                <a href="#" class="etoiles">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                    <i class="bi bi-star"></i>
+                                    <span>25 avis</span>
+                                </a>
+                            </h6>
+                            <div class="card-body">
+                                <div class="progress" role="progressbar" aria-label="Warning striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                    <span>1</span><div class="progress-bar progress-bar-striped bg-warning" style="width: 10%"></div>
+                                </div>
+                                <div class="progress" role="progressbar" aria-label="Warning striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                    <span>2</span><div class="progress-bar progress-bar-striped bg-warning" style="width: 0%"></div>
+                                </div>
+                                <div class="progress" role="progressbar" aria-label="Warning striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                    <span>3</span><div class="progress-bar progress-bar-striped bg-warning" style="width: 50%"></div>
+                                </div>
+                                <div class="progress" role="progressbar" aria-label="Warning striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                    <span>4</span><div class="progress-bar progress-bar-striped bg-warning" style="width: 25%"></div>
+                                </div>
+                                <div class="progress" role="progressbar" aria-label="Warning striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                    <span>5</span><div class="progress-bar progress-bar-striped bg-warning" style="width: 15%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section boutique-->
+                    <div class="boutique">
+                        <div class="container">
+                            <h2 class="label">
+                                Egalement en boutique
+                            </h2>
+                            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4 article">
+
+                                {% for produit in similaires|slice(0,5) %}
+                                    {% if produit.solde %}
+                                        {% set remise = 100 - (produit.solde * 100 / produit.montant) %}
+                                    {% else %}
+                                        {% set remise = 0 %}
+                                    {% endif %}
+                                    <div class="col">
+                                        <a href="{{ absolute_url(path('app_frontend_produit_details',{slug: produit.slug})) }}">
+                                            <div class="card h-100">
+                                                <figure>
+                                                    <img src="{{ asset('asset/img/loading2.gif') }}" data-src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" class="card-img-top lazy-load loading-animation" alt="{{ produit.titre }}" loading="lazy">
+                                                    <!--<span class="sticker info">Nouveauté</span>-->
+                                                    {{ produit.solde ? ('<span class="sticker remise">-'~remise|number_format(0,'','')~'%</span>')|raw }}
+
+                                                </figure>
+                                                <div class="card-body">
+                                                    <h5 class="card-title prix">
+                                                        {% if produit.solde %}
+                                                            <ins>{{ produit.solde}} {{ devise_ext|raw }}</ins>
+                                                            <del>{{ produit.montant}} {{ devise_ext|raw }}</del>
+                                                        {% else %}
+                                                            <ins>{{ produit.montant }} {{ devise_ext|raw }}</ins>
+                                                        {% endif %}
+                                                    </h5>
+                                                    <p class="description">{{ produit.titre }}</p>
+                                                    <div class="evaluations">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-half"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <span>0</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('asset/js/article.js')) }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Chargement des images au besoin lorsque l'utilisateur interagit avec les slides
+            var lazyLoadImages = document.querySelectorAll('.lazy-load');
+            lazyLoadImages.forEach(function (img) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            var lazyImg = entry.target;
+                            lazyImg.src = lazyImg.dataset.src;
+                            lazyImg.classList.remove('loading-animation');
+                            observer.unobserve(lazyImg);
+                        }
+                    });
+                });
+
+                observer.observe(img);
+            });
+        })
+    </script>
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ parent() }} accueil{% endblock %}
 {% block body %}
-    {% set _devise = app.session.get('devise') %}
+
     <main>
         <div class="slideBar">
             <div class="swiper mySwiper">
@@ -77,10 +77,10 @@
                             {% set remise = 0 %}
                         {% endif %}
                         <div class="col">
-                            <a href="#">
+                            <a href="{{ absolute_url(path('app_frontend_produit_details', {'slug': produit.slug})) }}">
                                 <div class="card h-100">
                                     <figure>
-                                        <img data-src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" class="card-img-top lazy-load" alt="{{ produit.titre }}" loading="lazy">
+                                        <img src="{{ asset('asset/img/loading2.gif') }}" data-src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" class="card-img-top lazy-load" alt="{{ produit.titre }}" loading="lazy">
                                         <!--<span class="sticker info">Nouveauté</span>-->
                                         {{ produit.solde ? ('<span class="sticker remise">-'~remise|number_format(0,'','')~'%</span>')|raw }}
 
@@ -88,10 +88,10 @@
                                     <div class="card-body">
                                         <h5 class="card-title prix">
                                             {% if produit.solde %}
-                                                <ins>{{ produit.solde|number_format(0,'','.')}} FCFA</ins>
-                                                <del>{{ produit.montant|number_format(0,'','.')}} FCFA</del>
+                                                <ins>{{ produit.solde}} {{ devise_ext|raw }}</ins>
+                                                <del>{{ produit.montant}} {{ devise_ext|raw }}</del>
                                             {% else %}
-                                                <ins>{{ produit.montant|number_format(0,'','.') }} FCFA</ins>
+                                                <ins>{{ produit.montant }} {{ devise_ext|raw }}</ins>
                                             {% endif %}
                                         </h5>
                                         <p class="description">{{ produit.titre }}</p>
@@ -151,7 +151,7 @@
                             {% set remise = 0 %}
                         {% endif %}
                         <div class="col">
-                            <a href="#">
+                            <a href="{{ absolute_url(path('app_frontend_produit_details',{slug: produit.slug})) }}">
                                 <div class="card h-100">
                                     <figure>
                                         <img src="{{ asset('asset/img/loading2.gif') }}" data-src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" class="card-img-top lazy-load loading-animation" alt="{{ produit.titre }}" loading="lazy">
@@ -162,10 +162,10 @@
                                     <div class="card-body">
                                         <h5 class="card-title prix">
                                             {% if produit.solde %}
-                                                <ins>{{ produit.solde|number_format(0,'','.')}} FCFA</ins>
-                                                <del>{{ produit.montant|number_format(0,'','.')}} FCFA</del>
+                                                <ins>{{ produit.solde}} {{ devise_ext|raw }}</ins>
+                                                <del>{{ produit.montant}} {{ devise_ext|raw }}</del>
                                             {% else %}
-                                                <ins>{{ produit.montant|number_format(0,'','.') }} FCFA</ins>
+                                                <ins>{{ produit.montant }} {{ devise_ext|raw }}</ins>
                                             {% endif %}
                                         </h5>
                                         <p class="description">{{ produit.titre }}</p>

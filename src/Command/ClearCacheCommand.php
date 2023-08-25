@@ -24,14 +24,6 @@ class ClearCacheCommand extends Command
         parent::__construct();
     }
 
-    protected function configure(): void
-    {
-        $this
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
-        ;
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -40,7 +32,13 @@ class ClearCacheCommand extends Command
             'slides',
             'marque',
             'devise',
-            'maintenance'
+            'maintenance',
+            'collections',
+            'contact',
+            'categories',
+            'produitsIdDesc',
+            'newsProduits',
+            'flagProduits',
         ];
 
         foreach ($entities as $entity){

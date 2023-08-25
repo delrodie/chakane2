@@ -16,8 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     public function __construct(
-        private MaintenanceRepository $maintenanceRepository,
-        private SlideRepository $slideRepository,
         private AllRepository $allRepository
     )
     {
@@ -30,10 +28,24 @@ class HomeController extends AbstractController
         if ($this->allRepository->allCache('maintenance'))
             return $this->redirectToRoute('app_frontend_maintenance_index',[],Response::HTTP_SEE_OTHER);
 
+        // Nouveaux produits
+        $news = $this->allRepository->allCache('newsProduits');
+        $newsProduit=[];
+        foreach ($news as $new){
+            $newsProduit[] = $this->allRepository->getProduitWithDevise($new);
+        }
+
+        // Produits de la boutique
+        $boutiques = $this->allRepository->allCache('flagProduits');
+        $produit=[];
+        foreach ($boutiques as $boutique){
+            $produit[] = $this->allRepository->getProduitWithDevise($boutique);
+        }
+
         return $this->render('frontend/home.html.twig',[
             'collections' => $this->allRepository->allCache('collections'),
-            'news_produits' => $this->allRepository->allCache('newsProduits'),
-            'produits' => $this->allRepository->allCache('flagProduits')
+            'news_produits' => $newsProduit,
+            'produits' => $produit
         ]);
     }
 

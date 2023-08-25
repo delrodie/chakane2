@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Produit;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Psr16Cache;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -20,7 +22,8 @@ class AllRepository
         private ContactRepository $contactRepository,
         private TypeRepository $typeRepository,
         private CategorieRepository $categorieRepository,
-        private ProduitRepository $produitRepository
+        private ProduitRepository $produitRepository,
+        private RequestStack $requestStack
     )
     {
     }
@@ -58,7 +61,7 @@ class AllRepository
         if ($delete) $this->cache->delete($cacheName);
 
         return $this->cache->get($cacheName, function (ItemInterface $item) use ($cacheName){
-            $item->expiresAfter(86400);
+            $item->expiresAfter(604800); // 1 semaine(60*60*24*7)
             return $this->allRepositories($cacheName);
         });
     }
@@ -80,5 +83,91 @@ class AllRepository
         };
 
     }
+
+    public function getProduitWithDevise(object $produit): array
+    {
+        $_devise = $this->requestStack->getSession()->get('devise');
+        $currency = $this->allCache('devise');
+        if ($_devise === 'EUR'){
+            $solde = $produit->getSolde() ? $produit->getSolde() * $currency->getEuro() : null;
+            $montant = $produit->getMontant() ? $produit->getMontant() * $currency->getEuro() : null;
+        }elseif ($_devise === 'USD'){
+            $solde = $produit->getSolde() ? $produit->getSolde() * $currency->getUsd() : null;
+            $montant = $produit->getMontant() ? $produit->getMontant() * $currency->getUsd() : null;
+        }
+        else{
+            $solde = $produit->getSolde();
+            $montant = $produit->getMontant();
+        } //dd($produit);
+
+        return  [
+            'id' => $produit->getId(),
+            'reference' => $produit->getReference(),
+            'titre' => $produit->getTitre(),
+            'description' => $produit->getDescription(),
+            'montant' => $montant,
+            'solde' => $solde,
+            'taille' => $produit->getTaille(),
+            'couleur' => $produit->getCouleur(),
+            'poids' => $produit->getPoids(),
+            'media' => $produit->getMedia(),
+            'photos' => $produit->getPhotos(),
+            'flag' => $produit->getFlag(),
+            'promotion' => $produit->isPromotion(),
+            'stock' => $produit->getStock(),
+            'tags' => $produit->getTags(),
+            'conseil' => $produit->getConseil(),
+            'slug' => $produit->getSlug(),
+            'categories' => $produit->getCategories(),
+            'images' => $produit->getProduitImages()
+        ];
+    }
+
+    public function getProduitSimilaire(string $slug, bool $delete = false)
+    {
+        if ($delete) $this->cache->delete($slug);
+
+        return$this->cache->get($slug, function (ItemInterface $item) use ($slug){
+            $item->expiresAfter(604800); // 1 semaine (60*60*24*7)
+            return $this->produitSimilaires($slug);
+        });
+    }
+
+    private function produitSimilaires(string $slug): array
+    {
+        $produit = $this->produitRepository->getProduitBySlug($slug);
+
+        if ($produit){
+            $produits=[];
+            foreach ($produit->getCategories() as $category){
+                foreach ($category->getProduits() as $produit){
+                    $produits[] = $this->getProduitWithDevise($produit);
+                }
+            }
+
+            // Si les produits similaires sont moins de 5 alors ajouter d'autres produits
+            if (count($produits) < 5){
+                $nouveaux = $this->allCache('newsProduits');
+                $autres=array_map([$this, 'getProduitWithDevise'], $nouveaux);
+
+                return array_merge($produits, $autres);
+            }
+
+            shuffle($produits);
+            return $produits;
+        }
+
+        return $this->getProduitsAleatoires();
+    }
+
+    public function getProduitsAleatoires(): array
+    {
+        $nouveaux = $this->allCache('newsProduits');
+        $produits = array_map([$this, 'getProduitWithDevise'], $nouveaux);
+        shuffle($produits);
+
+        return $produits;
+    }
+
 
 }
