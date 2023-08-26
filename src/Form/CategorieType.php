@@ -14,7 +14,7 @@ class CategorieType extends AbstractType
     {
         $builder
             //->add('code')
-            ->add('type', null, ['attr'=>['class'=>'form-select']])
+            //->add('type', null, ['attr'=>['class'=>'form-select']])
             ->add('titre', TextType::class,['attr'=>['class'=>'form-control', 'autocomplete'=>"off"]])
             //->add('slug')
         ;

@@ -25,166 +25,174 @@
             </div>
         </div>
 
-        <div class="categorie">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 categorie-lg">
-                        <div class="card-group">
-                            <div class="card">
-                                <a href="#" class="text-muted text-center">
-                                    <figure>
-                                        <img src="https://images.unsplash.com/photo-1634826260499-7d97a6049913?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1964&q=80" class="card-img-top" alt="..." loading="lazy">
-                                    </figure>
-                                    <div class="card-footer">Vêtements</div>
-                                </a>
-                            </div>
-                            <div class="card">
-                                <a href="#" class="text-muted text-center">
-                                    <figure>
-                                        <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="..." loading="lazy">
-                                    </figure>
-                                    <div class="card-footer">Accessoires</div>
-                                </a>
-                            </div>
-                            <div class="card">
-                                <a href="#" class="text-muted text-center">
-                                    <figure>
-                                        <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=738&q=80" class="card-img-top" alt="..." loading="lazy">
-                                    </figure>
-                                    <div class="card-footer">Sacs</div>
-                                </a>
+        {% if produits %}
+            <div class="categorie">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 categorie-lg">
+                            <div class="card-group">
+                                <div class="card">
+                                    <a href="#" class="text-muted text-center">
+                                        <figure>
+                                            <img src="https://images.unsplash.com/photo-1634826260499-7d97a6049913?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1964&q=80" class="card-img-top" alt="..." loading="lazy">
+                                        </figure>
+                                        <div class="card-footer">Vêtements</div>
+                                    </a>
+                                </div>
+                                <div class="card">
+                                    <a href="#" class="text-muted text-center">
+                                        <figure>
+                                            <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="..." loading="lazy">
+                                        </figure>
+                                        <div class="card-footer">Accessoires</div>
+                                    </a>
+                                </div>
+                                <div class="card">
+                                    <a href="#" class="text-muted text-center">
+                                        <figure>
+                                            <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=738&q=80" class="card-img-top" alt="..." loading="lazy">
+                                        </figure>
+                                        <div class="card-footer">Sacs</div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
 
-        <div class="nouveaute">
-            <div class="container">
-                <h2 class="label">
-                    Nouveauté
-                    <span class="plus">
+        {% if news_produits %}
+            <div class="nouveaute">
+                <div class="container">
+                    <h2 class="label">
+                        Nouveauté
+                        <span class="plus">
                     <a href="{{ absolute_url(path('app_frontend_produit_details', {'slug': 'nouveaux-produits'})) }}">Tous les articles <i class="bi bi-chevron-double-right"></i></a>
                   </span>
-                </h2>
-                <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 article">
+                    </h2>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 article">
 
-                    {% for produit in news_produits|slice(0,4) %}
-                        {% if produit.solde %}
-                            {% set remise = 100 - (produit.solde * 100 / produit.montant) %}
-                        {% else %}
-                            {% set remise = 0 %}
-                        {% endif %}
-                        <div class="col">
-                            <a href="{{ absolute_url(path('app_frontend_produit_details', {'slug': produit.slug})) }}">
-                                <div class="card h-100">
-                                    <figure>
-                                        <img src="{{ asset('asset/img/loading2.gif') }}" data-src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" class="card-img-top lazy-load" alt="{{ produit.titre }}" loading="lazy">
-                                        <!--<span class="sticker info">Nouveauté</span>-->
-                                        {{ produit.solde ? ('<span class="sticker remise">-'~remise|number_format(0,'','')~'%</span>')|raw }}
+                        {% for produit in news_produits|slice(0,4) %}
+                            {% if produit.solde %}
+                                {% set remise = 100 - (produit.solde * 100 / produit.montant) %}
+                            {% else %}
+                                {% set remise = 0 %}
+                            {% endif %}
+                            <div class="col">
+                                <a href="{{ absolute_url(path('app_frontend_produit_details', {'slug': produit.slug})) }}">
+                                    <div class="card h-100">
+                                        <figure>
+                                            <img src="{{ asset('asset/img/loading2.gif') }}" data-src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" class="card-img-top lazy-load" alt="{{ produit.titre }}" loading="lazy">
+                                            <!--<span class="sticker info">Nouveauté</span>-->
+                                            {{ produit.solde ? ('<span class="sticker remise">-'~remise|number_format(0,'','')~'%</span>')|raw }}
 
-                                    </figure>
-                                    <div class="card-body">
-                                        <h5 class="card-title prix">
-                                            {% if produit.solde %}
-                                                <ins>{{ produit.solde}} {{ devise_ext|raw }}</ins>
-                                                <del>{{ produit.montant}} {{ devise_ext|raw }}</del>
-                                            {% else %}
-                                                <ins>{{ produit.montant }} {{ devise_ext|raw }}</ins>
-                                            {% endif %}
-                                        </h5>
-                                        <p class="description">{{ produit.titre }}</p>
-                                        <div class="evaluations">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i>
-                                            <i class="bi bi-star"></i>
-                                            <span>0</span>
+                                        </figure>
+                                        <div class="card-body">
+                                            <h5 class="card-title prix">
+                                                {% if produit.solde %}
+                                                    <ins>{{ produit.solde}} {{ devise_ext|raw }}</ins>
+                                                    <del>{{ produit.montant}} {{ devise_ext|raw }}</del>
+                                                {% else %}
+                                                    <ins>{{ produit.montant }} {{ devise_ext|raw }}</ins>
+                                                {% endif %}
+                                            </h5>
+                                            <p class="description">{{ produit.titre }}</p>
+                                            <div class="evaluations">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                                <i class="bi bi-star"></i>
+                                                <span>0</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
-
-                </div>
-
-            </div>
-        </div>
-
-        <div class="baniere">
-            <div class="container">
-                <div class="row row-cols-12 row-cols-1 row-cols-lg-2 mt-5 mb-5">
-                    {% for collection in collections|slice(0,2) %}
-                        <div class="col affiche">
-                            <figure>
-                                <img src="{{ collection.media ? absolute_url(asset('upload/collections/' ~ collection.media)) : absolute_url(asset('asset/img/affiche/banner_sac.png.png')) }}" alt="{{ collection.titre }}" class="img-fluid" loading="lazy">
-                            </figure>
-                            <div class="description">
-                                <h3>{{ collection.titre }}</h3>
-                                <div class="resume mode">
-                                    {{ collection.contenu ? collection.contenu|slice(0,150)|raw : '' }}{{ collection.contenu ? '...' : '' }}
-                                </div>
-                                <a href="{{ absolute_url(path('app_frontend_collection_show',{'slug': collection.slug})) }}" class="details">Détails</a>
+                                </a>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+
+                    </div>
 
                 </div>
             </div>
-        </div>
+        {% endif %}
 
-        <div class="boutique">
-            <div class="container">
-                <h2 class="label">
-                    En boutique
-                    <span class="plus">
+        {% if collections %}
+            <div class="baniere">
+                <div class="container">
+                    <div class="row row-cols-12 row-cols-1 row-cols-lg-2 mt-5 mb-5">
+                        {% for collection in collections|slice(0,2) %}
+                            <div class="col affiche">
+                                <figure>
+                                    <img src="{{ collection.media ? absolute_url(asset('upload/collections/' ~ collection.media)) : absolute_url(asset('asset/img/affiche/banner_sac.png.png')) }}" alt="{{ collection.titre }}" class="img-fluid" loading="lazy">
+                                </figure>
+                                <div class="description">
+                                    <h3>{{ collection.titre }}</h3>
+                                    <div class="resume mode">
+                                        {{ collection.contenu ? collection.contenu|slice(0,150)|raw : '' }}{{ collection.contenu ? '...' : '' }}
+                                    </div>
+                                    <a href="{{ absolute_url(path('app_frontend_collection_show',{'slug': collection.slug})) }}" class="details">Détails</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if produits %}
+            <div class="boutique">
+                <div class="container">
+                    <h2 class="label">
+                        En boutique
+                        <span class="plus">
                     <a href="{{ absolute_url(path('app_frontend_produit_details', {'slug': 'tous-les-produits'})) }}">Tous les articles <i class="bi bi-chevron-double-right"></i></a>
                   </span>
-                </h2>
-                <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4 article">
+                    </h2>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4 article">
 
-                    {% for produit in produits|slice(0,10) %}
-                        {% if produit.solde %}
-                            {% set remise = 100 - (produit.solde * 100 / produit.montant) %}
-                        {% else %}
-                            {% set remise = 0 %}
-                        {% endif %}
-                        <div class="col">
-                            <a href="{{ absolute_url(path('app_frontend_produit_details',{slug: produit.slug})) }}">
-                                <div class="card h-100">
-                                    <figure>
-                                        <img src="{{ asset('asset/img/loading2.gif') }}" data-src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" class="card-img-top lazy-load loading-animation" alt="{{ produit.titre }}" loading="lazy">
-                                        <!--<span class="sticker info">Nouveauté</span>-->
-                                        {{ produit.solde ? ('<span class="sticker remise">-'~remise|number_format(0,'','')~'%</span>')|raw }}
+                        {% for produit in produits|slice(0,10) %}
+                            {% if produit.solde %}
+                                {% set remise = 100 - (produit.solde * 100 / produit.montant) %}
+                            {% else %}
+                                {% set remise = 0 %}
+                            {% endif %}
+                            <div class="col">
+                                <a href="{{ absolute_url(path('app_frontend_produit_details',{slug: produit.slug})) }}">
+                                    <div class="card h-100">
+                                        <figure>
+                                            <img src="{{ asset('asset/img/loading2.gif') }}" data-src="{{ absolute_url(asset('upload/produits/' ~ produit.media)) }}" class="card-img-top lazy-load loading-animation" alt="{{ produit.titre }}" loading="lazy">
+                                            <!--<span class="sticker info">Nouveauté</span>-->
+                                            {{ produit.solde ? ('<span class="sticker remise">-'~remise|number_format(0,'','')~'%</span>')|raw }}
 
-                                    </figure>
-                                    <div class="card-body">
-                                        <h5 class="card-title prix">
-                                            {% if produit.solde %}
-                                                <ins>{{ produit.solde}} {{ devise_ext|raw }}</ins>
-                                                <del>{{ produit.montant}} {{ devise_ext|raw }}</del>
-                                            {% else %}
-                                                <ins>{{ produit.montant }} {{ devise_ext|raw }}</ins>
-                                            {% endif %}
-                                        </h5>
-                                        <p class="description">{{ produit.titre }}</p>
-                                        <div class="evaluations">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i>
-                                            <i class="bi bi-star"></i>
-                                            <span>0</span>
+                                        </figure>
+                                        <div class="card-body">
+                                            <h5 class="card-title prix">
+                                                {% if produit.solde %}
+                                                    <ins>{{ produit.solde}} {{ devise_ext|raw }}</ins>
+                                                    <del>{{ produit.montant}} {{ devise_ext|raw }}</del>
+                                                {% else %}
+                                                    <ins>{{ produit.montant }} {{ devise_ext|raw }}</ins>
+                                                {% endif %}
+                                            </h5>
+                                            <p class="description">{{ produit.titre }}</p>
+                                            <div class="evaluations">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                                <i class="bi bi-star"></i>
+                                                <span>0</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                    </div>
 
                 </div>
-
             </div>
-        </div>
+        {% endif %}
 
         <div class="creation">
             <div class="container">
@@ -195,48 +203,18 @@
                   </span>
                 </h2>
                 <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-0">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80" class="card-img-top creation"
-                                 data-gall="creation" alt="..."
-                                 data-href="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80">
+                    {% for i in 1..6 %}
+                        {% set img = 'mode_0'~i~'.png' %}
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="{{ asset('asset/img/loading2.gif') }}" class="card-img-top creation lazy-load loading-animation"
+                                     data-gall="creation" alt="..."
+                                     data-href="{{ absolute_url(asset('upload/web/' ~ img)) }}"
+                                     data-src="{{ absolute_url(asset('upload/web/' ~ img)) }}"
+                                     loading="lazy">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://images.unsplash.com/photo-1545291730-faff8ca1d4b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top creation"
-                                 data-gall="creation" alt="..."
-                                 data-href="https://images.unsplash.com/photo-1545291730-faff8ca1d4b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://images.unsplash.com/photo-1517252070983-985dc55929e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top creation"
-                                 data-gall="creation" alt="..."
-                                 data-href="https://images.unsplash.com/photo-1517252070983-985dc55929e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://images.unsplash.com/photo-1517251848771-5327b4c0f46d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top creation"
-                                 data-gall="creation" alt="..."
-                                 data-href="https://images.unsplash.com/photo-1517251848771-5327b4c0f46d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top creation"
-                                 data-gall="creation" alt="..."
-                                 data-href="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="card-img-top creation"
-                                 data-gall="creation" alt="..."
-                                 data-href="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80">
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -247,6 +225,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.0.4/venobox.min.js"></script>
     <script>
         $(document).ready(function () {
             fetchSlides();
@@ -363,6 +342,17 @@
 
             mode.innerHTML = texteMode;
             sac.innerHTML = texteSac;
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            new VenoBox({
+                selector: '.creation',
+                numeration: true,
+                infinigall: true,
+                share: true,
+                spinner: 'rotating-plane'
+            });
         });
     </script>
 {%  endblock %}

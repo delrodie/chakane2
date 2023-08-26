@@ -73,17 +73,17 @@ class Categorie
         return $this;
     }
 
-    public function getType(): ?Type
-    {
-        return $this->type;
-    }
-
-    public function setType(?Type $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
+//    public function getType(): ?Type
+//    {
+//        return $this->type;
+//    }
+//
+//    public function setType(?Type $type): static
+//    {
+//        $this->type = $type;
+//
+//        return $this;
+//    }
 
     /**
      * @return Collection<int, Produit>

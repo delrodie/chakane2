@@ -166,11 +166,11 @@ class Utility
     public function codeCategorie(Categorie $categorie): void
     {
         $entity = $this->allRepository->getOneCategorie();
-        $codeType = $categorie->getType()->getCode() ?? '20';
+//        $code = $categorie->getCode() ? $categorie->getCode() + 1 : '20';
 
-        $code = $codeType . ($categorie->getId() ? $categorie->getId() + 10 : ($entity ? $entity->getId() + 11 : '11'));
+//        $code = $codeType . ($categorie->getId() ? $categorie->getId() + 10 : ($entity ? $entity->getId() + 11 : '11'));
 
-        $categorie->setCode($code);
+        $categorie->setCode($entity ? $entity->getCode() +1 : '20');
 
         $categorie->setSlug($this->slug($categorie->getTitre()));
     }
