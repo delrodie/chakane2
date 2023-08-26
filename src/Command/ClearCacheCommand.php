@@ -39,6 +39,18 @@ class ClearCacheCommand extends Command
             'produitsIdDesc',
             'newsProduits',
             'flagProduits',
+            'femmes-eur',
+            'femmes-usd',
+            'femmes-cfa',
+            'hommes-cfa',
+            'hommes-eur',
+            'hommes-usd',
+            'enfants-cfa',
+            'enfants-eur',
+            'enfants-usd',
+            'sacs-cfa',
+            'sacs-eur',
+            'sacs-usd',
         ];
 
         foreach ($entities as $entity){

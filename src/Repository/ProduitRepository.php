@@ -67,6 +67,20 @@ class ProduitRepository extends ServiceEntityRepository
             ->getQuery()->getOneOrNullResult();
     }
 
+    public function getProduitByCategorie(string $string)
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('c')
+            ->addSelect('i')
+            ->leftJoin('p.categories', 'c')
+            ->leftJoin('p.produitImages', 'i')
+            ->where('c.slug LIKE :slug')
+            ->orderBy('p.flag', "DESC")
+            ->addOrderBy('p.id', "DESC")
+            ->setParameter('slug', "%{$string}%")
+            ->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Produit[] Returns an array of Produit objects
 //     */

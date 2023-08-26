@@ -34,3 +34,4 @@ function zoom(smallImg){
     fullImg.src = smallImg.src;
     fullImg.setAttribute('data-href', smallImg.src);
 }
+

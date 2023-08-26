@@ -122,10 +122,10 @@
                         <i class="bi bi-list-ul"></i> Catégories
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="">Femmes</a></li>
-                        <li><a class="dropdown-item" href="">Hommes</a></li>
-                        <li><a class="dropdown-item" href="">Enfants</a></li>
-                        <li><a class="dropdown-item" href="">Sacs & accessoires</a></li>
+                        <li><a class="dropdown-item" href="{{ absolute_url(path('app_frontend_produit_details',{slug: 'femmes'})) }}">Femmes</a></li>
+                        <li><a class="dropdown-item" href="{{ absolute_url(path('app_frontend_produit_details',{slug: 'hommes'})) }}">Hommes</a></li>
+                        <li><a class="dropdown-item" href="{{ absolute_url(path('app_frontend_produit_details',{slug: 'enfants'})) }}">Enfants</a></li>
+                        <li><a class="dropdown-item" href="{{ absolute_url(path('app_frontend_produit_details',{slug: 'sacs-accessoires'})) }}">Sacs & accessoires</a></li>
                     </ul>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -143,7 +143,7 @@
                             <a class="nav-link menu-link" href="">Vêtements</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="">Sacs & accesoires</a>
+                            <a class="nav-link menu-link" href="{{ absolute_url(path('app_frontend_produit_details', {'slug': 'sacs-accessoires'})) }}">Sacs & accesoires</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ absolute_url(path('app_frontend_contact_index')) }}">Contact</a>

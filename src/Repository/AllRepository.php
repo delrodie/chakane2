@@ -77,8 +77,8 @@ class AllRepository
             'contact' => $this->contactRepository->findOneBy([],['id'=>"DESC"]),
             'categories' => $this->categorieRepository->findBy([],['titre'=>"ASC"]),
             'produitsIdDesc' => $this->produitRepository->getProduisByIdDesc(),
-            'newsProduits' => $this->produitRepository->getNewsProduitByFlagAndIdDesc(),
-            'flagProduits' => $this->produitRepository->getProduitsByFlagDesc(),
+            'newsProduits' => array_map([$this, 'getProduitWithDevise'], $this->produitRepository->getNewsProduitByFlagAndIdDesc()),
+            'flagProduits' => array_map([$this, 'getProduitWithDevise'], $this->produitRepository->getProduitsByFlagDesc()),
             default => false,
         };
 
@@ -127,7 +127,7 @@ class AllRepository
     {
         if ($delete) $this->cache->delete($slug);
 
-        return$this->cache->get($slug, function (ItemInterface $item) use ($slug){
+        return $this->cache->get($slug, function (ItemInterface $item) use ($slug){
             $item->expiresAfter(604800); // 1 semaine (60*60*24*7)
             return $this->produitSimilaires($slug);
         });
@@ -169,5 +169,21 @@ class AllRepository
         return $produits;
     }
 
+    public function getProduitsByCategorie(string $string, bool $delete = false)
+    {
+        if ($delete) $this->cache->delete($string);
+
+        return $this->cache->get($string, function (ItemInterface $item) use ($string){
+            $item->expiresAfter(604800); // 1 semaine
+            return $this->produitsByCategorie($string);
+        });
+    }
+
+    private function produitsByCategorie(string $string)
+    {
+        $produits = $this->produitRepository->getProduitByCategorie(substr($string, 0,3));
+
+        return array_map([$this, 'getProduitWithDevise'], $produits);
+    }
 
 }

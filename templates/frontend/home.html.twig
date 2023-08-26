@@ -65,7 +65,7 @@
                 <h2 class="label">
                     Nouveauté
                     <span class="plus">
-                    <a href="#">Tous les articles <i class="bi bi-chevron-double-right"></i></a>
+                    <a href="{{ absolute_url(path('app_frontend_produit_details', {'slug': 'nouveaux-produits'})) }}">Tous les articles <i class="bi bi-chevron-double-right"></i></a>
                   </span>
                 </h2>
                 <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 article">
@@ -139,7 +139,7 @@
                 <h2 class="label">
                     En boutique
                     <span class="plus">
-                    <a href="#">Tous les articles <i class="bi bi-chevron-double-right"></i></a>
+                    <a href="{{ absolute_url(path('app_frontend_produit_details', {'slug': 'tous-les-produits'})) }}">Tous les articles <i class="bi bi-chevron-double-right"></i></a>
                   </span>
                 </h2>
                 <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4 article">
