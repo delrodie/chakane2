@@ -23,7 +23,7 @@ class HomeController extends AbstractController
 
     #[Route('/', name: 'app_home')]
     #[Cache(expires: '+600 seconds', maxage: 3600, public: true, mustRevalidate: true)]
-    public function index(): Response
+    public function index(Request $request): Response
     {
         if ($this->allRepository->allCache('maintenance'))
             return $this->redirectToRoute('app_frontend_maintenance_index',[],Response::HTTP_SEE_OTHER);
@@ -42,10 +42,13 @@ class HomeController extends AbstractController
             $produit[] = $this->allRepository->getProduitWithDevise($boutique);
         }
 
+
+
         return $this->render('frontend/home.html.twig',[
             'collections' => $this->allRepository->allCache('collections'),
             'news_produits' => $newsProduit,
-            'produits' => $produit
+            'produits' => $produit,
+            'creations' => $this->allRepository->getRandomCreation(),
         ]);
     }
 

@@ -51,6 +51,7 @@ class ClearCacheCommand extends Command
             'sacs-cfa',
             'sacs-eur',
             'sacs-usd',
+            'creations',
         ];
 
         foreach ($entities as $entity){

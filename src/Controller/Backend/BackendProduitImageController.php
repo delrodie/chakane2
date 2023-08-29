@@ -47,6 +47,7 @@ class BackendProduitImageController extends AbstractController
                 $produitImage->setProduit($produit);
                 $entityManager->persist($produitImage);
             }
+
             $entityManager->flush();
 
             $this->utility->notification("Les photos du produit {$produit->getTitre()} ont ete ajoutées avec succès!");

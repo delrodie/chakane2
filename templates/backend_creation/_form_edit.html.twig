@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-10">
+        <div class="mb-3">{{ form_row(form.media) }}</div>
+        <div class="">
+            {{ form_widget(form.statut) }}
+            {{ form_label(form.statut) }}
+        </div>
+    </div>
+    {% if creation.media %}
+        <div class="col-2">
+            <img src="{{ absolute_url(asset('upload/creations/' ~ creation.media)) }}" alt="" class="img-fluid">
+        </div>
+    {% endif %}
+</div>
+<div class="text-center mt-5">
+    {{ form_widget(form) }}
+    <a href="{{ absolute_url(path('app_backend_creation_index')) }}" class="btn btn-outline-primary">Annuler</a>
+    <button class="btn btn-primary" id="saveButton">{{ button_label|default('Enregistrer') }}</button>
+</div>
+
+{{ form_end(form) }}

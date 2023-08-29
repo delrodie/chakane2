@@ -21,7 +21,7 @@
                     <div class="col mb-5">
                         <h5 class="titre-page mb-4">{{ marque ? marque.titre : "Aucune marque enregistrée"}}</h5>
                         <div style="text-align:justify;">
-                            <img src="{{ absolute_url(asset( marque.media ? 'upload/marque/' ~ marque.media : 'asset/img/logo_black.png' )) }}" alt="{{ marque.titre }}" class="img-fluid" style="width: 300px; float: left; padding: 0 50px 30px 0;" loading="lazy">
+                            <img src="{{ absolute_url(asset( marque ? 'upload/marque/' ~ marque.media : 'asset/img/logo_black.png' )) }}" alt="{{ marque ? marque.titre }}" class="img-fluid" style="width: 300px; float: left; padding: 0 50px 30px 0;" loading="lazy">
                             {{ marque ? marque.contenu|raw : '' }}
                         </div>
                     </div>
@@ -32,7 +32,7 @@
     </main>
 {% endblock %}
 
-{% block title %}{{ marque.titre }}{% endblock %}
+{% block title %}{{ marque ? marque.titre : 'Chakane' }}{% endblock %}
 
     {% block metas %}
         <link rel="alternate" href="{{ absolute_url(path('app_home')) }}" hreflang="fr">

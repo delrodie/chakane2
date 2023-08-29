@@ -524,6 +524,27 @@ main{
         }
     }
 
+    .pagination{
+        margin-bottom: 30px;
+        nav{
+            .page-item{
+                a{
+                    color: $couleur-principale;
+                }
+
+                &.active{
+                    .page-link{
+                        background: $couleur-principale;
+                        color: $couleur-tertiaire;
+                        border: solid 1px $couleur-principale;
+                    }
+                }
+            }
+
+
+        }
+    }
+
     .breadcrumb{
 
         nav{

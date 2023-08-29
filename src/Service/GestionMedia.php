@@ -12,15 +12,17 @@ class GestionMedia
     private $mediaProduit;
     private $mediaMarque;
     private $mediaCollection;
+    private $mediaCreation;
 
     public function __construct(
-        $slideDirectory, $produitDirectory, $marqueDirectory, $collectionDirectory
+        $slideDirectory, $produitDirectory, $marqueDirectory, $collectionDirectory, $creationDirectory
     )
     {
         $this->mediaSlide = $slideDirectory;
         $this->mediaProduit = $produitDirectory;
         $this->mediaMarque = $marqueDirectory;
         $this->mediaCollection = $collectionDirectory;
+        $this->mediaCreation = $creationDirectory;
     }
 
     /**
@@ -65,6 +67,7 @@ class GestionMedia
             elseif ($media === 'marque') $file->move($this->mediaMarque, $newFilename);
             elseif ($media === 'collection') $file->move($this->mediaCollection, $newFilename);
             elseif ($media === 'produit') $file->move($this->mediaProduit, $newFilename);
+            elseif ($media === 'creation') $file->move($this->mediaCreation, $newFilename);
             else $file->move($this->mediaSlide, $newFilename);
         }catch (FileException $e){
 
@@ -86,6 +89,7 @@ class GestionMedia
         elseif ($media === 'marque') unlink($this->mediaMarque.'/'.$ancienMedia);
         elseif ($media === 'collection') unlink($this->mediaCollection.'/'.$ancienMedia);
         elseif ($media === 'produit') unlink($this->mediaProduit.'/'.$ancienMedia);
+        elseif ($media === 'creation') unlink($this->mediaCreation.'/'.$ancienMedia);
         else return false;
 
         return true;

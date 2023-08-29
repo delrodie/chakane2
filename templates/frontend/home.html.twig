@@ -194,30 +194,31 @@
             </div>
         {% endif %}
 
-        <div class="creation">
-            <div class="container">
-                <h2 class="label">
-                    Nos créations en image
-                    <span class="plus">
-                    <a href="#">Tous les articles de la boutique <i class="bi bi-chevron-double-right"></i></a>
-                  </span>
-                </h2>
-                <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-0">
-                    {% for i in 1..6 %}
-                        {% set img = 'mode_0'~i~'.png' %}
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="{{ asset('asset/img/loading2.gif') }}" class="card-img-top creation lazy-load loading-animation"
-                                     data-gall="creation" alt="..."
-                                     data-href="{{ absolute_url(asset('upload/web/' ~ img)) }}"
-                                     data-src="{{ absolute_url(asset('upload/web/' ~ img)) }}"
-                                     loading="lazy">
+        {% if creations %}
+            <div class="">
+                <div class="container">
+                    <h2 class="label">
+                        Nos créations en image
+                        <span class="plus">
+                        <a href="{{ absolute_url(path('app_frontend_creation_index')) }}">Toutes nos créations<i class="bi bi-chevron-double-right"></i></a>
+                      </span>
+                    </h2>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-0 creation">
+                        {% for creation in creations|slice(0,6) %}
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="{{ asset('asset/img/loading2.gif') }}" class="card-img-top creation lazy-load loading-animation"
+                                         data-gall="creation" alt="..."
+                                         data-href="{{ absolute_url(asset('upload/creations/' ~ creation.media)) }}"
+                                         data-src="{{ absolute_url(asset('upload/creations/' ~ creation.media)) }}"
+                                         loading="lazy">
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
 
     </main>
 {% endblock %}

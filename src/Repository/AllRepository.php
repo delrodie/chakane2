@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Produit;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Psr16Cache;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -23,7 +24,9 @@ class AllRepository
         private TypeRepository $typeRepository,
         private CategorieRepository $categorieRepository,
         private ProduitRepository $produitRepository,
-        private RequestStack $requestStack
+        private RequestStack $requestStack,
+        private CreationRepository $creationRepository,
+        private PaginatorInterface $paginator
     )
     {
     }
@@ -79,6 +82,7 @@ class AllRepository
             'produitsIdDesc' => $this->produitRepository->getProduisByIdDesc(),
             'newsProduits' => array_map([$this, 'getProduitWithDevise'], $this->produitRepository->getNewsProduitByFlagAndIdDesc()),
             'flagProduits' => array_map([$this, 'getProduitWithDevise'], $this->produitRepository->getProduitsByFlagDesc()),
+            'creations' => $this->creationRepository->findBy([],['id' => "DESC"]),
             default => false,
         };
 
@@ -184,6 +188,26 @@ class AllRepository
         $produits = $this->produitRepository->getProduitByCategorie(substr($string, 0,3));
 
         return array_map([$this, 'getProduitWithDevise'], $produits);
+    }
+
+    public function getRandomCreation()
+    {
+        $creations = $this->allCache('creations');
+        shuffle($creations);
+
+        return $creations;
+    }
+
+    public function creationByPagination(int $per_page)
+    {
+        $creations = $this->allCache('creations');
+        shuffle($creations);
+
+        return $this->paginator->paginate(
+            $creations,
+            $this->requestStack->getCurrentRequest()->query->getInt('page', 1),
+            $per_page
+        );
     }
 
 }

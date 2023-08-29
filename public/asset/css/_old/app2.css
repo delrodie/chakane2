@@ -347,6 +347,14 @@ main {
           background: #325255;
           color: #c0e3e5;
           border: solid 1px #325255; }
+  main .pagination {
+    margin-bottom: 30px; }
+    main .pagination nav .page-item a {
+      color: #325255; }
+    main .pagination nav .page-item.active .page-link {
+      background: #325255;
+      color: #c0e3e5;
+      border: solid 1px #325255; }
   main .breadcrumb nav {
     margin: 20px auto;
     background: rgba(50, 82, 85, 0.1);

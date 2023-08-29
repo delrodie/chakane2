@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos créations{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="breadcrumb">
+            <div class="container">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_home')) }}"><i class="bi bi-house-fill"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Nos créations</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="creation">
+            <div class="container">
+                <h4 class="categorie">
+                    Nos créations en image
+                </h4>
+                <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-0">
+                    {% for creation in creations %}
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="{{ asset('asset/img/loading2.gif') }}" class="card-img-top creation lazy-load loading-animation"
+                                     data-gall="creation" alt="..."
+                                     data-href="{{ absolute_url(asset('upload/creations/' ~ creation.media)) }}"
+                                     data-src="{{ absolute_url(asset('upload/creations/' ~ creation.media)) }}"
+                                     loading="lazy">
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="container ">
+            <div class="pagination d-flex justify-content-center mt-4">
+                {{ knp_pagination_render(creations) }}
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.0.4/venobox.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Chargement des images au besoin lorsque l'utilisateur interagit avec les slides
+            var lazyLoadImages = document.querySelectorAll('.lazy-load');
+            lazyLoadImages.forEach(function (img) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            var lazyImg = entry.target;
+                            lazyImg.src = lazyImg.dataset.src;
+                            lazyImg.classList.remove('loading-animation');
+                            observer.unobserve(lazyImg);
+                        }
+                    });
+                });
+
+                observer.observe(img);
+            });
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            new VenoBox({
+                selector: '.creation',
+                numeration: true,
+                infinigall: true,
+                share: true,
+                spinner: 'rotating-plane'
+            });
+        });
+    </script>
+{% endblock %}
