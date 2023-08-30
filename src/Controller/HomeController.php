@@ -28,26 +28,12 @@ class HomeController extends AbstractController
         if ($this->allRepository->allCache('maintenance'))
             return $this->redirectToRoute('app_frontend_maintenance_index',[],Response::HTTP_SEE_OTHER);
 
-        // Nouveaux produits
-        $news = $this->allRepository->allCache('newsProduits');
-        $newsProduit=[];
-        foreach ($news as $new){
-            $newsProduit[] = $this->allRepository->getProduitWithDevise($new);
-        }
-
-        // Produits de la boutique
-        $boutiques = $this->allRepository->allCache('flagProduits');
-        $produit=[];
-        foreach ($boutiques as $boutique){
-            $produit[] = $this->allRepository->getProduitWithDevise($boutique);
-        }
-
-
+//        dd($this->allRepository->cacheDiversesRechercheProduits('flagProduits'));
 
         return $this->render('frontend/home.html.twig',[
             'collections' => $this->allRepository->allCache('collections'),
-            'news_produits' => $newsProduit,
-            'produits' => $produit,
+            'news_produits' => $this->allRepository->cacheDiversesRechercheProduits('newsProduits', true),
+            'produits' => $this->allRepository->cacheDiversesRechercheProduits('flagProduits', true),
             'creations' => $this->allRepository->getRandomCreation(),
         ]);
     }

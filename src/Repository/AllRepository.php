@@ -80,19 +80,17 @@ class AllRepository
             'contact' => $this->contactRepository->findOneBy([],['id'=>"DESC"]),
             'categories' => $this->categorieRepository->findBy([],['titre'=>"ASC"]),
             'produitsIdDesc' => $this->produitRepository->getProduisByIdDesc(),
-            'newsProduits' => array_map([$this, 'getProduitWithDevise'], $this->produitRepository->getNewsProduitByFlagAndIdDesc()),
-            'flagProduits' => array_map([$this, 'getProduitWithDevise'], $this->produitRepository->getProduitsByFlagDesc()),
             'creations' => $this->creationRepository->findBy([],['id' => "DESC"]),
             default => false,
         };
 
     }
 
-    public function getProduitWithDevise(object $produit): array
+    public function getProduitWithDevise($produit): array
     {
         $_devise = $this->requestStack->getSession()->get('devise');
         $currency = $this->allCache('devise');
-        if ($_devise === 'EUR'){
+        if ($_devise === 'EUR'){ $produit->getMontant();
             $solde = $produit->getSolde() ? $produit->getSolde() * $currency->getEuro() : null;
             $montant = $produit->getMontant() ? $produit->getMontant() * $currency->getEuro() : null;
         }elseif ($_devise === 'USD'){
@@ -100,9 +98,9 @@ class AllRepository
             $montant = $produit->getMontant() ? $produit->getMontant() * $currency->getUsd() : null;
         }
         else{
-            $solde = $produit->getSolde();
+            $solde = $produit->getSolde() ?: null;
             $montant = $produit->getMontant();
-        } //dd($produit);
+        } //dd(gettype($produit));
 
         return  [
             'id' => $produit->getId(),
@@ -127,11 +125,50 @@ class AllRepository
         ];
     }
 
-    public function getProduitSimilaire(string $slug, bool $delete = false)
+    public function getProduitWithDeviseArray($produit): array
     {
-        if ($delete) $this->cache->delete($slug);
+        $_devise = $this->requestStack->getSession()->get('devise');
+        $currency = $this->allCache('devise');
+        if ($_devise === 'EUR'){
+            $solde = $produit['solde'] ? $produit['solde'] * $currency->getEuro() : null;
+            $montant = $produit['montant'] ? $produit['montant'] * $currency->getEuro() : null;
+        }elseif ($_devise === 'USD'){
+            $solde = $produit['solde'] ? $produit['solde'] * $currency->getUsd() : null;
+            $montant = $produit['montant'] ? $produit['montant'] * $currency->getUsd() : null;
+        }
+        else{
+            $solde = $produit['solde'] ?: null;
+            $montant = $produit['montant'];
+        } //dd(gettype($produit));
 
-        return $this->cache->get($slug, function (ItemInterface $item) use ($slug){
+        return  [
+            'id' => $produit['id'],
+            'reference' => $produit['reference'],
+            'titre' => $produit['titre'],
+            'description' => $produit['description'],
+            'montant' => $montant,
+            'solde' => $solde,
+            'taille' => $produit['taille'],
+            'couleur' => $produit['couleur'],
+            'poids' => $produit['poids'],
+            'media' => $produit['media'],
+            'photos' => $produit['photos'],
+            'flag' => $produit['flag'],
+            'promotion' => $produit['promotion'],
+            'stock' => $produit['stock'],
+            'tags' => $produit['tags'],
+            'conseil' => $produit['conseil'],
+            'slug' => $produit['slug'],
+            'categories' => $produit['categories'],
+            'images' => $produit['images'],
+        ];
+    }
+
+    public function getProduitSimilaire(string $slug, string $cacheName, bool $delete = false)
+    {
+        if ($delete) $this->cache->delete($cacheName);
+
+        return $this->cache->get($cacheName, function (ItemInterface $item) use ($slug){
             $item->expiresAfter(604800); // 1 semaine (60*60*24*7)
             return $this->produitSimilaires($slug);
         });
@@ -139,20 +176,23 @@ class AllRepository
 
     private function produitSimilaires(string $slug): array
     {
-        $produit = $this->produitRepository->getProduitBySlug($slug);
+        $produit = $this->produitRepository->getProduitBySlug($slug); //dd($produit);
 
         if ($produit){
-            $produits=[];
+            $produits=[]; $existingProduits=[];
             foreach ($produit->getCategories() as $category){
                 foreach ($category->getProduits() as $produit){
-                    $produits[] = $this->getProduitWithDevise($produit);
+                    if ($slug !== $produit->getSlug() && !in_array($produit->getSlug(), $existingProduits)) {
+                        $produits[] = $this->getProduitWithDevise($produit);
+                        $existingProduits[] = $produit->getSlug();
+                    }
                 }
-            }
+            } //dd($produits);
 
             // Si les produits similaires sont moins de 5 alors ajouter d'autres produits
             if (count($produits) < 5){
-                $nouveaux = $this->allCache('newsProduits');
-                $autres=array_map([$this, 'getProduitWithDevise'], $nouveaux);
+                $nouveaux = $this->cacheDiversesRechercheProduits('newsProduits');
+                $autres=array_map([$this, 'getProduitWithDeviseArray'], $nouveaux);
 
                 return array_merge($produits, $autres);
             }
@@ -208,6 +248,29 @@ class AllRepository
             $this->requestStack->getCurrentRequest()->query->getInt('page', 1),
             $per_page
         );
+    }
+
+    public function cacheDiversesRechercheProduits(string $libelle, bool $delete = false)
+    {
+        $_devise = $this->requestStack->getSession()->get('devise');
+        $cacheName = "{$libelle}-{$_devise}";
+
+        if ($delete) $this->cache->delete($cacheName);
+
+        return $this->cache->get($cacheName, function (ItemInterface $item) use($libelle){
+            $item->expiresAfter(604800); // Une semaine 60*60*24*7
+            return $this->getDiversesRechercheProduits($libelle);
+        });
+    }
+
+    public function getDiversesRechercheProduits(string $libelle): array
+    {
+//        dd($this->produitRepository->getNewsProduitByFlagAndIdDesc());
+        return match ($libelle){
+            'newsProduits' => array_map([$this, 'getProduitWithDevise'], $this->produitRepository->getNewsProduitByFlagAndIdDesc()),
+            'flagProduits' => array_map([$this, 'getProduitWithDevise'], $this->produitRepository->getProduitsByFlagDesc()),
+            default => []
+        };
     }
 
 }

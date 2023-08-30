@@ -71,6 +71,11 @@
     line-height: 1.5rem;
 }
 
+form ul li{
+    font-style: italic;
+    color: darkred;
+}
+
 /*# sourceMappingURL=app.css.map */
 
 /*# sourceMappingURL=app.css.map */

@@ -50,7 +50,6 @@
                                         <th class="text-center text-uppercase">#</th>
                                         <th class="text-center text-uppercase">Code</th>
                                         <th class="text-center text-uppercase">Libelle</th>
-                                        <th class="text-center text-uppercase">Types</th>
                                         <th class="text-center text-uppercase">actions</th>
                                     </tr>
                                     </thead>
@@ -60,7 +59,6 @@
                                             <td>{{ loop.index }}</td>
                                             <td class="text-center">{{ categorie.code }}</td>
                                             <td>{{ categorie.titre }}</td>
-{#                                            <td>{{ categorie.type.titre }}</td>#}
                                             <td class="text-center">
                                                 <a href="{{ path('app_backend_categorie_edit', {'id': categorie.id}) }}"><i class="ti-pencil-alt"></i></a>
                                             </td>

@@ -33,11 +33,11 @@ class ProduitController extends AbstractController
             $viewData['page'] = $slug;
             $viewData['titre'] = "Catégories {$slug}";
         } elseif ($slug === 'nouveaux-produits') {
-            $viewData['produits'] = $this->allRepository->allCache('newsProduits');
+            $viewData['produits'] = $this->allRepository->cacheDiversesRechercheProduits('newsProduits');
             $viewData['categorie'] = "Nouveaux produits";
             $viewData['titre'] = "Nouveauté";
         } elseif ($slug === 'tous-les-produits') {
-            $viewData['produits'] = $this->allRepository->allCache('flagProduits');
+            $viewData['produits'] = $this->allRepository->cacheDiversesRechercheProduits('flagProduits');
             $viewData['categorie'] = "Tous les produits";
             $viewData['titre'] = "Tous les produits";
         } else {
@@ -45,7 +45,7 @@ class ProduitController extends AbstractController
             $similaire = "{$produit->getSlug()}-{$devise}";
             return $this->render('frontend/produit_details.html.twig', [
                 'produit' => $this->allRepository->getProduitWithDevise($produit),
-                'similaires' => $this->allRepository->getProduitSimilaire($similaire),
+                'similaires' => $this->allRepository->getProduitSimilaire($produit->getSlug(), $similaire, true),
             ]);
         }
 
