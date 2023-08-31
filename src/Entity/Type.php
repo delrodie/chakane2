@@ -27,9 +27,13 @@ class Type
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Categorie::class)]
     private Collection $categories;
 
+    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Produit::class)]
+    private Collection $produits;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->produits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,5 +110,35 @@ class Type
     public function __toString(): string
     {
         return $this->getTitre();
+    }
+
+    /**
+     * @return Collection<int, Produit>
+     */
+    public function getProduits(): Collection
+    {
+        return $this->produits;
+    }
+
+    public function addProduit(Produit $produit): static
+    {
+        if (!$this->produits->contains($produit)) {
+            $this->produits->add($produit);
+            $produit->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): static
+    {
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getType() === $this) {
+                $produit->setType(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -108,7 +108,9 @@ class ProduitType extends AbstractType
                 'attr' => ['class' => 'form-control', 'style'=>null],
                 'required' => false
             ])
-            //->add('slug')
+            ->add('type',null,[
+                'attr' => ['class' => 'form-select select2']
+            ])
             ->add('categories', EntityType::class,[
                 'attr'=>['class'=>'form-control select2'],
                 'class' => Categorie::class,

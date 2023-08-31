@@ -179,13 +179,14 @@ class Utility
     {
         $codeCategorie = round(1001,1999);
         $slug = $this->slug($produit->getTitre());
+        $codeType = (int) ($produit->getType() ? $produit->getType()->getCode(): 10);
 
         if (!$produit->getId()){
             // Verification de la non-existence du slug dans la base de données
             if ($this->allRepository->getOneProduit($slug)) return false;
 
             $entity = $this->allRepository->getOneProduit();
-            $reference = $codeCategorie . ($entity ? $entity->getId() + 1001 : '1001');
+            $reference = $codeType . ($entity ? $entity->getId() + 1001 : '1001');
 
             $produit->setReference($reference);
         }

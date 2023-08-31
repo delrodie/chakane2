@@ -70,6 +70,9 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: ProduitImage::class)]
     private Collection $produitImages;
 
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?Type $type = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -323,6 +326,18 @@ class Produit
                 $produitImage->setProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }
