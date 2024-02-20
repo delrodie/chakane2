@@ -7,6 +7,7 @@ use App\Form\ProduitType;
 use App\Repository\AllRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\ProduitRepository;
+use App\Service\AllCaches;
 use App\Service\GestionMedia;
 use App\Service\Utility;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,8 @@ class BackendProduitController extends AbstractController
     public function __construct(
         private AllRepository $allRepository,
         private Utility $utility,
-        private GestionMedia $gestionMedia
+        private GestionMedia $gestionMedia,
+        private AllCaches $allCaches
     )
     {
     }
@@ -29,6 +31,7 @@ class BackendProduitController extends AbstractController
     #[Route('/', name: 'app_backend_produit_index', methods: ['GET'])]
     public function index(ProduitRepository $produitRepository): Response
     {
+
         return $this->render('backend_produit/index.html.twig', [
             'produits' => $this->allRepository->allCache('produitsIdDesc', true),
             'categories' => $this->allRepository->allCache('categories', true)

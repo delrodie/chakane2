@@ -20,7 +20,7 @@ class SlideType extends AbstractType
             ->add('titre', TextType::class,['attr'=>['class'=>'form-control','autocomplete'=>"off"]])
             ->add('description', TextareaType::class,['attr'=>['class'=>'form-control', 'row'=>5]])
             ->add('media', FileType::class,[
-                'attr'=>['class'=>"dropify", 'data-preview' => ".preview"],
+                'attr'=>['class'=>"dropify" ],
                 'label' => "Télécharger la photo d'illustration",
                 'mapped' => false,
                 'multiple' => false,

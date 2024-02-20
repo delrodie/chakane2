@@ -124,9 +124,9 @@
                             </div>
 
                             <div class="formulaire">
-                                <form action="panier.php">
+                                <form action="{{ path('app_frontend_produit_panier') }}" method="post">
                                     {% if produit.taille %}
-                                        <select class="" aria-label="Default select example">
+                                        <select name="taille" class="" aria-label="Default select example">
                                             <option selected>Taille</option>
                                             <option value="1">S</option>
                                             <option value="2">M</option>
@@ -136,11 +136,14 @@
                                         </select>
                                     {% endif %}
 
-                                    <input type="number" min="1" value="1" class="">
+                                    <input type="number" name="quantite" min="1" value="1" class="">
+                                    <input type="hidden" name="produit_slug" value="{{ produit.slug }}">
+                                    <input type="hidden" name="produit_id" value="{{ produit.id }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token(produit.slug) }}">
                                     {% if produit.stock > 0  %}
-                                        <button type="submit" class="btn-panier"> <i class="bi bi-cart4"></i> Ajouter au panier </button>
+                                        <button type="submit" id="submitBtn" name="btn" class="btn-panier" value="ajouter"> <i class="bi bi-cart4"></i> Ajouter au panier </button>
                                     {% else %}
-                                        <button type="submit" class="btn-panier"> <i class="bi bi-bag-plus-fill"></i> Commander </button>
+                                        <button type="submit" name="btn" class="btn-panier"> <i class="bi bi-bag-plus-fill"></i> Commander </button>
                                     {% endif %}
 
                                 </form>
@@ -331,6 +334,26 @@
 
                 observer.observe(img);
             });
-        })
+        }})
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var submitBtn = document.getElementById('submitBtn');
+            {% set ctrl = app.session.get('btnSubmit') %}
+
+            if ({{ ctrl }}) {
+                submitBtn.parentNode.removeChild(submitBtn);
+                {% set ctrl =  app.session.set('btnSubmit', false) %}
+                // submitBtn.addEventListener('click', function () {
+                //     // Désactiver le bouton après le clic
+                //submitBtn.disabled = true;
+                //     // Vous pouvez également ajouter une classe pour désactiver le style si nécessaire
+                //     // submitBtn.classList.add('disabled');
+                //
+                //     // Vous pouvez également soumettre le formulaire ici si nécessaire
+                //     // document.querySelector('form').submit();
+                // });
+            }
+        });
     </script>
 {% endblock %}

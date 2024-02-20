@@ -81,28 +81,19 @@ class ProduitRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
-//    /**
-//     * @return Produit[] Returns an array of Produit objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Produit
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getProduitByType(string $libelle)
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('c')
+            ->addSelect('i')
+            ->addSelect('t')
+            ->leftJoin('p.categories', 'c')
+            ->leftJoin('p.produitImages', 'i')
+            ->leftJoin('p.type', 't')
+            ->where('t.titre LIKE :libelle')
+            ->orderBy('p.flag', "DESC")
+            ->addOrderBy('p.id', "DESC")
+            ->setParameter('libelle', "%{$libelle}%")
+            ->getQuery()->getResult();
+    }
 }

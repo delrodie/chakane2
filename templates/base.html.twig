@@ -98,7 +98,10 @@
                         <a href="#" title="Produits aimes"><i class="bi bi-bag-heart"></i></a>
                         <a href="#" title="Panier" class="panier">
                             <i class="bi bi-cart4"></i>
-                            <span class="start-100 translate-middle badge rounded-pill bg-warning">2</span>
+                            {% set panier = app.session.get('panier') %}
+                            {% if panier|length > 0 %}
+                                <span class="start-100 translate-middle badge rounded-pill bg-warning">{{ panier|length }}</span>
+                            {% endif %}
                         </a>
                         <div class="dropdown-center">
                             <a href="#" class="login dropdown-toggle" title="login" data-bs-toggle="dropdown" role="button" aria-expanded="false">
@@ -125,7 +128,7 @@
                         <li><a class="dropdown-item" href="{{ absolute_url(path('app_frontend_produit_details',{slug: 'femmes'})) }}">Femmes</a></li>
                         <li><a class="dropdown-item" href="{{ absolute_url(path('app_frontend_produit_details',{slug: 'hommes'})) }}">Hommes</a></li>
                         <li><a class="dropdown-item" href="{{ absolute_url(path('app_frontend_produit_details',{slug: 'enfants'})) }}">Enfants</a></li>
-                        <li><a class="dropdown-item" href="{{ absolute_url(path('app_frontend_produit_details',{slug: 'sacs-accessoires'})) }}">Sacs & accessoires</a></li>
+                        <li><a class="dropdown-item" href="{{ absolute_url(path('app_frontend_produit_details',{slug: 'sacs-et-accessoires'})) }}">Sacs & accessoires</a></li>
                     </ul>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -140,10 +143,10 @@
                             <a class="nav-link menu-link" href="{{ absolute_url(path('app_frontend_marque_index')) }}">La marque</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="">Vêtements</a>
+                            <a class="nav-link menu-link" href="{{ absolute_url(path('app_frontend_produit_details', {'slug': 'vetements'})) }}">Vêtements</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{ absolute_url(path('app_frontend_produit_details', {'slug': 'sacs-accessoires'})) }}">Sacs & accesoires</a>
+                            <a class="nav-link menu-link" href="{{ absolute_url(path('app_frontend_produit_details', {'slug': 'sacs-et-accessoires'})) }}">Sacs & accesoires</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ absolute_url(path('app_frontend_contact_index')) }}">Contact</a>
