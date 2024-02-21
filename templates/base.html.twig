@@ -96,7 +96,7 @@
                     </div>
                     <div class="col-8 col-md-4 col-lg-3 icons">
                         <a href="#" title="Produits aimes"><i class="bi bi-bag-heart"></i></a>
-                        <a href="#" title="Panier" class="panier">
+                        <a href="{{ absolute_url(path('app_frontend_panier_index')) }}" title="Panier" class="panier">
                             <i class="bi bi-cart4"></i>
                             {% set panier = app.session.get('panier') %}
                             {% if panier|length > 0 %}

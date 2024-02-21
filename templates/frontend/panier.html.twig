@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+ {% set _devise = app.session.get('devise') %}
+ {% if _devise == 'EUR' %}
+  {% set devise_ext = '&euro;' %}
+ {% elseif _devise == 'USD' %}
+  {% set devise_ext = '&dollar;' %}
+ {% else %}
+  {% set devise_ext = 'FCFA' %}
+ {% endif %}
+ <main>
+  <!-- Breadcrumb-->
+  <div class="breadcrumb">
+   <div class="container">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+     <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_home')) }}"><i class="bi bi-house-fill"></i></a></li>
+      <li class="breadcrumb-item"><a href="{{ path('app_frontend_produit_details', {'slug': 'tous-les-produits'}) }}">Boutique</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Panier</li>
+     </ol>
+    </nav>
+   </div>
+  </div>
+  <div class="panier">
+   <div class="container">
+    <div class="row">
+     <div class="col-12 col-lg-8 liste">
+      <div class="card">
+       <div class="card-header">
+        <h5 class="card-title">Mon panier ({{ produits|length > 1 ?  produits|length ~ 'articles' : produits|length ~ 'article'}} )</h5>
+       </div>
+       <div class="card-body">
+        {% for produit in produits %}
+         <div class="row row-cols-12 produit g4">
+          <div class="col ">
+           <div class="row">
+            <div class="col-4 col-md-3 col-lg-2">
+             <a href="{{ path('app_frontend_produit_details', {'slug': produit.produit.slug}) }}">
+              <img src="{{ absolute_url(asset('upload/produits/' ~ produit.produit.media)) }}" alt="{{ produit.produit.titre }}" class="img-fluid">
+             </a>
+            </div>
+            <div class="col-12 col-md-9 col-lg-10">
+             <div class="row">
+              <div class="col-12 col-md-10 details">
+               <h6 class="titre">
+                <a href="{{ absolute_url(path('app_frontend_produit_details', {'slug': produit.produit.slug})) }}">
+                 {{ produit.produit.titre }}
+                </a>
+               </h6>
+               <div>Couleur: {{ produit.produit.couleur }}</div>
+               <div>
+                 {{ produit.produit.taille ? 'Taille:' ~ produit.produit.taille : ''  }}
+                {% if produit.produit.taille and produit.produit.poids %}
+                  /
+                {% endif %}
+                 {{ produit.produit.poids ? 'Poids: ' ~ produit.produit.poids ~ ' kg' : '' }}
+               </div>
+              </div>
+              <div class="col-6 col-md-2 quantite">
+               <form action="">
+                <select name="quantite" id="qte">
+                 <option value="{{ produit.quantite }}">{{ produit.quantite }}</option>
+{#                 <option value="2">2</option>#}
+{#                 <option value="3">3</option>#}
+{#                 <option value="4">4</option>#}
+{#                 <option value="5">5</option>#}
+                </select>
+               </form>
+              </div>
+              <div class="col-6 montant d-block d-md-none">
+               <span>{{ produit.montant}} FCFA</span>
+              </div>
+             </div>
+             <div class="row derniere-ligne">
+              <div class="col-4 col-md-3 supprimer">
+               <a href="#"><i class="bi bi-trash"></i> Supprimer</a>
+              </div>
+              <div class="col-8 col-md-5 deplacer">
+               <a href="#"><i class="bi bi-heart"></i> Déplacer vers mes préférés</a>
+              </div>
+              <div class="col-4 col-md-4 montant d-none d-md-block">
+               <span>
+                {% if _devise == 'USD' %} {{ devise_ext|raw }}{{ produit.montant }}
+                 {% else %}{{ produit.montant}} {{ devise_ext|raw }}
+                {% endif %}
+{#                {{ _devise == 'USD' ? devise_ext|raw ~ produit.montant : produit.montant ~ devise_ext|raw }}#}
+               </span>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        {% endfor %}
+
+       </div>
+      </div>
+
+      <!-- Poursuivre les achats-->
+      <a href="{{ path('app_frontend_produit_details', {'slug': 'tous-les-produits'}) }}" class="btn-achat">Poursuivre les achats</a>
+
+     </div>
+     <div class="col-12 col-lg-4 resume">
+      <div class="card">
+       <div class="card-header">
+        <h5 class="card-title">Résumé</h5>
+       </div>
+       <div class="card-body">
+        <div class="ligne">Sous-total <span>
+          {% if _devise == 'USD' %} {{ devise_ext|raw }}{{ sousTotal }}
+          {% else %}{{ sousTotal}} {{ devise_ext|raw }}
+          {% endif %}
+         </span></div>
+        <div class="ligne">Livraison <i class="bi bi-question-circle-fill"></i> <span>-</span></div>
+        <hr>
+        <div class="total">Total  <span class="montant">
+          {% if _devise == 'USD' %} {{ devise_ext|raw }}{{ sousTotal }}
+          {% else %}{{ sousTotal}} {{ devise_ext|raw }}
+          {% endif %}
+         </span></div>
+        <form action="livraison.html">
+
+         <div class="d-grid gap-2 mt-4">
+          <input type="submit" class="submit" value="Commander">
+         </div>
+
+        </form>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </main>
+{% endblock %}
+
