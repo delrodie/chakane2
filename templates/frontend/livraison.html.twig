@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+ {% set _devise = app.session.get('devise') %}
+ {% if _devise == 'EUR' %}
+  {% set devise_ext = '&euro;' %}
+ {% elseif _devise == 'USD' %}
+  {% set devise_ext = '&dollar;' %}
+ {% else %}
+  {% set devise_ext = 'FCFA' %}
+ {% endif %}
+ <main>
+  <!-- Breadcrumb-->
+  <div class="breadcrumb">
+   <div class="container">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+     <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_home')) }}"><i class="bi bi-house-fill"></i></a></li>
+      <li class="breadcrumb-item"><a href="{{ path('app_frontend_produit_details', {'slug': 'tous-les-produits'}) }}">Boutique</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Panier</li>
+     </ol>
+    </nav>
+   </div>
+  </div>
+
+  <div class="panier">
+   <div class="container">
+    <div class="row">
+     <div class="col-12 col-lg-8 liste">
+      <div class="card">
+       <div class="card-header">
+        <h5 class="card-title">Informations de livraison</h5>
+       </div>
+       <div class="card-body">
+        <form action="">
+         <div class="row row-cols-1 row-cols-lg-2 g-4 form-group">
+          <div class="col">
+           <label for="" class="form-label">Prenoms</label>
+           <input type="text" class="form-control" placeholder="Prenoms">
+          </div>
+          <div class="col">
+           <label for="Nom" class="form-label">Nom</label>
+           <input type="text" class="form-control" placeholder="Nom de famille">
+          </div>
+          <div class="col">
+           <label for="Email" class="form-label">Email</label>
+           <input type="text" class="form-control" placeholer="Adresse email">
+          </div>
+          <div class="col">
+           <label for="Telephone" class="form-label">Telephone</label>
+           <input type="text" class="form-control" placeholder="Telephone">
+          </div>
+          <div class="col">
+           <label for="" class="form-label">Pays</label>
+           <select name="pays" id="pays" class="form-select">
+            <option value="">Pays</option>
+           </select>
+          </div>
+          <div class="col">
+           <label for="ville" class="form-label">Ville</label>
+           <input type="text" class="form-control" placeholder="Ville">
+          </div>
+          <div class="col">
+           <label for="" class="form-label">Etat/province/region</label>
+           <input type="text" class="form-control" placeholder="Etat/province/region">
+          </div>
+          <div class="col">
+           <label for="" class="form-label">Code ZIP</label>
+           <input type="text" class="form-control">
+          </div>
+          <div class="col">
+           <label for="" class="form-label">Adresse 1</label>
+           <input type="text" class="form-control" placeholder="Adresse 1">
+          </div>
+          <div class="col">
+           <label for="" class="form-label">Adresse 2</label>
+           <input type="text" class="form-control" placeholder="Adresse 2">
+          </div>
+         </div>
+        </form>
+       </div>
+      </div>
+
+      <!-- Poursuivre les achats-->
+      <a href="#" class="btn-achat">Poursuivre les achats</a>
+
+     </div>
+     <div class="col-12 col-lg-4 resume">
+      <div class="card">
+       <div class="card-header">
+        <h5 class="card-title">Résumé</h5>
+       </div>
+       <div class="card-body">
+        <!-- Liste des produits -->
+        <section id="produits">
+         <div class="row row-cols-1 liste">
+          <div class="col article">
+           <div class="row">
+            <div class="col-2">
+             <img src="https://images.unsplash.com/photo-1634826260499-7d97a6049913?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" alt="" class="img-fluid">
+            </div>
+            <div class="col-10">
+             <h6 class="titre"><a href="#">Robe noire modèle printemps</a></h6>
+             <div class="valeur">
+              <span class="montant">25.000 FCFA</span>
+              <span class="quantite">x <span>3</span> </span>
+              <span class="corbeille"><a href="#"><i class="bi bi-trash"></i></a></span>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="col article">
+           <div class="row">
+            <div class="col-2">
+             <img src="https://images.unsplash.com/photo-1634826260499-7d97a6049913?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" alt="" class="img-fluid">
+            </div>
+            <div class="col-10">
+             <h6 class="titre">Robe noire modèle printemps</h6>
+             <div class="div valeur">
+              <span class="montant">25.000 FCFA</span>
+              <span class="quantite">x 3</span>
+              <span class="corbeille"><a href="#"><i class="bi bi-trash"></i></a></span>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </section>
+
+        <!-- Totaux -->
+        <div class="ligne">Sous-total <span>250.000 FCFA</span></div>
+        <div class="ligne">Livraison <i class="bi bi-question-circle-fill"></i> <span>20.000 FCFA</span></div>
+        <hr>
+        <div class="total">Total <span class="montant">270.000 FCFA</span></div>
+        <form action="paiement.html">
+
+         <div class="d-grid gap-2 mt-4">
+          <input type="submit" class="submit" value="Commander">
+         </div>
+
+        </form>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+ </main>
+{% endblock %}
+

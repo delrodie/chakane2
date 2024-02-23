@@ -71,6 +71,7 @@ class CreateUserCommand extends Command
         $user->setEmail($email);
         $user->setPassword($this->passwordHasher->hashPassword($user, $password));
         $user->setRoles([$role]);
+        $user->setIsVerified(true);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();

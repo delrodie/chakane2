@@ -121,10 +121,12 @@
           {% else %}{{ sousTotal}} {{ devise_ext|raw }}
           {% endif %}
          </span></div>
-        <form action="livraison.html">
-
+        <form action="{{ path('app_frontend_panier_livraison') }}" method="post">
+{#         <input type="hidden" name="produits" value="{{ produits }}">#}
+         <input type="hidden" name="sousTotal" value="{{ sousTotal }}">
+         <input type="hidden" name="livraison_token" value="{{ csrf_token('livraison') }}">
          <div class="d-grid gap-2 mt-4">
-          <input type="submit" class="submit" value="Commander">
+          <input type="submit" name="btnCde" class="submit" value="Commander">
          </div>
 
         </form>
@@ -136,4 +138,5 @@
   </div>
  </main>
 {% endblock %}
+
 

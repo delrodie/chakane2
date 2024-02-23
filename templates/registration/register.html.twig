@@ -1,0 +1,43 @@
+{% extends 'security_layout.html.twig' %}
+
+{% block title %}Creation de compte{% endblock %}
+
+{% block body %}
+
+
+    <div class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
+        <div class="col-sm-8 col-md-6 col-xl-9">
+            <h2 class="mb-5 fs-7 fw-bolder">Créer un compte</h2>
+            {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            {% endfor %}
+
+            {{ form_errors(registrationForm) }}
+
+            {{ form_start(registrationForm) }}
+
+            <div class="mb-3">
+                {{ form_row(registrationForm.email) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+            </div>
+            <div class="form-check mb-3">
+                {{ form_widget(registrationForm.agreeTerms,{
+                    attr:{'class': 'form-check-input primary'}
+                }) }}
+                {{ form_label(registrationForm.agreeTerms) }}
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Register</button>
+            <div class="d-flex align-items-center justify-content-center">
+                <p class="fs-4 mb-0 fw-medium">Vous avez déjà un compte ?</p>
+                <a class="text-primary fw-medium ms-2" href="{{ absolute_url(path('app_login')) }}">Connexion</a>
+            </div>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}

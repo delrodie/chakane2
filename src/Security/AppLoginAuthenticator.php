@@ -60,8 +60,13 @@ class AppLoginAuthenticator extends AbstractLoginFormAuthenticator
             $this->userRepository->save($user, true);
         }
 
+        $redirectPath = $request->getSession()->get('redirectPath');
+        //dd($redirectPath);
+
+        if (!$redirectPath) $redirectPath = 'app_home';
+
         // For example:
-         return new RedirectResponse($this->urlGenerator->generate('app_home'));
+         return new RedirectResponse($this->urlGenerator->generate($redirectPath));
 //        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
