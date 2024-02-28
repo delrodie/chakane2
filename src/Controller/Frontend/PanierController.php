@@ -3,9 +3,12 @@
 namespace App\Controller\Frontend;
 
 use App\Repository\AllRepository;
+use App\Service\Utility;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Intl\Countries;
+use Symfony\Component\Intl\Locale;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -13,7 +16,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class PanierController extends AbstractController
 {
     public function __construct(
-        private AllRepository $allRepository
+        private AllRepository $allRepository,
+        private Utility $utility
     )
     {
     }
@@ -67,7 +71,9 @@ class PanierController extends AbstractController
         // suppression du lien de redirection
         $request->getSession()->set('redirectPath', '');
 
-
-        return $this->render('frontend/livraison.html.twig');
+        return $this->render('frontend/livraison.html.twig',[
+            'countries' => Countries::getNames(),
+            'email' => $this->getUser()->getUserIdentifier()
+        ]);
     }
 }

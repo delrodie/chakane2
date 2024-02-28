@@ -26,7 +26,8 @@ class AllRepository
         private ProduitRepository $produitRepository,
         private RequestStack $requestStack,
         private CreationRepository $creationRepository,
-        private PaginatorInterface $paginator
+        private PaginatorInterface $paginator,
+        private ClientRepository $clientRepository
     )
     {
     }
@@ -57,6 +58,13 @@ class AllRepository
         if ($concerned) return $this->produitRepository->findOneBy(['slug'=>$concerned]);
 
         return $this->produitRepository->findOneBy([],['id'=>"DESC"]);
+    }
+
+    public function getOneClient(int $concerned = null)
+    {
+        if ($concerned) return $this->clientRepository->findOneBy(['id' => $concerned]);
+
+        return $this->clientRepository->findOneBy([],['id'=>'DESC']);
     }
 
     public function allCache(string $cacheName, bool $delete = false)

@@ -196,4 +196,18 @@ class Utility
         return true;
     }
 
+    public function codeClient()
+    {
+        $lastClient = $this->allRepository->getOneClient();
+        $aleatoire = date('ym');
+
+        $lastId = $lastClient ? (int) $lastClient->getId() : 0;
+        $newId = $lastId + 1;
+
+        // Ajout de 0 à gauche jusqu'à atteindre les 5 position
+        $id = str_pad($newId, 5, '0', STR_PAD_LEFT);
+
+        return $aleatoire.$id;
+    }
+
 }
