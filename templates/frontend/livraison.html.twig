@@ -34,65 +34,148 @@
         <h5 class="card-title">Informations de livraison</h5>
        </div>
        <div class="card-body">
-        <form action="{{ absolute_url(path('app_frontend_client_create')) }}" method="post">
-         <div class="row row-cols-1 row-cols-lg-2 g-4 form-group">
-          <div class="col">
-           <label for="" class="form-label">Prenoms</label>
-           <input type="text" name="prenom" class="form-control" placeholder="Prenoms">
-          </div>
-          <div class="col">
-           <label for="Nom" class="form-label">Nom</label>
-           <input type="text" name="nom" class="form-control" placeholder="Nom de famille">
-          </div>
-          <div class="col">
-           <label for="Email" class="form-label">Email</label>
-           <input type="text" name="email" class="form-control" placeholer="Adresse email" value="{{ email }}" readonly>
-          </div>
-          <div class="col">
-           <label for="Telephone" class="form-label">Telephone</label>
-           <input type="tel" name="telephone" class="form-control" placeholder="Telephone">
-          </div>
-          <div class="col">
-           <label for="" class="form-label">Pays</label>
-           <select name="pays" id="pays" class="form-select">
-            <option value="">-- Selectionnez votre pays de livraison --</option>
-            <option value=""></option>
-               {% for key, country in countries %}
-                   <option value="{{ key }}"> {{ country }}</option>
-               {% endfor %}
-           </select>
-          </div>
-          <div class="col">
-           <label for="ville" class="form-label">Ville</label>
-           <input type="text" name="ville" class="form-control" placeholder="Ville">
-          </div>
-          <div class="col">
-           <label for="" class="form-label">Etat/province/region</label>
-           <input type="text" name="region" class="form-control" placeholder="Etat/province/region">
-          </div>
-          <div class="col">
-           <label for="" class="form-label">Code ZIP</label>
-           <input type="text" name="zip" class="form-control">
+        {% if adresses %}
+         <div class="row">
+          <div class="col-12">
+           <h6>{{ client.prenom }} {{ client.nom }} - {{ client.matricule }}</h6>
+           <p>{{ client.ville }}, {{ client.pays }}</p>
+
+           {% for adresse in adresses %}
+            <div class="row align-items-center align-content-center mb-3">
+             <div class="col-1 text-end choixLivraison">
+              <label>
+               <input type="radio" name="adresseLivraison" value="{{ adresse.id }}" >
+              </label>
+             </div>
+             <div class="col-11">
+              <div class="card">
+               <div class="card-body">
+                <h6>Adresse {{ loop.index }}</h6>
+                <div>{{ adresse.region|raw }},  {{ adresse.pays|raw }}</div>
+                <div>{{ adresse.lieu|raw }}, {{ adresse.ville|raw }}</div>
+                <div>{{ adresse.details|raw }}</div>
+               </div>
+              </div>
+             </div>
+            </div>
+
+           {% endfor %}
+
+           <div class="row mt-3">
+            <div class="col-12 text-end">
+             <a href="#" class="modifier-livraison">Modifier l'adresse de livraison</a>
+            </div>
+           </div>
+
+           <div class="row mt-5 formulaire-livraison d-none">
+            <div class="col-12">
+             <form action="{{ absolute_url(path('app_frontend_client_add_adresse')) }}" method="post">
+              <div class="row row-cols-1 row-cols-lg-2 g-4 form-group">
+
+               <div class="col">
+                <label for="" class="form-label">Pays</label>
+                <select name="pays" id="pays" class="form-select">
+                 <option value="">-- Selectionnez votre pays de livraison --</option>
+                 <option value=""></option>
+                 {% for key, country in countries %}
+                  <option value="{{ key }}"> {{ country }}</option>
+                 {% endfor %}
+                </select>
+               </div>
+               <div class="col">
+                <label for="ville" class="form-label">Ville</label>
+                <input type="text" name="ville" class="form-control" placeholder="Ville">
+               </div>
+               <div class="col">
+                <label for="" class="form-label">Etat/province/region</label>
+                <input type="text" name="region" class="form-control" placeholder="Etat/province/region">
+               </div>
+               <div class="col">
+                <label for="" class="form-label">Code ZIP</label>
+                <input type="text" name="zip" class="form-control">
+               </div>
+              </div>
+              <div class="form-group mt-3">
+               <label for="" class="form-label">Adresse de livraison</label>
+               <input type="text" name="adresse1" class="form-control" placeholder="Adresse">
+              </div>
+              <div class="form-group mt-3">
+               <label for="form-label">Détails de l'adresse de livraison</label>
+               <textarea name="detail" id="detail" rows="3" class="form-control"></textarea>
+              </div>
+              <div class="text-center mt-3">
+               <input type="hidden" name="_csrf_token" value="{{ csrf_token('addAdresseToken') }}">
+               <button type="submit" id="btnAdresse" name="btnAdresse" class="btn-adresse" value="Enregistrer">Enregistrer</button>
+               <input type="reset" id="annuler-livraison" class="btn btn-outline-success btn-sm" value="Annuler">
+              </div>
+             </form>
+            </div>
+           </div>
+
           </div>
          </div>
-         <div class="form-group mt-3">
-          <label for="" class="form-label">Adresse de livraison</label>
-          <input type="text" name="adresse1" class="form-control" placeholder="Adresse 1">
-         </div>
-         <div class="form-group mt-3">
-          <label for="form-label">Détails de l'adresse de livraison</label>
-          <textarea name="detail" id="detail" rows="3" class="form-control"></textarea>
-         </div>
-         <div class="text-center mt-3">
-          <input type="hidden" name="_csrf_token" value="{{ csrf_token('adresseToken') }}">
-          <button type="submit" id="btnAdresse" name="btnAdresse" class="btn-adresse" value="Enregistrer">Enregistrer</button>
-         </div>
-        </form>
+         {% else %}
+          <form action="{{ absolute_url(path('app_frontend_client_create')) }}" method="post">
+           <div class="row row-cols-1 row-cols-lg-2 g-4 form-group">
+            <div class="col">
+             <label for="" class="form-label">Prenoms</label>
+             <input type="text" name="prenom" class="form-control" placeholder="Prenoms">
+            </div>
+            <div class="col">
+             <label for="Nom" class="form-label">Nom</label>
+             <input type="text" name="nom" class="form-control" placeholder="Nom de famille">
+            </div>
+            <div class="col">
+             <label for="Email" class="form-label">Email</label>
+             <input type="text" name="email" class="form-control" placeholer="Adresse email" value="{{ email }}" readonly>
+            </div>
+            <div class="col">
+             <label for="Telephone" class="form-label">Telephone</label>
+             <input type="tel" name="telephone" class="form-control" placeholder="Telephone">
+            </div>
+            <div class="col">
+             <label for="" class="form-label">Pays</label>
+             <select name="pays" id="pays" class="form-select">
+              <option value="">-- Selectionnez votre pays de livraison --</option>
+              <option value=""></option>
+              {% for key, country in countries %}
+               <option value="{{ key }}"> {{ country }}</option>
+              {% endfor %}
+             </select>
+            </div>
+            <div class="col">
+             <label for="ville" class="form-label">Ville</label>
+             <input type="text" name="ville" class="form-control" placeholder="Ville">
+            </div>
+            <div class="col">
+             <label for="" class="form-label">Etat/province/region</label>
+             <input type="text" name="region" class="form-control" placeholder="Etat/province/region">
+            </div>
+            <div class="col">
+             <label for="" class="form-label">Code ZIP</label>
+             <input type="text" name="zip" class="form-control">
+            </div>
+           </div>
+           <div class="form-group mt-3">
+            <label for="" class="form-label">Adresse de livraison</label>
+            <input type="text" name="adresse1" class="form-control" placeholder="Adresse">
+           </div>
+           <div class="form-group mt-3">
+            <label for="form-label">Détails de l'adresse de livraison</label>
+            <textarea name="detail" id="detail" rows="3" class="form-control"></textarea>
+           </div>
+           <div class="text-center mt-3">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('adresseToken') }}">
+            <button type="submit" id="btnAdresse" name="btnAdresse" class="btn-adresse" value="Enregistrer">Enregistrer</button>
+           </div>
+          </form>
+        {% endif %}
+
        </div>
       </div>
 
       <!-- Poursuivre les achats-->
-{#      <a href="#" class="btn-achat">Poursuivre les achats</a>#}
+      <a href="{{ path('app_frontend_produit_details', {'slug': 'tous-les-produits'}) }}" class="btn-achat">Poursuivre les achats</a>
 
      </div>
      <div class="col-12 col-lg-4 resume">
@@ -103,49 +186,42 @@
        <div class="card-body">
         <!-- Liste des produits -->
         <section id="produits">
+
          <div class="row row-cols-1 liste">
-          <div class="col article">
-           <div class="row">
-            <div class="col-2">
-             <img src="https://images.unsplash.com/photo-1634826260499-7d97a6049913?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" alt="" class="img-fluid">
-            </div>
-            <div class="col-10">
-             <h6 class="titre"><a href="#">Robe noire modèle printemps</a></h6>
-             <div class="valeur">
-              <span class="montant">25.000 FCFA</span>
-              <span class="quantite">x <span>3</span> </span>
-              <span class="corbeille"><a href="#"><i class="bi bi-trash"></i></a></span>
+          {% for produit in produits %}
+           <div class="col article">
+            <div class="row">
+             <div class="col-2">
+{#              <img src="https://images.unsplash.com/photo-1634826260499-7d97a6049913?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" alt="" class="img-fluid">#}
+              <img src="{{ asset('asset/img/loading2.gif') }}" data-src="{{ absolute_url(asset('upload/produits/' ~ produit.produit.media)) }}" class="img-fluid lazy-load loading-animation" alt="{{ produit.produit.titre }}" loading="lazy">
+             </div>
+             <div class="col-10">
+              <h6 class="titre"><a href="#">{{ produit.produit.titre|raw }}</a></h6>
+              <div class="valeur">
+               <span class="montant">{{ produit.montant }}</span>
+               <span class="quantite">x <span>{{ produit.quantite }}</span> </span>
+               <span class="corbeille"><a href="#"><i class="bi bi-trash"></i></a></span>
+              </div>
              </div>
             </div>
            </div>
-          </div>
-          <div class="col article">
-           <div class="row">
-            <div class="col-2">
-             <img src="https://images.unsplash.com/photo-1634826260499-7d97a6049913?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" alt="" class="img-fluid">
-            </div>
-            <div class="col-10">
-             <h6 class="titre">Robe noire modèle printemps</h6>
-             <div class="div valeur">
-              <span class="montant">25.000 FCFA</span>
-              <span class="quantite">x 3</span>
-              <span class="corbeille"><a href="#"><i class="bi bi-trash"></i></a></span>
-             </div>
-            </div>
-           </div>
-          </div>
+          {% endfor %}
+
          </div>
         </section>
 
         <!-- Totaux -->
-        <div class="ligne">Sous-total <span>250.000 FCFA</span></div>
-        <div class="ligne">Livraison <i class="bi bi-question-circle-fill"></i> <span>20.000 FCFA</span></div>
+        <div class="ligne">Sous-total <span>{{ sousTotal }} {{ devise_ext|raw }}</span></div>
+        <div class="ligne">Livraison <i class="bi bi-question-circle-fill"></i> <span>- {{ devise_ext|raw }}</span></div>
         <hr>
-        <div class="total">Total <span class="montant">270.000 FCFA</span></div>
-        <form action="paiement.html">
+
+        <div class="total">Total <span class="montant">{{ sousTotal }} {{ devise_ext|raw }}</span></div>
+        <form action="{{ path('app_frontend_panier_confirmation') }}" method="post" id="frmConfirmation">
 
          <div class="d-grid gap-2 mt-4">
-          <input type="submit" class="submit" value="Confirmer la commande">
+          <input type="hidden" name="livraison" id="livraisonInput">
+          <input type="hidden" name="_csrf_token_confirmation" value="{{ csrf_token('confirmation') }}">
+          <input type="submit" class="submit" name="btnConfirmation" id="btnConfirmation" value="Confirmer la commande">
          </div>
 
         </form>
@@ -173,6 +249,79 @@
    .btn-adresse:hover{
     opacity: 0.8;
    }
+   .choixLivraison input[type="radio"] {
+       width: 20px;
+       height: 20px;
+       margin-right: 5px;
+   }
  </style>
+{% endblock %}
+{% block javascripts %}
+ {{ parent() }}
+
+ <script>
+  document.addEventListener("DOMContentLoaded", function () {
+   // Écoute du changement sur les boutons radio adresseLivraison
+   var adresseLivraisonRadios = document.querySelectorAll('input[name="adresseLivraison"]');
+   adresseLivraisonRadios.forEach(function(radio) {
+    radio.addEventListener('change', function() {
+     // Mise à jour de la valeur de l'input livraison avec la valeur du bouton radio sélectionné
+     var livraisonInput = document.querySelector('input[name="livraison"]');
+     livraisonInput.value = this.value;
+     console.log(this.value)
+    });
+   });
+
+   var frmConfirmation = document.getElementById('frmConfirmation');
+   frmConfirmation.addEventListener('submit', function(event) {
+    // Empêcher le comportement par défaut de soumission du formulaire
+    var livraisonInputValue = document.querySelector('input[name="livraison"]').value;
+    if (livraisonInputValue === '') {
+     event.preventDefault();
+     alert('Veuillez choisir une adresse de livraison avant de confirmer la commande.');
+    }
+
+    // Soumettre le formulaire
+    // this.submit();
+   });
+
+  });
+ </script>
+
+ <script>
+  $(document).ready(function () {
+
+   $('.modifier-livraison').on('click', function (e) {
+    e.preventDefault();
+    $('.formulaire-livraison').removeClass('d-none');
+   });
+
+   $('#annuler-livraison').on('click', function (e) {
+    e.preventDefault();
+    $('.formulaire-livraison').addClass('d-none');
+   });
+
+  });
+ </script>
+ <script>
+  document.addEventListener("DOMContentLoaded", function () {
+   // Chargement des images au besoin lorsque l'utilisateur interagit avec les slides
+   var lazyLoadImages = document.querySelectorAll('.lazy-load');
+   lazyLoadImages.forEach(function (img) {
+    var observer = new IntersectionObserver(function (entries) {
+     entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+       var lazyImg = entry.target;
+       lazyImg.src = lazyImg.dataset.src;
+       lazyImg.classList.remove('loading-animation');
+       observer.unobserve(lazyImg);
+      }
+     });
+    });
+
+    observer.observe(img);
+   });
+  })
+ </script>
 {% endblock %}
 

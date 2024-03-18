@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Adresse;
 use App\Entity\Produit;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
@@ -27,7 +28,8 @@ class AllRepository
         private RequestStack $requestStack,
         private CreationRepository $creationRepository,
         private PaginatorInterface $paginator,
-        private ClientRepository $clientRepository
+        private ClientRepository $clientRepository,
+        private AdresseRepository $adresseRepository,
     )
     {
     }
@@ -279,6 +281,16 @@ class AllRepository
             'flagProduits' => array_map([$this, 'getProduitWithDevise'], $this->produitRepository->getProduitsByFlagDesc()),
             default => []
         };
+    }
+
+    public function getClientByUser($user)
+    {
+        return $this->clientRepository->findOneBy(['user' => $user]);
+    }
+
+    public function getAdresseByUser($user)
+    {
+        return $this->adresseRepository->findBy(['user' => $user]);
     }
 
 }
