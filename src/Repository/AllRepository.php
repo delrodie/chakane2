@@ -293,4 +293,9 @@ class AllRepository
         return $this->adresseRepository->findBy(['user' => $user]);
     }
 
+    public function getAdresseById($id)
+    {
+        return $this->adresseRepository->findOneBy(['id' => $id]);
+    }
+
 }
